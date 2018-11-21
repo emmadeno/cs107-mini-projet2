@@ -24,6 +24,8 @@ public class Play {
 	 */
 	public static void main(String[] args) {
 
+		System.out.print("bonjour");
+		
 		// Define cascading file system
 		final FileSystem fileSystem = new ResourceFileSystem(DefaultFileSystem.INSTANCE);
 
