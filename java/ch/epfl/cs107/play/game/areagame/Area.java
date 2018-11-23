@@ -17,8 +17,15 @@ import java.util.List;
  */
 public abstract class Area implements Playable {
 
-    // Context objects
-    // TODO implements me #PROJECT #TUTO
+	// Context objects
+	private Window window;
+	private FileSystem fileSystem;
+	
+	// list of actors inside the area
+	private List<Actor> actors;
+	private List<Actor> registeredActors; 
+	private List<Actor> unregisteredActors;
+	
 
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
     public abstract float getCameraScaleFactor();
@@ -29,7 +36,18 @@ public abstract class Area implements Playable {
      * @param forced (Boolean): if true, the method ends
      */
     private void addActor(Actor a, boolean forced) {
-        // TODO implements me #PROJECT #TUTO
+    	
+    	// Here decisions at the area level to decide if an actor
+    	// must be added or not
+    	boolean errorOccured = !actors.add(a) ;
+    	
+    	if(errorOccured && !forced) {
+    		
+    	System.out.println("Actor " + a + " cannot be completely added , so remove it from where it was") ;
+    	removeActor(a, true) ;
+    	
+    	}
+
     }
 
     /**
@@ -38,7 +56,9 @@ public abstract class Area implements Playable {
      * @param forced (Boolean): if true, the method ends
      */
     private void removeActor(Actor a, boolean forced){
-        // TODO implements me #PROJECT #TUTO
+  
+    	//boolean errorOccured = !agreeToAdd(a) ;
+    	//errorOccured = errorOccured || vetoFromGrid() ;
     }
 
     /**
@@ -48,6 +68,7 @@ public abstract class Area implements Playable {
      */
     public final boolean registerActor(Actor a){
         // TODO implements me #PROJECT #TUTO
+    	registeredActors.add(a);
         return false;
     }
 
@@ -58,6 +79,8 @@ public abstract class Area implements Playable {
      */
     public final boolean unregisterActor(Actor a){
         // TODO implements me #PROJECT #TUTO
+    	unregisteredActors.add(a);
+    	
         return false;
     }
 
@@ -90,6 +113,9 @@ public abstract class Area implements Playable {
     @Override
     public boolean begin(Window window, FileSystem fileSystem) {
         // TODO implements me #PROJECT #TUTO
+    	
+    	actors = new LinkedList<>();
+    	
         return true;
     }
 
@@ -102,10 +128,15 @@ public abstract class Area implements Playable {
     public boolean resume(Window window, FileSystem fileSystem){
         return true;
     }
+    
+    final void purgeRegistration() {
+    	
+    }
 
     @Override
     public void update(float deltaTime) {
         // TODO implements me #PROJECT #TUTO
+    	purgeRegistration();
     }
 
 
