@@ -5,10 +5,12 @@ import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.Transform;
+import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
-
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -20,11 +22,18 @@ public abstract class Area implements Playable {
 	// Context objects
 	private Window window;
 	private FileSystem fileSystem;
+	private boolean hasBegun;
 	
 	// list of actors inside the area
 	private List<Actor> actors;
 	private List<Actor> registeredActors; 
 	private List<Actor> unregisteredActors;
+	
+	// Camera Parameter
+	// actor on which the view is centered 
+	private Actor viewCandidate;
+	// effective center of the view 
+	private Vector viewCenter;
 	
 
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
@@ -67,7 +76,7 @@ public abstract class Area implements Playable {
      * @return (boolean): true if the actor is correctly registered
      */
     public final boolean registerActor(Actor a){
-        // TODO implements me #PROJECT #TUTO
+
     	registeredActors.add(a);
         return false;
     }
@@ -78,9 +87,8 @@ public abstract class Area implements Playable {
      * @return (boolean): true if the actor is correctly unregistered
      */
     public final boolean unregisterActor(Actor a){
-        // TODO implements me #PROJECT #TUTO
+
     	unregisteredActors.add(a);
-    	
         return false;
     }
 
@@ -115,6 +123,10 @@ public abstract class Area implements Playable {
         // TODO implements me #PROJECT #TUTO
     	
     	actors = new LinkedList<>();
+    	viewCandidate = null;
+    	viewCenter = Vector.ZERO;
+    	
+    	hasBegun = true;
     	
         return true;
     }
@@ -129,19 +141,40 @@ public abstract class Area implements Playable {
         return true;
     }
     
-    final void purgeRegistration() {
+    private final void purgeRegistration() {
     	
+    	for (int i = 0; i < registeredActors.size(); i++) {
+    		boolean veto = false;
+    		addActor(registeredActors.get(i), veto);
+    	}
+    	for (int i = 0; i < unregisteredActors.size(); i++) {
+    		boolean veto = false;
+    		removeActor(unregisteredActors.get(i), veto);
+    	}
+    	registeredActors.clear();
+    	unregisteredActors.clear();
     }
 
     @Override
     public void update(float deltaTime) {
         // TODO implements me #PROJECT #TUTO
     	purgeRegistration();
+    	updateCamera();
+    	for (int i = 0; i < actors.size(); i++) {
+    		actors.get(i).draw(window);
+    	}
     }
 
 
     private void updateCamera () {
         // TODO implements me #PROJECT #TUTO
+    	
+    	if (viewCandidate != null) {
+    		viewCenter = viewCandidate.getPosition();
+    	}
+    	Transform viewTransform = Transform.I.scaled(1).translated(viewCenter);
+    	window.setRelativeTransform(viewTransform);
+    	
     }
 
     /**
@@ -149,6 +182,7 @@ public abstract class Area implements Playable {
      */
     public void suspend(){
         // Do nothing by default
+    	purgeRegistration();
     }
 
 
@@ -156,5 +190,12 @@ public abstract class Area implements Playable {
     public void end() {
         // TODO save the AreaState somewhere
     }
+    
+    public final void setViewCandidate(Actor a){ 
+    	this.viewCandidate = a;
+    }
 
+    public boolean hasBegun() {
+    	return hasBegun;
+    }
 }

@@ -1,5 +1,8 @@
 package ch.epfl.cs107.play.game.areagame;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.window.Window;
@@ -11,15 +14,20 @@ import ch.epfl.cs107.play.window.Window;
  */
 abstract public class AreaGame implements Game {
 
-    // Context objects
-    // TODO implements me #PROJECT #TUTO
+	// Context objects
+	private Window window;
+	private FileSystem fileSystem;
+	/// A map containing all the Area of the Game 
+	private Map<String, Area> areas;
+	/// The current area the game is in
+	private Area currentArea;
 
     /**
      * Add an Area to the AreaGame list
      * @param a (Area): The area to add, not null
      */
     protected final void addArea(Area a){
-        // TODO implements me #PROJECT #TUTO
+    	areas.put(a.getTitle(), a);
     }
 
     /**
@@ -30,8 +38,29 @@ abstract public class AreaGame implements Game {
      * @return (Area): after setting it, return the new current area
      */
     protected final Area setCurrentArea(String key, boolean forceBegin){
-        // TODO implements me #PROJECT #TUTO
-        return null;
+    	
+    	//si l'area courante et l'area a mettre ne sont pas nuls, currentArea est changé
+    	if(currentArea != null && areas.get(key) != null) {
+    		currentArea.suspend();
+    	    currentArea = areas.get(key);
+    	}
+    	
+    	//si l'area courante est nulle, lancer une exception
+    	if(currentArea == null) {
+    		//a completer
+    	}
+    	
+    	//si l'area courante n'est pas nulle, soit la relancer, soit la résumer
+    	else if(currentArea != null) {
+    		if (forceBegin || !currentArea.hasBegun()) {
+    			currentArea.begin(window, fileSystem);
+    		}
+    		else {
+    			currentArea.resume(window, fileSystem);
+    		}
+    	}
+    	
+        return currentArea;
     }
 
 
@@ -52,14 +81,19 @@ abstract public class AreaGame implements Game {
 
     @Override
     public boolean begin(Window window, FileSystem fileSystem) {
-        // TODO implements me #PROJECT #TUTO
+    	
+    	this.window = window;
+		this.fileSystem = fileSystem;
+        
+    	areas = new HashMap<>();
+    	
         return true;
     }
 
 
     @Override
     public void update(float deltaTime) {
-        // TODO implements me #PROJECT #TUTO
+        currentArea.update(deltaTime);
     }
 
     @Override
