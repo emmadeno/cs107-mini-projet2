@@ -105,7 +105,8 @@ public abstract class Area implements Playable {
      */
     public final int getWidth(){
         // TODO implements me #PROJECT #TUTO
-        return 0;
+    	int width = areaBehavior.getWidth();
+        return width;
     }
 
     /**
@@ -114,7 +115,8 @@ public abstract class Area implements Playable {
      */
     public final int getHeight(){
         // TODO implements me #PROJECT #TUTO
-        return 0;
+    	int height = areaBehavior.getHeight();
+        return height;
     }
 
     /** @return the Window Keyboard for inputs */

@@ -17,16 +17,14 @@ public abstract class AreaBehavior
 	private final int width, height; 
 	/// We will convert the image into an array of cells 
 	private final Cell[][] cells;
-
-	
-	public abstract class Cell{
 		
-		public Cell(int x, int y){
+	 public abstract class Cell{
 			
-			DiscreteCoordinates cellCoord = new DiscreteCoordinates(x,y);
-			
-		}
-		
+			public Cell(int x, int y){
+				
+				DiscreteCoordinates cellCoord = new DiscreteCoordinates(x,y);
+				
+			}
 	}
 	
     /**
@@ -49,5 +47,14 @@ public abstract class AreaBehavior
     }
 
     // TODO implements me #PROJECT #TUTO
-
+    
+    public final int getWidth() {
+    	
+    	return width;
+    }
+    
+    public final int getHeight() {
+    	
+    	return height;
+    }
 }
