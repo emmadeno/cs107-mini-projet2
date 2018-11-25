@@ -35,7 +35,14 @@ public abstract class Area implements Playable {
 	// effective center of the view 
 	private Vector viewCenter;
 	
+	// The behavior Map
+	private AreaBehavior areaBehavior;
+	
 
+	protected final void setBehavior(AreaBehavior ab) {
+		
+	}
+	
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
     public abstract float getCameraScaleFactor();
     
