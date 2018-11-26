@@ -12,7 +12,6 @@ public class Demo2Behavior extends AreaBehavior{
 	
 	public Demo2Behavior(Window window, String fileName) {
 		super(window, fileName);
-		System.out.print("Hi");
 		for (int y = 0; y < super.getHeight(); y++) {
 			for (int x = 0; x < super.getWidth(); x++) {
              Demo2CellType cellType = Demo2CellType.toType(super.getImage().getRGB(super.getHeight()-1-y, x));

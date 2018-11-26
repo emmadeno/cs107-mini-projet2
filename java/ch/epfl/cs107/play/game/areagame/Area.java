@@ -84,8 +84,6 @@ public abstract class Area implements Playable {
      * @return (boolean): true if the actor is correctly registered
      */
     public final boolean registerActor(Actor a){
-    	
-    	System.out.print("Hi");
 
     	registeredActors.add(a);
         return false;
@@ -137,7 +135,6 @@ public abstract class Area implements Playable {
     	this.window = window;
     	this.fileSystem = fileSystem;
     	actors = new LinkedList<>();
-    	System.out.print("Hi");
     	registeredActors = new LinkedList<>();
     	unregisteredActors = new LinkedList<>();
     	viewCandidate = null;
