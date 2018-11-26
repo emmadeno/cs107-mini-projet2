@@ -1,5 +1,6 @@
 package ch.epfl.cs107.play.game.enigme;
 
+import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.window.Window;
@@ -42,3 +43,4 @@ public class Enigme extends AreaGame {
         return 24;
     }
 }
+

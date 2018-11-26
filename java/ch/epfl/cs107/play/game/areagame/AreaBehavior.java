@@ -36,6 +36,7 @@ public abstract class AreaBehavior
         // TODO implements me #PROJECT #TUTO
     	
     	//initialisation de behaviorMap
+    	System.out.println(fileName);
     	behaviorMap = window.getImage(ResourcePath.getBehaviors(fileName), null, false);
 
     	//initialisation de width et height
@@ -56,5 +57,13 @@ public abstract class AreaBehavior
     public final int getHeight() {
     	
     	return height;
+    }
+    
+    public final Image getImage() {
+    	return behaviorMap;
+    }
+    
+    public final Cell[][] getCell() {
+    	return cells;
     }
 }

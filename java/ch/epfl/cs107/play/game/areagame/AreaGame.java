@@ -21,6 +21,7 @@ abstract public class AreaGame implements Game {
 	private Map<String, Area> areas;
 	/// The current area the game is in
 	private Area currentArea;
+	
 
     /**
      * Add an Area to the AreaGame list
@@ -43,11 +44,17 @@ abstract public class AreaGame implements Game {
     	if(currentArea != null && areas.get(key) != null) {
     		currentArea.suspend();
     	    currentArea = areas.get(key);
+    	    
     	}
     	
     	//si l'area courante est nulle, lancer une exception
     	if(currentArea == null) {
-    		//a completer
+    		if(key != null) {
+    		currentArea = areas.get(key); 
+    		}
+    		else {
+    			//??
+    		}
     	}
     	
     	//si l'area courante n'est pas nulle, soit la relancer, soit la résumer
@@ -67,13 +74,13 @@ abstract public class AreaGame implements Game {
     /**@return (Window) : the Graphic and Audio context*/
     protected final Window getWindow(){
         // TODO implements me #PROJECT #TUTO
-        return null;
+        return window;
     }
 
     /**@return (FIleSystem): the linked file system*/
     protected final FileSystem getFileSystem(){
         // TODO implements me #PROJECT #TUTO
-        return null;
+        return fileSystem;
     }
 
 
