@@ -34,7 +34,7 @@ public class Play {
 
 		// Use Swing display
 		final Window window = new SwingWindow("Demo2", fileSystem, 750, 750);
-		final Game game = new Demo2();
+		final Game game = new Demo2(window, fileSystem);
 		
 		try {
 

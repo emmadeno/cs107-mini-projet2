@@ -2,6 +2,7 @@ package ch.epfl.cs107.play.game.areagame;
 
 import ch.epfl.cs107.play.game.Playable;
 import ch.epfl.cs107.play.game.actor.Actor;
+import ch.epfl.cs107.play.game.areagame.AreaBehavior.Cell;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -40,7 +41,7 @@ public abstract class Area implements Playable {
 	
 
 	protected final void setBehavior(AreaBehavior ab) {
-		
+		areaBehavior = ab;
 	}
 	
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
@@ -133,13 +134,17 @@ public abstract class Area implements Playable {
     public boolean begin(Window window, FileSystem fileSystem) {
         // TODO implements me #PROJECT #TUTO
     	
+    	this.window = window;
+    	this.fileSystem = fileSystem;
     	actors = new LinkedList<>();
     	System.out.print("Hi");
     	registeredActors = new LinkedList<>();
+    	unregisteredActors = new LinkedList<>();
     	viewCandidate = null;
     	viewCenter = Vector.ZERO;
     	
     	hasBegun = true;
+    	
     	
         return true;
     }
@@ -185,7 +190,7 @@ public abstract class Area implements Playable {
     	if (viewCandidate != null) {
     		viewCenter = viewCandidate.getPosition();
     	}
-    	Transform viewTransform = Transform.I.scaled(1).translated(viewCenter);
+    	Transform viewTransform = Transform.I.scaled(25).translated(viewCenter);
     	window.setRelativeTransform(viewTransform);
     	
     }

@@ -14,8 +14,9 @@ import ch.epfl.cs107.play.window.Window;;
 
 public class Demo2 extends AreaGame {
 	
-	public Demo2() {
-		super.begin(super.getWindow(), super.getFileSystem());
+	public Demo2(Window window, FileSystem filesystem) {
+		
+		super.begin(window, filesystem);
 		Area Room1 = new Room1();
 		Area Room2 = new Room2();
 		Room1.begin(getWindow(), getFileSystem());
