@@ -16,6 +16,7 @@ public class Demo2 extends AreaGame {
 	
 	public Demo2(Window window, FileSystem filesystem) {
 		
+		//initialisation 
 		super.begin(window, filesystem);
 		Area Room1 = new Room1();
 		Area Room2 = new Room2();
@@ -23,7 +24,7 @@ public class Demo2 extends AreaGame {
 		Room2.begin(getWindow(), getFileSystem());
 		super.addArea(Room1);
 		super.addArea(Room2);
-		super.setCurrentArea("LevelSelector", true);
+		super.setCurrentArea(Room2.getTitle(), true);
 	}
 
 	@Override

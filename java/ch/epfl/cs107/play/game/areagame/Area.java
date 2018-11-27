@@ -41,7 +41,7 @@ public abstract class Area implements Playable {
 	
 
 	protected final void setBehavior(AreaBehavior ab) {
-		areaBehavior = ab;
+		areaBehavior = ab; // set le areaBehavior du jeu courrant
 	}
 	
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
@@ -132,6 +132,7 @@ public abstract class Area implements Playable {
     public boolean begin(Window window, FileSystem fileSystem) {
         // TODO implements me #PROJECT #TUTO
     	
+    	//initialisation des parametres
     	this.window = window;
     	this.fileSystem = fileSystem;
     	actors = new LinkedList<>();
@@ -187,7 +188,7 @@ public abstract class Area implements Playable {
     	if (viewCandidate != null) {
     		viewCenter = viewCandidate.getPosition();
     	}
-    	Transform viewTransform = Transform.I.scaled(25).translated(viewCenter);
+    	Transform viewTransform = Transform.I.scaled(25).translated(viewCenter); // scaled permet de changer la dimension de la fenêtre
     	window.setRelativeTransform(viewTransform);
     	
     }

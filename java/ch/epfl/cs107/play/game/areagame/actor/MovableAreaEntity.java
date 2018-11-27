@@ -1,6 +1,9 @@
 package ch.epfl.cs107.play.game.areagame.actor;
 
+import java.util.List;
+
 import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.game.areagame.Area;
@@ -26,6 +29,18 @@ public abstract class MovableAreaEntity extends AreaEntity {
         // TODO implements me #PROJECT #TUTO
     }
 
+    //methodes permettant de savoir quells cellules sont quittees ou atteintes par l'acteur
+    protected final List<DiscreteCoordinates> getLeavingCells(){
+    	
+    	return getCurrentCells();
+    }
+    
+    protected final List<DiscreteCoordinates> getEnteringCells(){
+    	
+    }
+    
+    
+    
     /**
      * Initialize or reset the current motion information
      */

@@ -1,5 +1,10 @@
 package ch.epfl.cs107.play.game.areagame;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Image;
@@ -18,13 +23,22 @@ public abstract class AreaBehavior
 	/// We will convert the image into an array of cells 
 	private final Cell[][] cells;
 		
-	 public abstract class Cell{
-			
+	 public abstract class Cell implements Interactable{
+		 
+		 	Set<Interactable> interact;
+		 	private DiscreteCoordinates cellCoord;
+		 
 			public Cell(int x, int y){
 				
-				DiscreteCoordinates cellCoord = new DiscreteCoordinates(x,y);
+				cellCoord = new DiscreteCoordinates(x,y);
 				
 			}
+			public List<DiscreteCoordinates> getCurrentCells(){
+		 		
+		 		List<DiscreteCoordinates> coordonees = new ArrayList<DiscreteCoordinates>();
+		 		coordonees.add(cellCoord);
+		 		return coordonees;
+		 	}
 	}
 	
     /**
