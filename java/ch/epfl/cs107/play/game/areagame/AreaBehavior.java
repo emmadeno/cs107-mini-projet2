@@ -1,6 +1,7 @@
 package ch.epfl.cs107.play.game.areagame;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +32,7 @@ public abstract class AreaBehavior
 			public Cell(int x, int y){
 				
 				cellCoord = new DiscreteCoordinates(x,y);
+				interact = new HashSet<>();
 				
 			}
 			public List<DiscreteCoordinates> getCurrentCells(){
@@ -39,6 +41,32 @@ public abstract class AreaBehavior
 		 		coordonees.add(cellCoord);
 		 		return coordonees;
 		 	}
+			
+			private void enter(Interactable entity) {
+				interact.add(entity);
+			}
+			
+			private void leave(Interactable entity) {
+				interact.remove(entity);
+			}
+			
+			protected boolean canEnter(Interactable entity) {
+				if (interact.add(entity)) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			
+			protected boolean canLeave(Interactable entity) {
+				if (interact.remove(entity)) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
 	}
 	
     /**
@@ -58,6 +86,54 @@ public abstract class AreaBehavior
     	
     	//initialisation du tableau
     	cells = new Cell[height][width];
+    }
+    
+    public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
+    	int authorization = 0;
+    	for(int i = 0; i < coordinates.size(); i++) {
+    		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
+    		if (currentCell.canLeave(entity)) {
+    			++authorization;
+    		}
+    	}
+    	
+    	if(authorization == coordinates.size()) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    
+    public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) {
+    	int authorization = 0;
+    	for(int i = 0; i < coordinates.size(); i++) {
+    		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
+    		if (currentCell.canEnter(entity)) {
+    			++authorization;
+    		}
+    	}
+    	
+    	if(authorization == coordinates.size()) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    
+    protected void leave(Interactable entity, List<DiscreteCoordinates> coordinates) {
+    	for(int i = 0; i < coordinates.size(); i++) {
+    		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
+    		currentCell.leave(entity);
+    	}
+    }
+    
+    protected void enter(Interactable entity, List<DiscreteCoordinates> coordinates) {
+    	for(int i = 0; i < coordinates.size(); i++) {
+    		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
+    		currentCell.enter(entity);
+    	}
     }
 
     // TODO implements me #PROJECT #TUTO

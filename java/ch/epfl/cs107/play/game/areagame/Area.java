@@ -13,6 +13,7 @@ import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -29,6 +30,10 @@ public abstract class Area implements Playable {
 	private List<Actor> actors;
 	private List<Actor> registeredActors; 
 	private List<Actor> unregisteredActors;
+	
+	//List of interactables inside the area
+	private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter ;
+	private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave ;
 	
 	// Camera Parameter
 	// actor on which the view is centered 
@@ -58,6 +63,12 @@ public abstract class Area implements Playable {
     	// must be added or not
     	boolean errorOccured = !actors.add(a) ;
     	
+    	if(a instanceof Interactable) {
+    		errorOccured = errorOccured || !enterAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
+    	}
+    	
+    	// ajouter plus de code ??
+    	
     	if(errorOccured && !forced) {
     		
     	System.out.println("Actor " + a + " cannot be completely added , so remove it from where it was") ;
@@ -74,8 +85,18 @@ public abstract class Area implements Playable {
      */
     private void removeActor(Actor a, boolean forced){
   
-    	//boolean errorOccured = !agreeToAdd(a) ;
-    	//errorOccured = errorOccured || vetoFromGrid() ;
+    	boolean errorOccured = !actors.remove(a) ;
+    	
+    	if(a instanceof Interactable) {
+    		errorOccured = errorOccured || !leaveAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
+    	}
+    	
+    	if(errorOccured && !forced) {
+    		
+        	System.out.println("Actor " + a + " cannot be completely removed") ;
+        	removeActor(a, true) ;
+        	
+        	}
     }
 
     /**
@@ -159,16 +180,26 @@ public abstract class Area implements Playable {
     
     private final void purgeRegistration() {
     	
+    	boolean veto = false; // ?
+    	
     	for (int i = 0; i < registeredActors.size(); i++) {
-    		boolean veto = false;
     		addActor(registeredActors.get(i), veto);
     	}
     	for (int i = 0; i < unregisteredActors.size(); i++) {
-    		boolean veto = false;
     		removeActor(unregisteredActors.get(i), veto);
     	}
+    	
+    	for (Interactable key : interactablesToEnter.keySet()) {
+    		areaBehavior.enter(key, interactablesToEnter.get(key));
+    	}
+    	for (Interactable key : interactablesToLeave.keySet()) {
+    		areaBehavior.leave(key, interactablesToEnter.get(key));
+    	}
+    	
     	registeredActors.clear();
     	unregisteredActors.clear();
+    	interactablesToEnter.clear();
+    	interactablesToLeave.clear();
     }
 
     @Override
@@ -214,4 +245,26 @@ public abstract class Area implements Playable {
     public boolean hasBegun() {
     	return hasBegun;
     }
+    
+    public final boolean leaveAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
+    	if (areaBehavior.canLeave(entity, coordinates)) {
+    		interactablesToLeave.put(entity, coordinates);
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    
+    public final boolean enterAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
+    	if (areaBehavior.canEnter(entity, coordinates)) {
+    		interactablesToEnter.put(entity, coordinates);
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    
+    
 }
