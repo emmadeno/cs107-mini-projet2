@@ -78,15 +78,46 @@ public class Demo2Player extends MovableAreaEntity{
 		
 		if(keyboard.get(Keyboard.LEFT).isDown()) {
 			
+			if(this.getOrientation()== Orientation.LEFT) {
+				
+				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
+			}
+			else {
+				setOrientation(Orientation.LEFT);
+			}
+			
 		}
 		if(keyboard.get(Keyboard.RIGHT).isDown()) {
+			
+			if(this.getOrientation()== Orientation.RIGHT) {
+				
+				move(ANIMATION_DURATION); 
+			}
+			else {
+				setOrientation(Orientation.RIGHT);
+			}
 			
 		}
 		if(keyboard.get(Keyboard.UP).isDown()) {
 			
+			if(this.getOrientation()== Orientation.UP) {
+				
+				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
+			}
+			else {
+				setOrientation(Orientation.UP);
+			}
+			
 		}
 		if(keyboard.get(Keyboard.DOWN).isDown()) {
 			
+			if(this.getOrientation()== Orientation.DOWN) {
+				
+				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
+			}
+			else {
+				setOrientation(Orientation.DOWN);
+			}
 		}
 		
 		
