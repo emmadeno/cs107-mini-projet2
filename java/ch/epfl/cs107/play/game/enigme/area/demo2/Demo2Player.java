@@ -31,7 +31,7 @@ public class Demo2Player extends MovableAreaEntity{
 	
 	public void enterArea(Area area, DiscreteCoordinates position) {
 		area.registerActor(this);
-		update(0.01f);
+		this.update(0.01f);
 		resetMotion();
 	}
 	
@@ -74,6 +74,21 @@ public class Demo2Player extends MovableAreaEntity{
 	
 	@Override
 	public void update(float deltatime) {
+		Keyboard keyboard = this.getArea().getKeyboard();
+		
+		if(keyboard.get(Keyboard.LEFT).isDown()) {
+			
+		}
+		if(keyboard.get(Keyboard.RIGHT).isDown()) {
+			
+		}
+		if(keyboard.get(Keyboard.UP).isDown()) {
+			
+		}
+		if(keyboard.get(Keyboard.DOWN).isDown()) {
+			
+		}
+		
 		
 	}
 	

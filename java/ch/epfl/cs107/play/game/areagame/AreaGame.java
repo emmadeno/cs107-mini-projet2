@@ -45,6 +45,7 @@ abstract public class AreaGame implements Game {
     	//si l'area courante et l'area a mettre ne sont pas nuls, currentArea est changé
     	if(currentArea != null && areas.get(key) != null) {
     		currentArea.suspend();
+    		
     	    currentArea = areas.get(key);    	    
     	}
     	

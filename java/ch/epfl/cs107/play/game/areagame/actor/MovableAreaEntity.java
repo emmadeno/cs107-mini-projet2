@@ -1,5 +1,6 @@
 package ch.epfl.cs107.play.game.areagame.actor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.epfl.cs107.play.game.areagame.Area;
@@ -45,6 +46,15 @@ public abstract class MovableAreaEntity extends AreaEntity {
     
     protected final List<DiscreteCoordinates> getEnteringCells(){
     	
+    	List<DiscreteCoordinates> coordList = new ArrayList<DiscreteCoordinates>();
+    
+    	for (DiscreteCoordinates coordinate : getCurrentCells()) {
+    		if (coordinate.x <= getArea().getWidth() && coordinate.y <= getArea().getHeight()) {
+    		    coordList.add(coordinate.jump(this.getOrientation().toVector()));
+    		}
+    	}
+    	
+    	return coordList;
     	
     }
     
@@ -66,7 +76,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
      * @return (boolean): returns true if motion can occur
      */
   
-    protected  boolean move(int framesForMove){
+    protected boolean move(int framesForMove){
         
     	if (!isMoving || this.getPosition() == targetMainCellCoordinates.toVector()) {
     		boolean canEnter = this.getArea().enterAreaCells(this, getEnteringCells());

@@ -52,11 +52,12 @@ public abstract class AreaEntity extends Entity implements Interactable {
     
     // redéfinition de la methode setcurrentposition de Entity
     protected void setCurrentPosition(Vector v){
-        super.setCurrentPosition(v);
+        
         if (DiscreteCoordinates.isCoordinates(v)) {
         	final Vector vect = v.round();
         	position = new DiscreteCoordinates((int)vect.getX(),(int)vect.getY());
-        	currentMainCellCoordinates = new DiscreteCoordinates((int)vect.getX(),(int)vect.getY()); // = vect ?
+        	currentMainCellCoordinates = new DiscreteCoordinates((int)vect.getX(),(int)vect.getY()); 
+        	super.setCurrentPosition(vect);
         }
         
     }
