@@ -14,16 +14,18 @@ import ch.epfl.cs107.play.window.Window;;
 
 public class Demo2 extends AreaGame {
 	
+	private Area Room1, Room2;
+	
 	public Demo2(Window window, FileSystem filesystem) {
 		
 		//initialisation 
 		super.begin(window, filesystem);
-		Area Room1 = new Room1();
-		Area Room2 = new Room2();
+		this.Room1 = new Room1();
+		this.Room2 = new Room2();
 		Room1.begin(getWindow(), getFileSystem());
 		Room2.begin(getWindow(), getFileSystem());
-		super.addArea(Room1);
-		super.addArea(Room2);
+		addArea(Room1);
+		addArea(Room2);
 		super.setCurrentArea(Room2.getTitle(), true);
 	}
 

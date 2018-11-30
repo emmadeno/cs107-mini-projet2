@@ -107,7 +107,7 @@ public abstract class Area implements Playable {
     public final boolean registerActor(Actor a){
 
     	registeredActors.add(a);
-        return false;
+        return true;
     }
 
     /**
@@ -118,7 +118,7 @@ public abstract class Area implements Playable {
     public final boolean unregisterActor(Actor a){
 
     	unregisteredActors.add(a);
-        return false;
+        return true;
     }
 
     /**
@@ -126,7 +126,7 @@ public abstract class Area implements Playable {
      * @return (int) : the width in number of cols
      */
     public final int getWidth(){
-        // TODO implements me #PROJECT #TUTO
+
     	int width = areaBehavior.getWidth();
         return width;
     }
@@ -136,7 +136,7 @@ public abstract class Area implements Playable {
      * @return (int) : the height in number of rows
      */
     public final int getHeight(){
-        // TODO implements me #PROJECT #TUTO
+
     	int height = areaBehavior.getHeight();
         return height;
     }
@@ -204,7 +204,7 @@ public abstract class Area implements Playable {
 
     @Override
     public void update(float deltaTime) {
-        // TODO implements me #PROJECT #TUTO
+        
     	purgeRegistration();
     	updateCamera();
     	for (int i = 0; i < actors.size(); i++) {
@@ -214,12 +214,11 @@ public abstract class Area implements Playable {
 
 
     private void updateCamera () {
-        // TODO implements me #PROJECT #TUTO
     	
     	if (viewCandidate != null) {
     		viewCenter = viewCandidate.getPosition();
     	}
-    	Transform viewTransform = Transform.I.scaled(25).translated(viewCenter); // scaled permet de changer la dimension de la fenêtre
+    	Transform viewTransform = Transform.I.scaled(getCameraScaleFactor()).translated(viewCenter); // scaled permet de changer la dimension de la fenêtre
     	window.setRelativeTransform(viewTransform);
     	
     }
@@ -247,7 +246,7 @@ public abstract class Area implements Playable {
     }
     
     public final boolean leaveAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
-    	if (areaBehavior.canLeave(entity, coordinates)) {
+    	if (areaBehavior.canLeave(entity, coordinates)) { // teste si la grille associée à l'aire permet de quitter les cell de coordinates
     		interactablesToLeave.put(entity, coordinates);
     		return true;
     	}
@@ -257,7 +256,7 @@ public abstract class Area implements Playable {
     }
     
     public final boolean enterAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
-    	if (areaBehavior.canEnter(entity, coordinates)) {
+    	if (areaBehavior.canEnter(entity, coordinates)) { // si entité peut inverstir les cellules
     		interactablesToEnter.put(entity, coordinates);
     		return true;
     	}

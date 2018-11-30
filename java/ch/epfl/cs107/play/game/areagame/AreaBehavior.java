@@ -50,6 +50,8 @@ public abstract class AreaBehavior
 				interact.remove(entity);
 			}
 			
+			//ce code est-il bon ?
+			
 			protected boolean canEnter(Interactable entity) {
 				if (interact.add(entity)) {
 					return true;

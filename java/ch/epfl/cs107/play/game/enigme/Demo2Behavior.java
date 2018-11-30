@@ -12,8 +12,8 @@ public class Demo2Behavior extends AreaBehavior{
 	
 	public Demo2Behavior(Window window, String fileName) {
 		super(window, fileName);
-		for (int y = 0; y < super.getHeight(); y++) {
-			for (int x = 0; x < super.getWidth(); x++) {
+		for (int y = 0; y < super.getHeight(); ++y) {
+			for (int x = 0; x < super.getWidth(); ++x) {
              Demo2CellType cellType = Demo2CellType.toType(super.getImage().getRGB(super.getHeight()-1-y, x));
              super.getCell()[x][y] = new Demo2Cell(x, y, cellType);
 			}
@@ -58,11 +58,31 @@ public class Demo2Behavior extends AreaBehavior{
 	
 	public class Demo2Cell extends Cell {
 		
+		//définir les cellules assorties à Demo2Behavior pour dicter les contraintes
+		
 		private Demo2CellType type;
 		
-		public Demo2Cell(int x, int y, Demo2CellType type) {
+		private Demo2Cell(int x, int y, Demo2CellType type) {
 			super(x,y);
 			this.type = type;
+		}
+
+		@Override
+		public boolean takeCellSpace() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean isViewInteractable() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean isCellInteractable() {
+			// TODO Auto-generated method stub
+			return false;
 		}
 		
 	}

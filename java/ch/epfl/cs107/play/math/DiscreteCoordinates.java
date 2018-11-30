@@ -74,7 +74,7 @@ public final class DiscreteCoordinates implements Serializable {
     }
 
     /**
-     * Check weather a vector is close enough from any coordinate crossing
+     * Check whether a vector is close enough from any coordinate crossing
      * @param v (Vector): the vector to check. Not null
      * @return (boolean): true if the given vector is close enough from a coordinate
      */
@@ -83,7 +83,7 @@ public final class DiscreteCoordinates implements Serializable {
     }
 
     /**
-     * Check weather a vector is close enough from a specific coordinate crossing
+     * Check whether a vector is close enough from a specific coordinate crossing
      * @param v (Vector): the vector to check. Not null
      * @param c (DiscreteCoordinates): the discrete coordinate to compare with
      * @return (boolean) : true if the given vector is close enough from the given coordinate

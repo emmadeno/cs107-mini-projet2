@@ -40,16 +40,17 @@ abstract public class AreaGame implements Game {
      */
     protected final Area setCurrentArea(String key, boolean forceBegin){
     	
+    	//rendre plus joli !!!
+    	
     	//si l'area courante et l'area a mettre ne sont pas nuls, currentArea est changé
     	if(currentArea != null && areas.get(key) != null) {
     		currentArea.suspend();
-    	    currentArea = areas.get(key);
-    	    
+    	    currentArea = areas.get(key);    	    
     	}
     	
     	//si l'area courante est nulle, lancer une exception
     	if(currentArea == null) {
-    		if(key != null) {
+    		if(areas.get(key) != null) {
     		currentArea = areas.get(key); 
     		}
     		else {

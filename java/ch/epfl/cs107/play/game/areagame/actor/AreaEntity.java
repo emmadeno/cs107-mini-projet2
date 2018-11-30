@@ -53,12 +53,17 @@ public abstract class AreaEntity extends Entity implements Interactable {
     // redéfinition de la methode setcurrentposition de Entity
     protected void setCurrentPosition(Vector v){
         super.setCurrentPosition(v);
-        final Vector vect = v.round();
-        position = new DiscreteCoordinates((int)vect.getX(),(int)vect.getY());
-        currentMainCellCoordinates = new DiscreteCoordinates((int)vect.getX(),(int)vect.getY());
+        if (DiscreteCoordinates.isCoordinates(v)) {
+        	final Vector vect = v.round();
+        	position = new DiscreteCoordinates((int)vect.getX(),(int)vect.getY());
+        	currentMainCellCoordinates = new DiscreteCoordinates((int)vect.getX(),(int)vect.getY()); // = vect ?
+        }
         
     }
     
+    protected Area getArea() {
+    	return ownerArea;
+    }
     
     // getter setter pour l'orientation
     protected Orientation getOrientation() {
@@ -66,7 +71,6 @@ public abstract class AreaEntity extends Entity implements Interactable {
     }
     
     protected void setOrientation(Orientation orientation) {
-    	
     	this.orientation = orientation;
     }
 
