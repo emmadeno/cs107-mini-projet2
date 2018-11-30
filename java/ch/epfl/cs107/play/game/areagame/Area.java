@@ -4,6 +4,7 @@ import ch.epfl.cs107.play.game.Playable;
 import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior.Cell;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
+import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Transform;
@@ -66,8 +67,6 @@ public abstract class Area implements Playable {
     	if(a instanceof Interactable) {
     		errorOccured = errorOccured || !enterAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
     	}
-    	
-    	// ajouter plus de code ??
     	
     	if(errorOccured && !forced) {
     		
@@ -263,6 +262,10 @@ public abstract class Area implements Playable {
     	else {
     		return false;
     	}
+    }
+    
+    public AreaBehavior getAreaBehavior() {
+    	return areaBehavior;
     }
     
     

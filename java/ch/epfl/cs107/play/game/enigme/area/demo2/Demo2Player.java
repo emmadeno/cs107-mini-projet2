@@ -9,9 +9,12 @@ import java.util.Collections;
 import java.util.List;
 
 import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.AreaBehavior.Cell;
 import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2Cell;
+import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2CellType;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
@@ -125,8 +128,22 @@ public class Demo2Player extends MovableAreaEntity{
 	
 	@Override
 	protected boolean move(int framesForMove) {
-		super.move(framesForMove);
 		
+		super.move(framesForMove);
+		List<DiscreteCoordinates> enteringCells = this.getCurrentCells();
+		
+		for (DiscreteCoordinates coordinate : enteringCells) {
+			
+			int x = coordinate.x;
+			int y = coordinate.y;
+			Demo2Cell currentCell = (Demo2Cell) this.getArea().getAreaBehavior().getCell()[y][x];
+			
+			if(currentCell.getType() == Demo2CellType.DOOR) {
+				travPorte(true);
+			}
+			
+		}
+		return true;
 	}
 	
 }

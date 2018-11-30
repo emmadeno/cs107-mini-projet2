@@ -66,6 +66,10 @@ public class Demo2Behavior extends AreaBehavior{
 			super(x,y);
 			this.type = type;
 		}
+		
+		public Demo2CellType getType() {
+			return type;
+		}
 
 		@Override
 		public boolean takeCellSpace() {

@@ -7,14 +7,18 @@ package ch.epfl.cs107.play.game.enigme;
 
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
+import ch.epfl.cs107.play.game.areagame.actor.Orientation;
+import ch.epfl.cs107.play.game.enigme.area.demo2.Demo2Player;
 import ch.epfl.cs107.play.game.enigme.area.demo2.Room1;
 import ch.epfl.cs107.play.game.enigme.area.demo2.Room2;
 import ch.epfl.cs107.play.io.FileSystem;
+import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;;
 
 public class Demo2 extends AreaGame {
 	
 	private Area Room1, Room2;
+	private Demo2Player player;
 	
 	public Demo2(Window window, FileSystem filesystem) {
 		
@@ -22,6 +26,8 @@ public class Demo2 extends AreaGame {
 		super.begin(window, filesystem);
 		this.Room1 = new Room1();
 		this.Room2 = new Room2();
+		DiscreteCoordinates initialCoord = new DiscreteCoordinates(5,5);
+		this.player = new Demo2Player(Room1, Orientation.DOWN, initialCoord);
 		Room1.begin(getWindow(), getFileSystem());
 		Room2.begin(getWindow(), getFileSystem());
 		addArea(Room1);
@@ -32,7 +38,7 @@ public class Demo2 extends AreaGame {
 	@Override
 	public int getFrameRate() {
 		// TODO Auto-generated method stub
-		return 24;
+		return 22;
 	}
 
 	@Override
