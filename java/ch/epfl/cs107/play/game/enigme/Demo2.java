@@ -19,6 +19,7 @@ public class Demo2 extends AreaGame {
 	
 	private Area Room1, Room2;
 	private Demo2Player player;
+	private static final int FRAMESCALE = 22;
 	
 	public Demo2(Window window, FileSystem filesystem) {
 		
@@ -32,13 +33,15 @@ public class Demo2 extends AreaGame {
 		Room2.begin(getWindow(), getFileSystem());
 		addArea(Room1);
 		addArea(Room2);
-		super.setCurrentArea(Room2.getTitle(), true);
+		Area currentArea = super.setCurrentArea(Room1.getTitle(), true);
+		currentArea.registerActor(player);
+		currentArea.setViewCandidate(player);
 	}
 
 	@Override
 	public int getFrameRate() {
 		// TODO Auto-generated method stub
-		return 22;
+		return FRAMESCALE;
 	}
 
 	@Override

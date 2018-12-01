@@ -77,10 +77,13 @@ public abstract class MovableAreaEntity extends AreaEntity {
      */
   
     protected boolean move(int framesForMove){
+    	
+    	//if(this.getArea().enterAreaCells(this, getEnteringCells()) && this.getArea().leaveAreaCells(this, getLeavingCells())) {
         
     	if (!isMoving || this.getPosition() == targetMainCellCoordinates.toVector()) {
-    		boolean canEnter = this.getArea().enterAreaCells(this, getEnteringCells());
     		boolean canLeave = this.getArea().leaveAreaCells(this, getLeavingCells());
+    		boolean canEnter = this.getArea().enterAreaCells(this, getEnteringCells());
+    		System.out.println(canLeave + " " + canEnter);
     		
     		if (!canLeave || !canEnter) {
     			return false;
@@ -95,10 +98,12 @@ public abstract class MovableAreaEntity extends AreaEntity {
     			
     			Vector orientation = getOrientation().toVector();
     			targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
+    			isMoving = true;
     			
     			return true;
     			
     		}
+    	//}
     	}
     	
         return false;
@@ -113,6 +118,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
         	Vector distance = getOrientation().toVector();
         	distance = distance.mul(1.0f / framesForCurrentMove);
         	setCurrentPosition(getPosition().add(distance));
+        	isMoving = false;
         }
         else {
         	resetMotion();

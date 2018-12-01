@@ -121,7 +121,11 @@ public class Demo2Player extends MovableAreaEntity{
 			else {
 				setOrientation(Orientation.DOWN);
 			}
+			
 		}
+		
+		super.update(deltatime);
+		
 		
 		
 	}

@@ -12,6 +12,8 @@ import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
+
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -142,8 +144,11 @@ public abstract class Area implements Playable {
 
     /** @return the Window Keyboard for inputs */
     public final Keyboard getKeyboard () {
-        // TODO implements me #PROJECT #TUTO
-        return null;
+        
+    	Keyboard keyboard = window.getKeyboard();
+    	
+    	return keyboard;
+    	
     }
 
     /// Area implements Playable
@@ -158,6 +163,8 @@ public abstract class Area implements Playable {
     	actors = new LinkedList<>();
     	registeredActors = new LinkedList<>();
     	unregisteredActors = new LinkedList<>();
+    	interactablesToEnter = new HashMap<>();
+    	interactablesToLeave = new HashMap<>();
     	viewCandidate = null;
     	viewCenter = Vector.ZERO;
     	
@@ -208,6 +215,7 @@ public abstract class Area implements Playable {
     	updateCamera();
     	for (int i = 0; i < actors.size(); i++) {
     		actors.get(i).draw(window);
+    		actors.get(i).update(deltaTime);
     	}
     }
 
@@ -217,7 +225,7 @@ public abstract class Area implements Playable {
     	if (viewCandidate != null) {
     		viewCenter = viewCandidate.getPosition();
     	}
-    	Transform viewTransform = Transform.I.scaled(getCameraScaleFactor()).translated(viewCenter); // scaled permet de changer la dimension de la fenêtre
+    	Transform viewTransform = Transform.I.scaled(22).translated(viewCenter); // scaled permet de changer la dimension de la fenêtre
     	window.setRelativeTransform(viewTransform);
     	
     }
@@ -245,8 +253,10 @@ public abstract class Area implements Playable {
     }
     
     public final boolean leaveAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
+    	System.out.println("Enters leaveAreaCells");
     	if (areaBehavior.canLeave(entity, coordinates)) { // teste si la grille associée à l'aire permet de quitter les cell de coordinates
     		interactablesToLeave.put(entity, coordinates);
+    		//areaBehavior.leave(entity, coordinates); //enlève l'entity du hashset de l'ancienne cellule
     		return true;
     	}
     	else {
@@ -257,6 +267,7 @@ public abstract class Area implements Playable {
     public final boolean enterAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
     	if (areaBehavior.canEnter(entity, coordinates)) { // si entité peut inverstir les cellules
     		interactablesToEnter.put(entity, coordinates);
+    		areaBehavior.enter(entity, coordinates); //enregistre l'entity dans le hashset de la nouvelle cellule
     		return true;
     	}
     	else {

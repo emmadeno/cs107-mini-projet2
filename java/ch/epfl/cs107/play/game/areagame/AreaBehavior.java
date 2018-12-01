@@ -63,6 +63,7 @@ public abstract class AreaBehavior
 			
 			protected boolean canLeave(Interactable entity) {
 				if (interact.remove(entity)) {
+					System.out.println("Can be removed");
 					return true;
 				}
 				else {
@@ -105,6 +106,7 @@ public abstract class AreaBehavior
     	else {
     		return false;
     	}
+    	
     }
     
     public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) {
@@ -114,6 +116,7 @@ public abstract class AreaBehavior
     		if (currentCell.canEnter(entity)) {
     			++authorization;
     		}
+    		
     	}
     	
     	if(authorization == coordinates.size()) {
@@ -125,6 +128,7 @@ public abstract class AreaBehavior
     }
     
     protected void leave(Interactable entity, List<DiscreteCoordinates> coordinates) {
+    	System.out.println("Appelle leave");
     	for(int i = 0; i < coordinates.size(); i++) {
     		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
     		currentCell.leave(entity);
