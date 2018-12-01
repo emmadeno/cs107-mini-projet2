@@ -199,7 +199,7 @@ public abstract class Area implements Playable {
     		areaBehavior.enter(key, interactablesToEnter.get(key));
     	}
     	for (Interactable key : interactablesToLeave.keySet()) {
-    		areaBehavior.leave(key, interactablesToEnter.get(key));
+    		areaBehavior.leave(key, interactablesToLeave.get(key));
     	}
     	
     	registeredActors.clear();
@@ -254,7 +254,6 @@ public abstract class Area implements Playable {
     
     public final boolean leaveAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
     	if (areaBehavior.canLeave(entity, coordinates)) { // teste si la grille associée à l'aire permet de quitter les cell de coordinates
-    		System.out.println("Enters leaveAreaCells");
     		interactablesToLeave.put(entity, coordinates);
     		return true;
     	}

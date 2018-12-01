@@ -6,6 +6,7 @@
 package ch.epfl.cs107.play.game.enigme;
 
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
+import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.window.Window;
 
 public class Demo2Behavior extends AreaBehavior{
@@ -15,9 +16,12 @@ public class Demo2Behavior extends AreaBehavior{
 		for (int y = 0; y < super.getHeight(); ++y) {
 			for (int x = 0; x < super.getWidth(); ++x) {
              Demo2CellType cellType = Demo2CellType.toType(super.getImage().getRGB(super.getHeight()-1-y, x));
-             super.getCell()[x][y] = new Demo2Cell(x, y, cellType);
+             super.getCell()[y][x] = new Demo2Cell(x, y, cellType);
 			}
 		}
+		
+		Demo2Cell cell = (Demo2Cell) super.getCell()[7][7];
+		System.out.println(cell.getType()); 
 	}
 	
 	public enum Demo2CellType {
@@ -70,6 +74,15 @@ public class Demo2Behavior extends AreaBehavior{
 		public Demo2CellType getType() {
 			return type;
 		}
+		
+		@Override
+		protected boolean canEnter(Interactable entity) {
+			super.canEnter(entity);
+			if (this.getType() == Demo2CellType.WALL || this.getType() == Demo2CellType.NULL) {
+				return false;
+			}
+			return true;
+		}
 
 		@Override
 		public boolean takeCellSpace() {
@@ -86,7 +99,7 @@ public class Demo2Behavior extends AreaBehavior{
 		@Override
 		public boolean isCellInteractable() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 		
 	}

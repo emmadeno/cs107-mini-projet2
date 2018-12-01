@@ -142,9 +142,15 @@ public class Demo2Player extends MovableAreaEntity{
 			int y = coordinate.y;
 			Demo2Cell currentCell = (Demo2Cell) this.getArea().getAreaBehavior().getCell()[y][x];
 			
+			System.out.println(currentCell.getType());
 			if(currentCell.getType() == Demo2CellType.DOOR) {
 				travPorte(true);
 			}
+			else {
+				travPorte(false);
+			}
+			
+			System.out.print(travPorte);
 			
 		}
 		return true;
