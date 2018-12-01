@@ -253,10 +253,9 @@ public abstract class Area implements Playable {
     }
     
     public final boolean leaveAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
-    	System.out.println("Enters leaveAreaCells");
     	if (areaBehavior.canLeave(entity, coordinates)) { // teste si la grille associée à l'aire permet de quitter les cell de coordinates
+    		System.out.println("Enters leaveAreaCells");
     		interactablesToLeave.put(entity, coordinates);
-    		//areaBehavior.leave(entity, coordinates); //enlève l'entity du hashset de l'ancienne cellule
     		return true;
     	}
     	else {
@@ -267,7 +266,6 @@ public abstract class Area implements Playable {
     public final boolean enterAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
     	if (areaBehavior.canEnter(entity, coordinates)) { // si entité peut inverstir les cellules
     		interactablesToEnter.put(entity, coordinates);
-    		areaBehavior.enter(entity, coordinates); //enregistre l'entity dans le hashset de la nouvelle cellule
     		return true;
     	}
     	else {
