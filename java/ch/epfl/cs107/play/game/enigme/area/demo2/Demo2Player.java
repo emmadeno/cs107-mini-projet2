@@ -34,6 +34,7 @@ public class Demo2Player extends MovableAreaEntity{
 	
 	public void enterArea(Area area, DiscreteCoordinates position) {
 		area.registerActor(this);
+		super.setCurrentPosition(position.toVector());
 		this.update(0.01f);
 		resetMotion();
 	}
