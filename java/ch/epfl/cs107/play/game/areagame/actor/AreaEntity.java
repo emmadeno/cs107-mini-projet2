@@ -73,5 +73,9 @@ public abstract class AreaEntity extends Entity implements Interactable {
     protected void setOrientation(Orientation orientation) {
     	this.orientation = orientation;
     }
+    
+    public void setOwnerArea(Area area) {
+    	ownerArea = area;
+    }
 
 }

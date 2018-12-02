@@ -60,17 +60,26 @@ public class Demo2 extends AreaGame {
 		
 		if(player.getTravPorte()) {
 			
-			System.out.println("Enter travporte");
 			
 			if(getCurrentArea().getTitle().compareTo("LevelSelector")==0) {
 				
-				System.out.println("Entre dans if");
 				DiscreteCoordinates initialCoord = new DiscreteCoordinates(5,2);
 				this.player.leaveArea(getCurrentArea());
 				Area currentArea = super.setCurrentArea(Room2.getTitle(), true);
 				this.player.enterArea(currentArea, initialCoord);
+				player.setOwnerArea(currentArea);
 				currentArea.setViewCandidate(player);
 			}
+			
+			else if(getCurrentArea().getTitle().compareTo("Level1")==0) {
+				
+				DiscreteCoordinates initialCoord = new DiscreteCoordinates(5,5);
+				this.player.leaveArea(getCurrentArea());
+				Area currentArea = super.setCurrentArea(Room1.getTitle(), true);
+				this.player.enterArea(currentArea, initialCoord);
+				player.setOwnerArea(currentArea);
+				currentArea.setViewCandidate(player);
+			} 
 			
 		}
 	}
