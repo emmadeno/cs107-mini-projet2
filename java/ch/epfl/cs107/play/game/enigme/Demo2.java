@@ -67,7 +67,6 @@ public class Demo2 extends AreaGame {
 				System.out.println("Entre dans if");
 				DiscreteCoordinates initialCoord = new DiscreteCoordinates(5,2);
 				this.player.leaveArea(getCurrentArea());
-				getCurrentArea().setBehavior(null);
 				Area currentArea = super.setCurrentArea(Room2.getTitle(), true);
 				this.player.enterArea(currentArea, initialCoord);
 				currentArea.setViewCandidate(player);

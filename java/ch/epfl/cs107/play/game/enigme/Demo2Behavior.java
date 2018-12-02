@@ -21,7 +21,7 @@ public class Demo2Behavior extends AreaBehavior{
 		}
 		
 		Demo2Cell cell = (Demo2Cell) super.getCell()[7][7];
-		System.out.println(cell.getType()); 
+		System.out.println("The cell type is" + cell.getType()); 
 	}
 	
 	public enum Demo2CellType {
