@@ -112,9 +112,11 @@ public abstract class AreaBehavior
     public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) {
     	int authorization = 0;
     	for(int i = 0; i < coordinates.size(); i++) {
+    		if(coordinates.get(i).x >= 0 && coordinates.get(i).y >= 0) {
     		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
     		if (currentCell.canEnter(entity)) {
     			++authorization;
+    		}
     		}
     		
     	}
