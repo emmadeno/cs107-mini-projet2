@@ -156,4 +156,9 @@ public class Demo2Player extends MovableAreaEntity{
 		return true;
 	}
 	
+	public boolean getTravPorte() {
+		
+		return travPorte;
+	}
+	
 }

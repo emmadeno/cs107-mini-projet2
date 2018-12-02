@@ -59,7 +59,7 @@ abstract public class AreaGame implements Game {
     	}
     	
     	//si l'area courante n'est pas nulle, soit la relancer, soit la résumer
-    	else if(currentArea != null) {
+    	if(currentArea != null) {
     		if (forceBegin || !currentArea.hasBegun()) {
     			currentArea.begin(window, fileSystem);
     		}
@@ -107,6 +107,10 @@ abstract public class AreaGame implements Game {
     @Override
     public void end() {
         // TODO save the game states somewhere
+    }
+    
+    public Area getCurrentArea() {
+    	return currentArea;
     }
 
 }

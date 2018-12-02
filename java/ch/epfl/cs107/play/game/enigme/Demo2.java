@@ -49,5 +49,28 @@ public class Demo2 extends AreaGame {
 		// TODO Auto-generated method stub
 		return "Demo2";
 	}
+	
+	@Override
+	
+	public void update(float deltaTime) {
+		super.update(deltaTime);
+		
+		if(player.getTravPorte()) {
+			
+			System.out.println("Enter travporte");
+			
+			if(getCurrentArea().getTitle().compareTo("LevelSelector")==0) {
+				
+				System.out.println("Entre dans if");
+				
+				DiscreteCoordinates initialCoord = new DiscreteCoordinates(5,2);
+				this.player.leaveArea(getCurrentArea());
+				Area currentArea = super.setCurrentArea(Room2.getTitle(), true);
+				this.player.enterArea(currentArea, initialCoord);
+				currentArea.setViewCandidate(player);
+			}
+			
+		}
+	}
 
 }
