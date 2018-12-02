@@ -48,8 +48,9 @@ public abstract class Area implements Playable {
 	private AreaBehavior areaBehavior;
 	
 
-	protected final void setBehavior(AreaBehavior ab) {
+	public final void setBehavior(AreaBehavior ab) {
 		areaBehavior = ab; // set le areaBehavior du jeu courrant
+		System.out.println("Set behavior");
 	}
 	
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */

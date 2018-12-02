@@ -24,18 +24,8 @@ public class Demo2 extends AreaGame {
 	public Demo2(Window window, FileSystem filesystem) {
 		
 		//initialisation 
-		super.begin(window, filesystem);
 		this.Room1 = new Room1();
 		this.Room2 = new Room2();
-		DiscreteCoordinates initialCoord = new DiscreteCoordinates(5,5);
-		this.player = new Demo2Player(Room1, Orientation.DOWN, initialCoord);
-		Room1.begin(getWindow(), getFileSystem());
-		Room2.begin(getWindow(), getFileSystem());
-		addArea(Room1);
-		addArea(Room2);
-		Area currentArea = super.setCurrentArea(Room1.getTitle(), true);
-		currentArea.registerActor(player);
-		currentArea.setViewCandidate(player);
 	}
 
 	@Override
@@ -50,6 +40,19 @@ public class Demo2 extends AreaGame {
 		return "Demo2";
 	}
 	
+	public boolean begin(Window window, FileSystem filesystem) {
+		super.begin(window, filesystem);
+		DiscreteCoordinates initialCoord = new DiscreteCoordinates(5,5);
+		this.player = new Demo2Player(Room1, Orientation.DOWN, initialCoord);
+		addArea(Room1);
+		addArea(Room2);
+		Area currentArea = super.setCurrentArea(Room1.getTitle(), true);
+		currentArea.registerActor(player);
+		currentArea.setViewCandidate(player);
+		
+		return true;
+	}
+	
 	@Override
 	
 	public void update(float deltaTime) {
@@ -62,9 +65,9 @@ public class Demo2 extends AreaGame {
 			if(getCurrentArea().getTitle().compareTo("LevelSelector")==0) {
 				
 				System.out.println("Entre dans if");
-				
 				DiscreteCoordinates initialCoord = new DiscreteCoordinates(5,2);
 				this.player.leaveArea(getCurrentArea());
+				getCurrentArea().setBehavior(null);
 				Area currentArea = super.setCurrentArea(Room2.getTitle(), true);
 				this.player.enterArea(currentArea, initialCoord);
 				currentArea.setViewCandidate(player);
