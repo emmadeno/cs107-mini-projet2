@@ -31,7 +31,7 @@ public class Demo2 extends AreaGame {
 	@Override
 	public int getFrameRate() {
 		// TODO Auto-generated method stub
-		return FRAMESCALE;
+		return 24;
 	}
 
 	@Override

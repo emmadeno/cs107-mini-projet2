@@ -33,8 +33,8 @@ public class Play {
 		XMLTexts.initialize(fileSystem, "strings/enigme_fr.xml");
 
 		// Use Swing display
-		final Window window = new SwingWindow("Demo2", fileSystem, 750, 750);
-		final Game game = new Demo2(window, fileSystem);
+		final Window window = new SwingWindow("Enigme", fileSystem, 750, 750);
+		final Game game = new Enigme(window, fileSystem);
 		
 		try {
 
