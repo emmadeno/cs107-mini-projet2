@@ -1,5 +1,8 @@
 package ch.epfl.cs107.play.game.areagame.actor;
 
+import java.util.List;
+
+import ch.epfl.cs107.play.math.DiscreteCoordinates;
 
 /**
  * Models objects asking for interaction (i.e. can interact with some Interactable)
@@ -8,6 +11,14 @@ package ch.epfl.cs107.play.game.areagame.actor;
  */
 public interface Interactor {
 
-    // TODO implements me #PROJECT #TUTO
+    public List<DiscreteCoordinates> getCurrentCells();
+    
+    public List<DiscreteCoordinates> getFieldOfViewCells();
+    
+    public boolean wantsCellInteraction();
+    
+    public boolean wantsViewInteraction();
+    
+    public void interactWith(Interactable other);
 
 }

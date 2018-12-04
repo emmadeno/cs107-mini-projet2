@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
+import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Image;
@@ -68,6 +69,22 @@ public abstract class AreaBehavior
 				}
 				else {
 					return false;
+				}
+			}
+			
+			private void cellInteractionOf(Interactor interactor) {
+				for(Interactable interactable : interact) {
+					if(interactable.isCellInteractable()) {
+						interactor.interactWith(interactable);
+					}
+				}
+			}
+			
+			private void viewInteractionOf(Interactor interactor) {
+				for(Interactable interactable : interact) {
+					if(interactable.isViewInteractable()) {
+						interactor.interactWith(interactable);
+					}
 				}
 			}
 	}
@@ -143,7 +160,22 @@ public abstract class AreaBehavior
     	}
     }
 
-    // TODO implements me #PROJECT #TUTO
+    public void cellInteractionOf(Interactor interactor) {
+  
+    	for (DiscreteCoordinates coord : interactor.getCurrentCells()) {
+    		Cell cell = cells[coord.y][coord.x];
+    		cell.cellInteractionOf(interactor);
+    	}
+    }
+    
+    public void viewInteractionOf(Interactor interactor) {
+    	
+    	for (DiscreteCoordinates coord : interactor.getFieldOfViewCells()) {
+    		Cell cell = cells[coord.y][coord.x];
+    		cell.viewInteractionOf(interactor);
+    	}
+    	
+    }
     
     public final int getWidth() {
     	

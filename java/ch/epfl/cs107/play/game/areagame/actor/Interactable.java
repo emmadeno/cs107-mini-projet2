@@ -2,6 +2,7 @@ package ch.epfl.cs107.play.game.areagame.actor;
 
 import java.util.List;
 
+import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 
 /**
@@ -23,5 +24,7 @@ public interface Interactable {
 	
 	// indique si il accepte les interactions de contact
 	public boolean isCellInteractable();
+	
+	void acceptInteraction(AreaInteractionVisitor v);
 	
 }

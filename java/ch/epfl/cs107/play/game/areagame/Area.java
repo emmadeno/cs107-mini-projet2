@@ -35,6 +35,7 @@ public abstract class Area implements Playable {
 	private List<Actor> unregisteredActors;
 	
 	//List of interactables inside the area
+	private List<Interactor> interactors;
 	private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter ;
 	private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave ;
 	
@@ -66,6 +67,9 @@ public abstract class Area implements Playable {
     	// Here decisions at the area level to decide if an actor
     	// must be added or not
     	boolean errorOccured = !actors.add(a) ;
+    	if(a instanceof Interactor) {
+    		errorOccured = errorOccured || !interactors.add((Interactor) a);
+    	}
     	
     	if(a instanceof Interactable) {
     		errorOccured = errorOccured || !enterAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
@@ -88,6 +92,10 @@ public abstract class Area implements Playable {
     private void removeActor(Actor a, boolean forced){
   
     	boolean errorOccured = !actors.remove(a) ;
+    	
+    	if(a instanceof Interactor) {
+    		errorOccured = errorOccured || !interactors.remove((Interactor) a);
+    	}
     	
     	if(a instanceof Interactable) {
     		errorOccured = errorOccured || !leaveAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
@@ -166,6 +174,7 @@ public abstract class Area implements Playable {
     	unregisteredActors = new LinkedList<>();
     	interactablesToEnter = new HashMap<>();
     	interactablesToLeave = new HashMap<>();
+    	interactors = new LinkedList<>();
     	viewCandidate = null;
     	viewCenter = Vector.ZERO;
     	
@@ -214,9 +223,18 @@ public abstract class Area implements Playable {
         
     	purgeRegistration();
     	updateCamera();
-    	for (int i = 0; i < actors.size(); i++) {
-    		actors.get(i).draw(window);
-    		actors.get(i).update(deltaTime);
+    	for (Actor actor : actors) {
+    		actor.draw(window);
+    		actor.update(deltaTime);
+    	}
+    	
+    	for(Interactor interactor : interactors) {
+    		if(interactor.wantsCellInteraction()) {
+    			
+    		}
+    		if (interactor.wantsViewInteraction()) {
+    			
+    		}
     	}
     }
 

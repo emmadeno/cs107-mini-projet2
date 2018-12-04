@@ -13,6 +13,7 @@ import ch.epfl.cs107.play.game.areagame.AreaBehavior.Cell;
 import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2Cell;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2CellType;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -160,6 +161,12 @@ public class Demo2Player extends MovableAreaEntity{
 	public boolean getTravPorte() {
 		
 		return travPorte;
+	}
+
+	@Override
+	public void acceptInteraction(AreaInteractionVisitor v) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

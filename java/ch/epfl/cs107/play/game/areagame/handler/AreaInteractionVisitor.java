@@ -16,4 +16,7 @@ public interface AreaInteractionVisitor {
     default void interactWith(Interactable other){
         System.out.println("Warning: a Specific Interaction involving "+ other.toString() +"is not yet implemented or you simply forget a cast");
     }
+    
+    
+    
 }

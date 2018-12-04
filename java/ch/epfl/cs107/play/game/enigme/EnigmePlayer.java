@@ -9,27 +9,48 @@ import java.util.Collections;
 import java.util.List;
 
 import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.actor.Interactable;
+import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
+import ch.epfl.cs107.play.game.areagame.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2Cell;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2CellType;
+import ch.epfl.cs107.play.game.enigme.actor.Apple;
 import ch.epfl.cs107.play.game.enigme.actor.Door;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 
-public class EnigmePlayer extends MovableAreaEntity{
+public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 	
 	private boolean travPorte;
 	private Sprite personnage;
 	private final static int ANIMATION_DURATION = 8;
 	private Door lastPassedDoor;
+	private final EnigmePlayerHandler handler;
+	
+	private class EnigmePlayerHandler implements EnigmeInteractionVisitor {
+		
+		@Override
+		public void interactWith(Door door) {
+			EnigmePlayer.this.setIsPassingDoor(door);
+		}
+		
+		@Override
+		public void interactWith(Apple apple) {
+			apple.disappear();
+		}
+		
+	}
 	
 	public EnigmePlayer(Area area, Orientation orientation, DiscreteCoordinates coordinates) {
 		super(area, orientation, coordinates);
 		personnage = new Sprite("ghost.1", 1, 1.f, this);
 		this.setOrientation(Orientation.DOWN);
+		handler = new EnigmePlayerHandler();
 	}
 	
 	public void enterArea(Area area, DiscreteCoordinates position) {
@@ -143,6 +164,35 @@ public class EnigmePlayer extends MovableAreaEntity{
 	public boolean getTravPorte() {
 		
 		return travPorte;
+	}
+
+	@Override
+	public List<DiscreteCoordinates> getFieldOfViewCells() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean wantsCellInteraction() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean wantsViewInteraction() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void interactWith(Interactable other) {
+		other.acceptInteraction(handler);
+	}
+
+	@Override
+	public void acceptInteraction(AreaInteractionVisitor v) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
