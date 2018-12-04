@@ -68,6 +68,8 @@ public class Enigme extends AreaGame {
         super.update(deltaTime);
         if (player.getTravPorte()) {
         	
+        	System.out.println("passe dans une porte");
+        	
         	Door passedDoor = player.passedDoor();
         	player.leaveArea(getCurrentArea());
         	Area currentArea = super.setCurrentArea(passedDoor.getDestination(), true);
