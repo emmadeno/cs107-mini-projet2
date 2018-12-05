@@ -39,15 +39,11 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		@Override
 		public void interactWith(Door door) {
 			
-			System.out.println("fantome interagit avec porte2");
-			
 				for(DiscreteCoordinates porte: door.getCurrentCells()) {  // on itère sur les coord de door
-					System.out.println("fantome interagit avec porte1");
 					
 					if(EnigmePlayer.this.getCurrentMainCellCoordinates().equals(porte)){ // si la porte se trouve sur le fieldView de l'acteur 
 					
 						EnigmePlayer.this.setIsPassingDoor(door);
-						System.out.println("fantome interagit avec porte");
 					}
 				}
 		}
@@ -189,7 +185,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		
 		super.update(deltatime);
 		
-		
+		System.out.println(fieldView.get(0));
 		
 	}
 	

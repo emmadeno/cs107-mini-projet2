@@ -169,8 +169,10 @@ public abstract class AreaBehavior
     }
     
     public void viewInteractionOf(Interactor interactor) {
+    	System.out.println("rentre dans for1");
     	
     	for (DiscreteCoordinates coord : interactor.getFieldOfViewCells()) {
+    		System.out.println("rentre dans for");
     		Cell cell = cells[coord.y][coord.x];
     		cell.viewInteractionOf(interactor);
     	}
