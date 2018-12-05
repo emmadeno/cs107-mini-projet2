@@ -26,9 +26,9 @@ public class LevelSelector extends EnigmeArea{
 		super.begin(window, fileSystem);
 		super.registerActor(new Background(this));
 	
-		DiscreteCoordinates door1 = new DiscreteCoordinates(2,7);
+		DiscreteCoordinates door1 = new DiscreteCoordinates(1,7);
 		DiscreteCoordinates position1 = new DiscreteCoordinates(5,1);
-		DiscreteCoordinates door2 = new DiscreteCoordinates(3,7);
+		DiscreteCoordinates door2 = new DiscreteCoordinates(2,7);
 		
 		// création des portes
 		portesLS.add(new Door(this, Orientation.DOWN, "Level1",door1,position1, new Circle(0.5f,door1.toVector())));
@@ -39,6 +39,9 @@ public class LevelSelector extends EnigmeArea{
 			portesLS.add(new Door(this, Orientation.DOWN, "",new DiscreteCoordinates(i,7),new DiscreteCoordinates(i,7), new Circle(0.5f,new DiscreteCoordinates(i,7).toVector())));
 		}
 		
+		super.registerActor(portesLS.get(0));
+		super.registerActor(portesLS.get(1));
+		
 		
 		return true;
 	}
@@ -47,5 +50,6 @@ public class LevelSelector extends EnigmeArea{
 	public String getTitle() {
 		return "LevelSelector";
 	}
+	
 
 }

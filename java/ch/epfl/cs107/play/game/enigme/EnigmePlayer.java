@@ -39,9 +39,12 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		@Override
 		public void interactWith(Door door) {
 			
-				for(DiscreteCoordinates porte: door.getCurrentCells()) {  // on itère sur les coord d'apple
+			System.out.println("fantome interagit avec porte2");
+			
+				for(DiscreteCoordinates porte: door.getCurrentCells()) {  // on itère sur les coord de door
+					System.out.println("fantome interagit avec porte1");
 					
-					if(EnigmePlayer.this.getCurrentMainCellCoordinates().equals(porte)){ // si la pomme se trouve sur le fieldView de l'acteur 
+					if(EnigmePlayer.this.getCurrentMainCellCoordinates().equals(porte)){ // si la porte se trouve sur le fieldView de l'acteur 
 					
 						EnigmePlayer.this.setIsPassingDoor(door);
 						System.out.println("fantome interagit avec porte");
@@ -52,15 +55,18 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		@Override
 		public void interactWith(Apple apple) {
 			
+			System.out.println("entre dans interactwhith apple");
 			Keyboard keyboard = EnigmePlayer.this.getArea().getKeyboard();
 			
 			if(keyboard.get(Keyboard.L).isLastPressed()) { //si on presse la touche L
 				
+				System.out.println("Lpressed");
 				for(DiscreteCoordinates cellView: fieldView) { 					//on itère sur les coordonées de fieldView
 					for(DiscreteCoordinates pomme: apple.getCurrentCells()) {  // on itère sur les coord d'apple
 						
 						if(cellView.equals(pomme)){ // si la pomme se trouve sur le fieldView de l'acteur 
 							apple.disappear();
+							System.out.println("la pomme doit disparaitre");
 						}
 					}
 				}
@@ -200,6 +206,10 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		
 		return travPorte;
 	}
+	
+	public void resetTravPorte() {
+		travPorte = false;
+	}
 
 	@Override
 	public List<DiscreteCoordinates> getFieldOfViewCells() {
@@ -210,7 +220,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 	@Override
 	public boolean wantsCellInteraction() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -218,7 +228,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		
 		Keyboard keyboard = this.getArea().getKeyboard();
 		if(keyboard.get(Keyboard.L).wasDown()) {
-			
 			return true;
 		}
 

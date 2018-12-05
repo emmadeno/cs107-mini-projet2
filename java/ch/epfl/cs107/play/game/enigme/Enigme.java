@@ -1,5 +1,7 @@
 package ch.epfl.cs107.play.game.enigme;
 
+import java.util.List;
+
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
@@ -66,6 +68,11 @@ public class Enigme extends AreaGame {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+        
+        // appeler le interactwith du player
+  
+        
+        
         if (player.getTravPorte()) {
         	
         	System.out.println("passe dans une porte");
@@ -76,6 +83,7 @@ public class Enigme extends AreaGame {
         	player.enterArea(currentArea, passedDoor.getInitialCoord());
         	player.setOwnerArea(currentArea);
 			currentArea.setViewCandidate(player);
+			player.resetTravPorte();
         }
     }
 

@@ -229,13 +229,17 @@ public abstract class Area implements Playable {
     	}
     	
     	for(Interactor interactor : interactors) {
+    		
     		if(interactor.wantsCellInteraction()) {
+    			
+    			//System.out.println("rentre dans boucle cellinteraction");
     			
     			areaBehavior.cellInteractionOf(interactor);
     			
     		}
     		if (interactor.wantsViewInteraction()) {
     			
+    			System.out.println("VIEW");
     			areaBehavior.viewInteractionOf(interactor);
     			
     		}

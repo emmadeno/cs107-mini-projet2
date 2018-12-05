@@ -37,6 +37,9 @@ public class Level2 extends EnigmeArea{
 		
 		Apple pomme = new Apple(this, Orientation.DOWN, new DiscreteCoordinates(5,6));
 		
+		super.registerActor(pomme);
+		super.registerActor(portesL2.get(0));
+		
 		return true;
 	}
 	
