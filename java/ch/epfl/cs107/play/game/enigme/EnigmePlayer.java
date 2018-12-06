@@ -51,18 +51,15 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		@Override
 		public void interactWith(Apple apple) {
 			
-			System.out.println("entre dans interactwhith apple");
 			Keyboard keyboard = EnigmePlayer.this.getArea().getKeyboard();
 			
 			if(keyboard.get(Keyboard.L).isLastPressed()) { //si on presse la touche L
 				
-				System.out.println("Lpressed");
 				for(DiscreteCoordinates cellView: fieldView) { 					//on itère sur les coordonées de fieldView
 					for(DiscreteCoordinates pomme: apple.getCurrentCells()) {  // on itère sur les coord d'apple
 						
 						if(cellView.equals(pomme)){ // si la pomme se trouve sur le fieldView de l'acteur 
 							apple.disappear();
-							System.out.println("la pomme doit disparaitre");
 						}
 					}
 				}
@@ -136,13 +133,11 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
 				fieldView.clear();
 				fieldView.add(getCurrentMainCellCoordinates().left().left());
-				System.out.print(fieldView.get(0));
 			}
 			else {
 				setOrientation(Orientation.LEFT);
 				fieldView.clear();
 				fieldView.add(getCurrentMainCellCoordinates().left());
-				System.out.print(fieldView.get(0));
 			}
 			
 		}
@@ -230,7 +225,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 	public boolean wantsViewInteraction() {
 		
 		Keyboard keyboard = this.getArea().getKeyboard();
-		if(keyboard.get(Keyboard.L).wasDown()) {
+		if(keyboard.get(Keyboard.L).isLastPressed()) {
 			return true;
 		}
 

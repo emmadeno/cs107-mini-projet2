@@ -21,6 +21,7 @@ import ch.epfl.cs107.play.window.Window;
 public class Level2 extends EnigmeArea{
 	
 	List<Door> portesL2 = new LinkedList<>();
+	private boolean hasBegun = false;
 	
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
@@ -37,8 +38,13 @@ public class Level2 extends EnigmeArea{
 		
 		Apple pomme = new Apple(this, Orientation.DOWN, new DiscreteCoordinates(5,6));
 		
-		super.registerActor(pomme);
+		if(!hasBegun) {
+		   super.registerActor(pomme);
+		}
+		hasBegun = true;
 		super.registerActor(portesL2.get(0));
+		
+		System.out.println("Level2 begins");
 		
 		return true;
 	}
