@@ -64,7 +64,7 @@ public class Apple extends AreaEntity{
 	}
 	
 	public void disappear() {
-		apple = null;
+		this.getArea().unregisterActor(this);
 	}
 
 }

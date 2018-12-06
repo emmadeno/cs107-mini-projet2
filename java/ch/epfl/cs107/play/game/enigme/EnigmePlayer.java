@@ -128,18 +128,21 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		
 		
 		// update du champ de vision en même temps que l'orientation.
-		fieldView.clear();
 		
 		if(keyboard.get(Keyboard.LEFT).isDown()) {
 			
 			if(this.getOrientation()== Orientation.LEFT) {
 				
 				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
-				fieldView.add(getCurrentMainCellCoordinates().left());
+				fieldView.clear();
+				fieldView.add(getCurrentMainCellCoordinates().left().left());
+				System.out.print(fieldView.get(0));
 			}
 			else {
 				setOrientation(Orientation.LEFT);
+				fieldView.clear();
 				fieldView.add(getCurrentMainCellCoordinates().left());
+				System.out.print(fieldView.get(0));
 			}
 			
 		}
@@ -148,10 +151,13 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			if(this.getOrientation()== Orientation.RIGHT) {
 				
 				move(ANIMATION_DURATION); 
-				fieldView.add(getCurrentMainCellCoordinates().right());
+				fieldView.clear();
+				fieldView.add(getCurrentMainCellCoordinates().right().right());
+				
 			}
 			else {
 				setOrientation(Orientation.RIGHT);
+				fieldView.clear();
 				fieldView.add(getCurrentMainCellCoordinates().right());
 			}
 			
@@ -161,10 +167,12 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			if(this.getOrientation()== Orientation.UP) {
 				
 				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
-				fieldView.add(getCurrentMainCellCoordinates().up());
+				fieldView.clear();
+				fieldView.add(getCurrentMainCellCoordinates().up().up());
 			}
 			else {
 				setOrientation(Orientation.UP);
+				fieldView.clear();
 				fieldView.add(getCurrentMainCellCoordinates().up());
 			}
 			
@@ -174,18 +182,18 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			if(this.getOrientation()== Orientation.DOWN) {
 				
 				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
-				fieldView.add(getCurrentMainCellCoordinates().down());
+				fieldView.clear();
+				fieldView.add(getCurrentMainCellCoordinates().down().down());
 			}
 			else {
 				setOrientation(Orientation.DOWN);
+				fieldView.clear();
 				fieldView.add(getCurrentMainCellCoordinates().down());
 			}
 			
 		}
 		
 		super.update(deltatime);
-		
-		System.out.println(fieldView.get(0));
 		
 	}
 	
@@ -209,7 +217,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 
 	@Override
 	public List<DiscreteCoordinates> getFieldOfViewCells() {
-		
 		return fieldView;
 	}
 

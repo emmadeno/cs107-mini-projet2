@@ -81,6 +81,7 @@ public abstract class AreaBehavior
 			}
 			
 			private void viewInteractionOf(Interactor interactor) {
+				System.out.print("Entre dans viewInteraction Cell");
 				for(Interactable interactable : interact) {
 					if(interactable.isViewInteractable()) {
 						interactor.interactWith(interactable);
@@ -170,7 +171,7 @@ public abstract class AreaBehavior
     
     public void viewInteractionOf(Interactor interactor) {
     	System.out.println("rentre dans for1");
-    	
+    	interactor.getFieldOfViewCells().get(0);
     	for (DiscreteCoordinates coord : interactor.getFieldOfViewCells()) {
     		System.out.println("rentre dans for");
     		Cell cell = cells[coord.y][coord.x];
