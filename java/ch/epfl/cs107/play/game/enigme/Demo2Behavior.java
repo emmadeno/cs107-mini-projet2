@@ -75,7 +75,6 @@ public class Demo2Behavior extends AreaBehavior{
 		
 		@Override
 		protected boolean canEnter(Interactable entity) {
-			super.canEnter(entity);
 			if (this.getType() == Demo2CellType.WALL || this.getType() == Demo2CellType.NULL) {
 				return false;
 			}
@@ -104,6 +103,12 @@ public class Demo2Behavior extends AreaBehavior{
 		public void acceptInteraction(AreaInteractionVisitor v) {
 			// TODO Auto-generated method stub
 			
+		}
+
+		@Override
+		protected boolean canLeave(Interactable entity) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 		
 	}

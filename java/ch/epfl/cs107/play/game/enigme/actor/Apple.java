@@ -36,7 +36,7 @@ public class Apple extends AreaEntity{
 	@Override
 	public boolean takeCellSpace() {
 	
-		return false;
+		return true;
 	}
 
 	@Override

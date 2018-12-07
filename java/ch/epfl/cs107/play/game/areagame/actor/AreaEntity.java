@@ -58,6 +58,9 @@ public abstract class AreaEntity extends Entity implements Interactable {
         	currentMainCellCoordinates = new DiscreteCoordinates((int)vect.getX(),(int)vect.getY()); 
         	super.setCurrentPosition(vect);
         }
+        else {
+        	super.setCurrentPosition(v);
+        }
         
     }
     

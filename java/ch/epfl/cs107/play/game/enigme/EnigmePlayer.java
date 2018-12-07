@@ -32,7 +32,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 	private final static int ANIMATION_DURATION = 8;
 	private Door lastPassedDoor;
 	private final EnigmePlayerHandler handler;
-	private List <DiscreteCoordinates> fieldView = new LinkedList<>();
 	
 	private class EnigmePlayerHandler implements EnigmeInteractionVisitor {
 		
@@ -55,6 +54,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			
 			if(keyboard.get(Keyboard.L).isLastPressed()) { //si on presse la touche L
 				
+				List <DiscreteCoordinates> fieldView = EnigmePlayer.this.getFieldOfViewCells();
 				for(DiscreteCoordinates cellView: fieldView) { 					//on itère sur les coordonées de fieldView
 					for(DiscreteCoordinates pomme: apple.getCurrentCells()) {  // on itère sur les coord d'apple
 						
@@ -131,13 +131,11 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			if(this.getOrientation()== Orientation.LEFT) {
 				
 				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
-				fieldView.clear();
-				fieldView.add(getCurrentMainCellCoordinates().left().left());
+				
 			}
 			else {
 				setOrientation(Orientation.LEFT);
-				fieldView.clear();
-				fieldView.add(getCurrentMainCellCoordinates().left());
+				
 			}
 			
 		}
@@ -146,14 +144,12 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			if(this.getOrientation()== Orientation.RIGHT) {
 				
 				move(ANIMATION_DURATION); 
-				fieldView.clear();
-				fieldView.add(getCurrentMainCellCoordinates().right().right());
+				
 				
 			}
 			else {
 				setOrientation(Orientation.RIGHT);
-				fieldView.clear();
-				fieldView.add(getCurrentMainCellCoordinates().right());
+				
 			}
 			
 		}
@@ -162,13 +158,11 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			if(this.getOrientation()== Orientation.UP) {
 				
 				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
-				fieldView.clear();
-				fieldView.add(getCurrentMainCellCoordinates().up().up());
+				
 			}
 			else {
 				setOrientation(Orientation.UP);
-				fieldView.clear();
-				fieldView.add(getCurrentMainCellCoordinates().up());
+				
 			}
 			
 		}
@@ -177,13 +171,11 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			if(this.getOrientation()== Orientation.DOWN) {
 				
 				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
-				fieldView.clear();
-				fieldView.add(getCurrentMainCellCoordinates().down().down());
+				
 			}
 			else {
 				setOrientation(Orientation.DOWN);
-				fieldView.clear();
-				fieldView.add(getCurrentMainCellCoordinates().down());
+				
 			}
 			
 		}
@@ -212,12 +204,13 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 
 	@Override
 	public List<DiscreteCoordinates> getFieldOfViewCells() {
-		return fieldView;
+		List<DiscreteCoordinates> fieldOfView = new LinkedList<DiscreteCoordinates>();
+		fieldOfView.add(this.getCurrentMainCellCoordinates().jump(this.getOrientation().toVector()));
+		return fieldOfView;
 	}
 
 	@Override
 	public boolean wantsCellInteraction() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

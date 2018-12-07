@@ -28,7 +28,7 @@ public abstract class AreaBehavior
 		
 	 public abstract class Cell implements Interactable{
 		 
-		 	Set<Interactable> interact;
+		 	protected Set<Interactable> interact;
 		 	private DiscreteCoordinates cellCoord;
 		 
 			public Cell(int x, int y){
@@ -52,26 +52,10 @@ public abstract class AreaBehavior
 				interact.remove(entity);
 			}
 			
-			//ce code est-il bon ?
 			
-			protected boolean canEnter(Interactable entity) {
-				if (interact.add(entity)) {
-					return true;
-				}
-				else {
-					return false;
-				}
-			}
+			protected abstract boolean canEnter(Interactable entity);
 			
-			protected boolean canLeave(Interactable entity) {
-				interact.add(entity);    // ajoute entity pour tester s'il peut être enlevé - demander si c'est bon
-				if (interact.remove(entity)) {;
-					return true;
-				}
-				else {
-					return false;
-				}
-			}
+			protected abstract boolean canLeave(Interactable entity);
 			
 			private void cellInteractionOf(Interactor interactor) {
 				for(Interactable interactable : interact) {
@@ -88,6 +72,7 @@ public abstract class AreaBehavior
 					}
 				}
 			}
+			 
 	}
 	
     /**
@@ -132,6 +117,7 @@ public abstract class AreaBehavior
     	for(int i = 0; i < coordinates.size(); i++) {
     		if(coordinates.get(i).x >= 0 && coordinates.get(i).y >= 0) {
     		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
+
     		if (currentCell.canEnter(entity)) {
     			++authorization;
     		}

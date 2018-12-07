@@ -79,9 +79,13 @@ public class EnigmeBehavior extends AreaBehavior{
 			
 			@Override
 			protected boolean canEnter(Interactable entity) {
-				super.canEnter(entity);
 				if (this.getType() == EnigmeCellType.WALL || this.getType() == EnigmeCellType.NULL) {
 					return false;
+				}
+				for (Interactable i : interact) {
+					if(i.takeCellSpace()) {
+						return false;
+					}
 				}
 				return true;
 			}
@@ -89,7 +93,7 @@ public class EnigmeBehavior extends AreaBehavior{
 			@Override
 			public boolean takeCellSpace() {
 				
-				return true;
+				return false;
 			}
 
 			@Override
@@ -107,6 +111,11 @@ public class EnigmeBehavior extends AreaBehavior{
 			@Override
 			public void acceptInteraction(AreaInteractionVisitor v) {
 				v.interactWith(this);
+			}
+
+			@Override
+			protected boolean canLeave(Interactable entity) {
+				return true;
 			}
 			
 		}

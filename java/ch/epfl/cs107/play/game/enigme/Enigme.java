@@ -77,7 +77,7 @@ public class Enigme extends AreaGame {
         	
         	Door passedDoor = player.passedDoor();
         	player.leaveArea(getCurrentArea());
-        	Area currentArea = super.setCurrentArea(passedDoor.getDestination(), true);
+        	Area currentArea = super.setCurrentArea(passedDoor.getDestination(), false);
         	player.enterArea(currentArea, passedDoor.getInitialCoord());
         	player.setOwnerArea(currentArea);
 			currentArea.setViewCandidate(player);
