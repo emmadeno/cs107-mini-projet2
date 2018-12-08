@@ -13,6 +13,8 @@ import ch.epfl.cs107.play.game.areagame.actor.Background;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.enigme.actor.Apple;
 import ch.epfl.cs107.play.game.enigme.actor.Door;
+import ch.epfl.cs107.play.game.enigme.actor.Lever;
+import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -36,12 +38,15 @@ public class Level2 extends EnigmeArea{
 		// creation pomme
 		
 		Apple pomme = new Apple(this, Orientation.DOWN, new DiscreteCoordinates(5,6));
+		PressureSwitch bouton = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(2,5));
+		Lever lever = new Lever(this, Orientation.DOWN, new DiscreteCoordinates(4,4));
 		
 		super.registerActor(pomme);
+		super.registerActor(bouton);
+		super.registerActor(lever);
 		
 		super.registerActor(portesL2.get(0));
 		
-		System.out.println("Level2 begins");
 		
 		return true;
 	}

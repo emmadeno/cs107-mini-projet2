@@ -1,6 +1,6 @@
 /*
  *	Author:      Emmanuelle Denove
- *	Date:        3 Dec 2018
+ *	Date:        8 Dec 2018
  */
 
 package ch.epfl.cs107.play.game.enigme.actor;
@@ -15,25 +15,29 @@ import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.areagame.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.signal.Signal;
+import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
 
-public class Apple extends Pickup{
+public class Key extends Pickup implements Logic{
 	
-	private Sprite apple;
+	private Sprite key = new Sprite("key.1", 1, 1.f, this);
+	private boolean isOn;  //besoin ?
+	private boolean isCollected;
 
-	public Apple(Area area, Orientation orientation, DiscreteCoordinates position) {
+	public Key(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
-		apple = new Sprite("apple.1", 1, 1.f, this);
 		this.setOrientation(Orientation.DOWN);
+		isOn = false;
+		isCollected = false;
 	}
 
 
 	@Override
 	public void draw(Canvas canvas) {
-		apple.draw(canvas);
-		
+		key.draw(canvas);	
 	}
-
+	
 	@Override
 	public void acceptInteraction(AreaInteractionVisitor v) {
 		((EnigmeInteractionVisitor)v).interactWith(this);
@@ -42,6 +46,23 @@ public class Apple extends Pickup{
 	
 	public void disappear() {
 		this.getArea().unregisterActor(this);
+		isCollected = true;
 	}
+
+
+	@Override
+	public boolean isOn() {
+		if(isCollected) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public void update(float f) {
+		super.update(f);
+		isOn = isOn();
+	}
+
 
 }

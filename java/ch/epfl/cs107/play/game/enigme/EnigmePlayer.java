@@ -21,6 +21,11 @@ import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2Cell;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2CellType;
 import ch.epfl.cs107.play.game.enigme.actor.Apple;
 import ch.epfl.cs107.play.game.enigme.actor.Door;
+import ch.epfl.cs107.play.game.enigme.actor.Key;
+import ch.epfl.cs107.play.game.enigme.actor.Lever;
+import ch.epfl.cs107.play.game.enigme.actor.Pickup;
+import ch.epfl.cs107.play.game.enigme.actor.PressurePlate;
+import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
@@ -47,8 +52,31 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 				}
 		}
 		
+		public void interactWith(PressureSwitch pressureSwitch) {
+			
+			for(DiscreteCoordinates bouton: pressureSwitch.getCurrentCells()) {  // on itère sur les coord de pressureSwitch
+				
+				if(EnigmePlayer.this.getCurrentMainCellCoordinates().equals(bouton)){ // si le bouton se trouve sur le fieldView de l'acteur 
+				
+					pressureSwitch.turnOnOff();
+				}
+			}
+	}
+		
+public void interactWith(PressurePlate pressurePlate) {
+			
+			for(DiscreteCoordinates bouton: pressurePlate.getCurrentCells()) {  // on itère sur les coord de pressureSwitch
+				
+				if(EnigmePlayer.this.getCurrentMainCellCoordinates().equals(bouton)){ // si le bouton se trouve sur le fieldView de l'acteur 
+					pressurePlate.switchOnOff(0.3f);
+					pressurePlate.update(0.3f);
+					pressurePlate.switchOnOff(0.3f);
+				}
+			}
+	}
+		
 		@Override
-		public void interactWith(Apple apple) {
+		public void interactWith(Lever lever) {
 			
 			Keyboard keyboard = EnigmePlayer.this.getArea().getKeyboard();
 			
@@ -56,15 +84,37 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 				
 				List <DiscreteCoordinates> fieldView = EnigmePlayer.this.getFieldOfViewCells();
 				for(DiscreteCoordinates cellView: fieldView) { 					//on itère sur les coordonées de fieldView
-					for(DiscreteCoordinates pomme: apple.getCurrentCells()) {  // on itère sur les coord d'apple
+					for(DiscreteCoordinates coord: lever.getCurrentCells()) {  // on itère sur les coord du pickup
 						
-						if(cellView.equals(pomme)){ // si la pomme se trouve sur le fieldView de l'acteur 
-							apple.disappear();
+						if(cellView.equals(coord)){ // si la pomme se trouve sur le fieldView de l'acteur 
+							lever.switchLever();
 						}
 					}
 				}
 			}
 		}
+		
+	
+		
+		@Override
+		public void interactWith(Pickup pickup) {
+			
+			Keyboard keyboard = EnigmePlayer.this.getArea().getKeyboard();
+			
+			if(keyboard.get(Keyboard.L).isLastPressed()) { //si on presse la touche L
+				
+				List <DiscreteCoordinates> fieldView = EnigmePlayer.this.getFieldOfViewCells();
+				for(DiscreteCoordinates cellView: fieldView) { 					//on itère sur les coordonées de fieldView
+					for(DiscreteCoordinates coord: pickup.getCurrentCells()) {  // on itère sur les coord du pickup
+						
+						if(cellView.equals(coord)){ // si la pomme se trouve sur le fieldView de l'acteur 
+							pickup.disappear();
+						}
+					}
+				}
+			}
+		}
+		
 		
 	}
 	

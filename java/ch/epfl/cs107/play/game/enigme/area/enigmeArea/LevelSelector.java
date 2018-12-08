@@ -12,6 +12,7 @@ import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Background;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.enigme.actor.Door;
+import ch.epfl.cs107.play.game.enigme.actor.Torch;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -34,6 +35,9 @@ public class LevelSelector extends EnigmeArea{
 		portesLS.add(new Door(this, Orientation.DOWN, "Level1",door1,position1, new Circle(0.5f,door1.toVector())));
 		portesLS.add(new Door(this, Orientation.DOWN, "Level2",door2,position1, new Circle(0.5f,door2.toVector())));
 		
+		
+		Torch torch = new Torch(this, Orientation.DOWN, new DiscreteCoordinates(1, 3), true);
+		
 		for(int i = 4; i<= 8; ++i ) {
 			
 			portesLS.add(new Door(this, Orientation.DOWN, "",new DiscreteCoordinates(i,7),new DiscreteCoordinates(i,7), new Circle(0.5f,new DiscreteCoordinates(i,7).toVector())));
@@ -41,6 +45,7 @@ public class LevelSelector extends EnigmeArea{
 		
 		super.registerActor(portesLS.get(0));
 		super.registerActor(portesLS.get(1));
+		super.registerActor(torch);
 		
 		
 		return true;

@@ -9,10 +9,26 @@ import ch.epfl.cs107.play.game.enigme.EnigmeBehavior;
 import ch.epfl.cs107.play.game.enigme.EnigmePlayer;
 import ch.epfl.cs107.play.game.enigme.actor.Apple;
 import ch.epfl.cs107.play.game.enigme.actor.Door;
+import ch.epfl.cs107.play.game.enigme.actor.Lever;
+import ch.epfl.cs107.play.game.enigme.actor.Pickup;
+import ch.epfl.cs107.play.game.enigme.actor.PressurePlate;
+import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
 
 public interface EnigmeInteractionVisitor extends AreaInteractionVisitor {
 	
-	default void interactWith(Apple apple) {
+	default void interactWith(Pickup pickup) {
+		//by default this interaction is empty
+	}
+	
+	default void interactWith(PressureSwitch pressureSwitch) {
+		//by default this interaction is empty
+	}
+	
+	default void interactWith(Lever lever) {
+		//by default this interaction is empty
+	}
+	
+	default void interactWith(PressurePlate pressurePlate) {
 		//by default this interaction is empty
 	}
 	
