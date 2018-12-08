@@ -3,7 +3,7 @@
  *	Date:        3 Dec 2018
  */
 
-package play.game.enigme.area;
+package ch.epfl.cs107.play.game.enigme.area.enigmeArea;
 
 import java.util.LinkedList;
 import java.util.List;
