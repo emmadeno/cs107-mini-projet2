@@ -5,6 +5,20 @@
 
 package ch.epfl.cs107.play.signal.logic;
 
-public class LogicSignal {
+public abstract class LogicSignal implements Logic {
+	
+	public final float getIntensity() {
+		if (this.isOn()) {
+			return 1.0f;
+		}
+		else {
+			return 0.0f;
+		}
+	}
+	
+	@Override
+	public final float getIntensity(float t) {
+		return getIntensity(); 
+	}
 
 }
