@@ -62,4 +62,5 @@ public abstract class Entity implements Actor {
     public Vector getVelocity() {
         return Vector.ZERO;
     }
+    
 }

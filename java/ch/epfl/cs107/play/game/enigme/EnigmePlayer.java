@@ -60,15 +60,10 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			for(DiscreteCoordinates bouton: pressurePlate.getCurrentCells()) {  // on itère sur les coord de pressureSwitch
 				
 				if(EnigmePlayer.this.getCurrentMainCellCoordinates().equals(bouton)){ // si le bouton se trouve en dessous de l'acteur 
-					//long currentTime = System.currentTimeMillis();
-					/*
-					int date = new Date().getSeconds();
-					while((new Date().getSeconds() - date) < 3) {
-						pressurePlate.switchOnOff(true);
-						EnigmePlayer.this.update(0);
-					}
-					pressurePlate.switchOnOff(false);
-					*/
+					
+					pressurePlate.setCurrentTime();
+					pressurePlate.switchOnOff(true);
+					
 				}
 			}
 	}

@@ -24,10 +24,14 @@ public class PressurePlate extends AreaEntity implements Logic{
 	private boolean isOn;
 	private Sprite plateOn = new Sprite("GroundLightOn", 1, 1.f, this);
 	private Sprite plateOff = new Sprite("GroundPlateOff", 1, 1.f, this);
+	private float time;
+	private float currentTime;
+	private float activationTime = 2f;
 
 	public PressurePlate(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
 		isOn = false;
+		time = 0f;
 	}
 
 	@Override
@@ -79,5 +83,23 @@ public class PressurePlate extends AreaEntity implements Logic{
 		isOn = toSwitch;
 
 	}
+	
+	public void switchPlate(float currentTime) {
+		if(time - currentTime > activationTime) {
+			isOn = false;
+		}
+	}
+	
+    public void update(float deltaTime) {
+    	super.update(deltaTime);
+    	time += deltaTime;
+    	if(isOn) {
+    	   switchPlate(currentTime);
+    	}
+    }
+    
+    public void setCurrentTime() {
+    	currentTime = time;
+    }
 
 }
