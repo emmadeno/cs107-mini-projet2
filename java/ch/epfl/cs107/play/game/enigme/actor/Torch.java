@@ -39,7 +39,7 @@ public class Torch extends AreaEntity implements Logic{
 	@Override
 	public boolean takeCellSpace() {
 
-		return false;
+		return true;
 	}
 
 	@Override
@@ -75,6 +75,11 @@ public class Torch extends AreaEntity implements Logic{
 	public boolean isOn() {
 		
 		return allumee;
+	}
+	
+	public void setAllumee(boolean b) {
+		
+		allumee = b;
 	}
 
 }

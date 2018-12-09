@@ -74,8 +74,8 @@ public class PressurePlate extends AreaEntity implements Logic{
 		return isOn;
 	}
 	
-	public void switchOnOff(float runTime) {
-		long currentTime = System.nanoTime();
+	public void switchOnOff(float runTime, long currentTime) {
+		//long currentTime = System.nanoTime();
 		if(System.nanoTime() - currentTime > runTime) {
 			isOn = !isOn;
 		}
