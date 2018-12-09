@@ -18,23 +18,17 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
 
-public class Torch extends AreaEntity implements Logic{
+public class Torch extends Switchable implements Logic{
 	
-	private Sprite torchOff = new Sprite("torch.ground.off", 1, 1.f, this);
-	private Sprite torchOn = new Sprite("torch.ground.on.1", 1, 1.f, this);
-	private boolean allumee;
 
 	public Torch(Area area, Orientation orientation, DiscreteCoordinates position, boolean allumee) {
 		super(area, orientation, position);
-		this.setOrientation(Orientation.DOWN);
-		this.allumee = allumee;
+		//this.setOrientation(Orientation.DOWN);
+		isOn = allumee;
+		onPicture = new Sprite("torch.ground.on.1", 1, 1.f, this);
+		offPicture = new Sprite("torch.ground.off", 1, 1.f, this);
 	}
 
-	@Override
-	public List<DiscreteCoordinates> getCurrentCells() {
-		
-		return Collections.singletonList(getCurrentMainCellCoordinates());
-	}
 
 	@Override
 	public boolean takeCellSpace() {
@@ -54,32 +48,5 @@ public class Torch extends AreaEntity implements Logic{
 		return false;
 	}
 
-	@Override
-	public void acceptInteraction(AreaInteractionVisitor v) {
-		((EnigmeInteractionVisitor)v).interactWith(this);
-		
-	}
-
-	@Override
-	public void draw(Canvas canvas) {
-		if(allumee) {
-			torchOn.draw(canvas);
-		}
-		else {
-			torchOff.draw(canvas);
-		}
-		
-	}
-
-	@Override
-	public boolean isOn() {
-		
-		return allumee;
-	}
-	
-	public void setAllumee(boolean b) {
-		
-		allumee = b;
-	}
 
 }

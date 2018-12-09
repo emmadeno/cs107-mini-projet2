@@ -17,11 +17,12 @@ import ch.epfl.cs107.play.game.areagame.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
+import java.util.Date;
 
 public class PressurePlate extends AreaEntity implements Logic{
 	
 	private boolean isOn;
-	private Sprite plateOn = new Sprite("rock.1", 1, 1.f, this);
+	private Sprite plateOn = new Sprite("GroundLightOn", 1, 1.f, this);
 	private Sprite plateOff = new Sprite("GroundPlateOff", 1, 1.f, this);
 
 	public PressurePlate(Area area, Orientation orientation, DiscreteCoordinates position) {
@@ -74,11 +75,9 @@ public class PressurePlate extends AreaEntity implements Logic{
 		return isOn;
 	}
 	
-	public void switchOnOff(float runTime, long currentTime) {
-		//long currentTime = System.nanoTime();
-		if(System.nanoTime() - currentTime > runTime) {
-			isOn = !isOn;
-		}
+	public void switchOnOff(boolean toSwitch) {
+		isOn = toSwitch;
+
 	}
 
 }

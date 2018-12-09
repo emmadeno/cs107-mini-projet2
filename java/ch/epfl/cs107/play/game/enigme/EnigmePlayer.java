@@ -6,6 +6,7 @@
 package ch.epfl.cs107.play.game.enigme;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import ch.epfl.cs107.play.game.enigme.actor.Lever;
 import ch.epfl.cs107.play.game.enigme.actor.Pickup;
 import ch.epfl.cs107.play.game.enigme.actor.PressurePlate;
 import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
+import ch.epfl.cs107.play.game.enigme.actor.Switchable;
 import ch.epfl.cs107.play.game.enigme.actor.Torch;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Canvas;
@@ -53,68 +55,51 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 				}
 		}
 		
-		public void interactWith(PressureSwitch pressureSwitch) {
-			
-			for(DiscreteCoordinates bouton: pressureSwitch.getCurrentCells()) {  // on itère sur les coord de pressureSwitch
-				
-				if(EnigmePlayer.this.getCurrentMainCellCoordinates().equals(bouton)){ // si le bouton se trouve sur le fieldView de l'acteur 
-				
-					pressureSwitch.turnOnOff();
-				}
-			}
-	}
-		
 		public void interactWith(PressurePlate pressurePlate) {
 			
 			for(DiscreteCoordinates bouton: pressurePlate.getCurrentCells()) {  // on itère sur les coord de pressureSwitch
 				
 				if(EnigmePlayer.this.getCurrentMainCellCoordinates().equals(bouton)){ // si le bouton se trouve en dessous de l'acteur 
-					long currentTime = System.nanoTime();
-					pressurePlate.switchOnOff(0.3f,currentTime);
-					pressurePlate.update(0.3f);
-					//pressurePlate.switchOnOff(0.3f);
+					//long currentTime = System.currentTimeMillis();
+					/*
+					int date = new Date().getSeconds();
+					while((new Date().getSeconds() - date) < 3) {
+						pressurePlate.switchOnOff(true);
+						EnigmePlayer.this.update(0);
+					}
+					pressurePlate.switchOnOff(false);
+					*/
 				}
 			}
 	}
 		
 		@Override
-		public void interactWith(Lever lever) {
+		public void interactWith(Switchable switchable) {
 			
 			Keyboard keyboard = EnigmePlayer.this.getArea().getKeyboard();
+			
+			if(switchable.isViewInteractable()) {
 			
 			if(keyboard.get(Keyboard.L).isLastPressed()) { //si on presse la touche L
 				
 				List <DiscreteCoordinates> fieldView = EnigmePlayer.this.getFieldOfViewCells();
 				for(DiscreteCoordinates cellView: fieldView) { 					//on itère sur les coordonées de fieldView
-					for(DiscreteCoordinates coord: lever.getCurrentCells()) {  // on itère sur les coord du pickup
+					for(DiscreteCoordinates coord: switchable.getCurrentCells()) {  // on itère sur les coord du pickup
 						
 						if(cellView.equals(coord)){ // si la pomme se trouve sur le fieldView de l'acteur 
-							lever.switchLever();
+							switchable.turnOnOff();
 						}
 					}
 				}
 			}
-		}
-		
-		
-		public void interactWith(Torch torche) {
+			}
 			
-			Keyboard keyboard = EnigmePlayer.this.getArea().getKeyboard();
-			
-			if(keyboard.get(Keyboard.L).isLastPressed()) { //si on presse la touche L
-				
-				List <DiscreteCoordinates> fieldView = EnigmePlayer.this.getFieldOfViewCells();
-				for(DiscreteCoordinates cellView: fieldView) { 					//on itère sur les coordonées de fieldView
-					for(DiscreteCoordinates coord: torche.getCurrentCells()) {  // on itère sur les coord du pickup
-						
-						if(cellView.equals(coord)){ // si la pomme se trouve sur le fieldView de l'acteur 
-							
-							if(torche.isOn()) {
-								torche.setAllumee(false);
-							}
-							else {torche.setAllumee(true);}
-							
-						}
+			if(switchable.isCellInteractable()) {
+				for(DiscreteCoordinates bouton: switchable.getCurrentCells()) {  // on itère sur les coord de pressureSwitch
+					
+					if(EnigmePlayer.this.getCurrentMainCellCoordinates().equals(bouton)){ // si le bouton se trouve sur le fieldView de l'acteur 
+					
+						switchable.turnOnOff();
 					}
 				}
 			}

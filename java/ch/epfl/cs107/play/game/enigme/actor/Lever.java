@@ -18,21 +18,15 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
 
-public class Lever extends AreaEntity implements Logic{
+public class Lever extends Switchable implements Logic{
 	
-	private boolean isLeft;
-	private Sprite left = new Sprite("lever.big.left", 1, 1.f, this);
-	private Sprite right = new Sprite("lever.big.right", 1, 1.f, this);
 
 	public Lever(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
-		isLeft = false;
-	}
-
-	@Override
-	public List<DiscreteCoordinates> getCurrentCells() {
-		
-		return Collections.singletonList(getCurrentMainCellCoordinates());
+		isOn = false;
+		onPicture = new Sprite("lever.big.left", 1, 1.f, this);
+		offPicture = new Sprite("lever.big.right", 1, 1.f, this);
+				
 	}
 
 	@Override
@@ -51,33 +45,6 @@ public class Lever extends AreaEntity implements Logic{
 	public boolean isCellInteractable() {
 
 		return true;
-	}
-
-	@Override
-	public void acceptInteraction(AreaInteractionVisitor v) {
-		((EnigmeInteractionVisitor)v).interactWith(this);
-		
-	}
-
-	@Override
-	public void draw(Canvas canvas) {
-		if(isLeft) {
-			left.draw(canvas);
-		}
-		else {
-			right.draw(canvas);
-		}
-		
-	}
-
-	@Override
-	public boolean isOn() {
-	
-		return isLeft;
-	}
-	
-	public void switchLever() {
-		isLeft = !isLeft;
 	}
 
 }

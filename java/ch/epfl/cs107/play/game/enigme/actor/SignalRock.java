@@ -1,6 +1,6 @@
 /*
  *	Author:      Emmanuelle Denove
- *	Date:        8 Dec 2018
+ *	Date:        9 Dec 2018
  */
 
 package ch.epfl.cs107.play.game.enigme.actor;
@@ -18,26 +18,28 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
 
-public class PressureSwitch extends Switchable implements Logic{
+public class SignalRock extends AreaEntity implements Logic{
 	
-	
+	private Logic signal;
+	private Sprite rock = new Sprite("rock.3", 1, 1.f, this);
 
-	public PressureSwitch(Area area, Orientation orientation, DiscreteCoordinates position) {
+	public SignalRock(Area area, Orientation orientation, DiscreteCoordinates position, Logic signal) {
 		super(area, orientation, position);
-		isOn = false;
-		onPicture = new Sprite("GroundLightOn", 1, 1.f, this);
-		offPicture = new Sprite("GroundLightOff", 1, 1.f, this);
+		this.signal = signal;
 	}
 
 	@Override
 	public List<DiscreteCoordinates> getCurrentCells() {
-		
+
 		return Collections.singletonList(getCurrentMainCellCoordinates());
 	}
 
 	@Override
 	public boolean takeCellSpace() {
+	if(isOn()) {
 		return false;
+	}
+	return true;
 	}
 
 	@Override
@@ -48,7 +50,8 @@ public class PressureSwitch extends Switchable implements Logic{
 
 	@Override
 	public boolean isCellInteractable() {
-		return true;
+		
+		return false;
 	}
 
 	@Override
@@ -57,6 +60,20 @@ public class PressureSwitch extends Switchable implements Logic{
 		
 	}
 
-	
+	@Override
+	public void draw(Canvas canvas) {
+		if(!isOn()) {
+			rock.draw(canvas);
+		}
+		
+	}
+
+	@Override
+	public boolean isOn() {
+		if(signal == Logic.TRUE) {
+			return true;
+		}
+		return false;
+	}
 
 }

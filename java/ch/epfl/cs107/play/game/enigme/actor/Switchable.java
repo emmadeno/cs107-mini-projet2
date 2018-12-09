@@ -1,6 +1,6 @@
 /*
  *	Author:      Emmanuelle Denove
- *	Date:        8 Dec 2018
+ *	Date:        9 Dec 2018
  */
 
 package ch.epfl.cs107.play.game.enigme.actor;
@@ -18,37 +18,20 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
 
-public class PressureSwitch extends Switchable implements Logic{
+public abstract class Switchable extends AreaEntity implements Logic{
 	
-	
+	protected boolean isOn;
+	protected Sprite onPicture;
+	protected Sprite offPicture;
 
-	public PressureSwitch(Area area, Orientation orientation, DiscreteCoordinates position) {
+	public Switchable(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
-		isOn = false;
-		onPicture = new Sprite("GroundLightOn", 1, 1.f, this);
-		offPicture = new Sprite("GroundLightOff", 1, 1.f, this);
 	}
 
 	@Override
 	public List<DiscreteCoordinates> getCurrentCells() {
 		
-		return Collections.singletonList(getCurrentMainCellCoordinates());
-	}
-
-	@Override
-	public boolean takeCellSpace() {
-		return false;
-	}
-
-	@Override
-	public boolean isViewInteractable() {
-		
-		return false;
-	}
-
-	@Override
-	public boolean isCellInteractable() {
-		return true;
+	 return Collections.singletonList(getCurrentMainCellCoordinates());
 	}
 
 	@Override
@@ -57,6 +40,26 @@ public class PressureSwitch extends Switchable implements Logic{
 		
 	}
 
+	@Override
+	public void draw(Canvas canvas) {
+		if(isOn) {
+			onPicture.draw(canvas);
+		}
+		else {
+			offPicture.draw(canvas);
+		}
+		
+	}
+
+	@Override
+	public boolean isOn() {
+
+		return isOn;
+	}
+	
+	public void turnOnOff() {
+		isOn = !isOn;
+	}
 	
 
 }

@@ -13,6 +13,8 @@ import ch.epfl.cs107.play.game.enigme.actor.Lever;
 import ch.epfl.cs107.play.game.enigme.actor.Pickup;
 import ch.epfl.cs107.play.game.enigme.actor.PressurePlate;
 import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
+import ch.epfl.cs107.play.game.enigme.actor.Switchable;
+import ch.epfl.cs107.play.game.enigme.actor.Torch;
 
 public interface EnigmeInteractionVisitor extends AreaInteractionVisitor {
 	
@@ -20,17 +22,15 @@ public interface EnigmeInteractionVisitor extends AreaInteractionVisitor {
 		//by default this interaction is empty
 	}
 	
-	default void interactWith(PressureSwitch pressureSwitch) {
+	default void interactWith(Switchable switchable) {
 		//by default this interaction is empty
 	}
 	
-	default void interactWith(Lever lever) {
-		//by default this interaction is empty
-	}
 	
 	default void interactWith(PressurePlate pressurePlate) {
 		//by default this interaction is empty
 	}
+	
 	
 	default void interactWith(EnigmeBehavior.EnigmeCell cell) {
 		//by default this interaction is empty
