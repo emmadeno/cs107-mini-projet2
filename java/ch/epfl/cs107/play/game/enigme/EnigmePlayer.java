@@ -46,22 +46,15 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		
 		@Override
 		public void interactWith(Door door) {
-			
-				if (moves) {
 					
-						EnigmePlayer.this.setIsPassingDoor(door);
-						moves = false;
-				}
+	     	EnigmePlayer.this.setIsPassingDoor(door);
+
 		}
 		
 		public void interactWith(PressurePlate pressurePlate) {
-			
-			if(moves) {
-					
-					pressurePlate.setCurrentTime();
-					pressurePlate.switchOnOff(true);		
-					moves = false;
-			}
+
+			pressurePlate.setCurrentTime();
+			pressurePlate.switchOnOff(true);		
 	}
 		
 		@Override
@@ -72,22 +65,14 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			if(switchable.isViewInteractable()) {
 			
 			if(keyboard.get(Keyboard.L).isPressed()) { //si on presse la touche L
-	
-				List <DiscreteCoordinates> fieldView = EnigmePlayer.this.getFieldOfViewCells();
-				for(DiscreteCoordinates cellView: fieldView) { 					//on itère sur les coordonées de fieldView
-					for(DiscreteCoordinates coord: switchable.getCurrentCells()) {  // on itère sur les coord du pickup
-						
-						if(cellView.equals(coord)){ // si la pomme se trouve sur le fieldView de l'acteur 
 							switchable.turnOnOff();
 						}
 					}
-				}
-			}
-			}
 			
 			if(switchable.isCellInteractable()) {
 					 
 					if(moves) {
+						System.out.println("should turn on");
 						switchable.turnOnOff();
 						moves = false;
 					
@@ -285,11 +270,12 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 	public void interactWith(Interactable other) {
 		other.acceptInteraction(handler);
 	}
-
+	
 	@Override
 	public void acceptInteraction(AreaInteractionVisitor v) {
-		// TODO Auto-generated method stub
+		((EnigmeInteractionVisitor)v).interactWith(this);
 		
 	}
+
 
 }

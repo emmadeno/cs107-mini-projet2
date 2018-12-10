@@ -141,7 +141,7 @@ public class Level3 extends EnigmeArea{
 		if (!multipleAnd.isOn()) {
 			rock2.setSignal(Logic.FALSE);
 		}
-		*/
+		
 		
 		if((lever1.isOn() && lever3.isOn() && !lever2.isOn()) || torch.isOn()) {
 			rock3.setSignal(Logic.TRUE);
@@ -149,7 +149,7 @@ public class Level3 extends EnigmeArea{
 		if(!((lever1.isOn() && lever3.isOn() && !lever2.isOn()) || torch.isOn())) {
 			rock3.setSignal(Logic.FALSE);
 		}
-		
+		*/
 		
 	}
 

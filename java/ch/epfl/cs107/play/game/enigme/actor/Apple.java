@@ -31,7 +31,6 @@ public class Apple extends Pickup{
 	@Override
 	public void draw(Canvas canvas) {
 		apple.draw(canvas);
-		
 	}
 
 	@Override
