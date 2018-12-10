@@ -51,7 +51,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
     	List<DiscreteCoordinates> coordList = new ArrayList<DiscreteCoordinates>();
     
     	for (DiscreteCoordinates coordinate : getCurrentCells()) {
-    		if (coordinate.x <= getArea().getWidth() && coordinate.y <= getArea().getHeight()) {
+    		if (coordinate.x > 0 && coordinate.y > 0 && coordinate.x <= getArea().getWidth() && coordinate.y <= getArea().getHeight()) {
     		    coordList.add(coordinate.jump(this.getOrientation().toVector()));
     		}
     	}
@@ -81,31 +81,31 @@ public abstract class MovableAreaEntity extends AreaEntity {
     protected boolean move(int framesForMove){
     	
     	//if(this.getArea().enterAreaCells(this, getEnteringCells()) && this.getArea().leaveAreaCells(this, getLeavingCells())) {
-        
-    	if (!isMoving || this.getPosition() == targetMainCellCoordinates.toVector()) {
+
+    	if (!isMoving || getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)) {
     		boolean canLeave = this.getArea().leaveAreaCells(this, getLeavingCells());
     		boolean canEnter = this.getArea().enterAreaCells(this, getEnteringCells());
+    		if (canLeave && canEnter) {
     		
-    		if (!canLeave || !canEnter) {
-    			return false;
-    		}
-    		else {
-    			if (framesForMove <= 1) {
-    				framesForCurrentMove = framesForMove;
+    			if (framesForMove < 1) {
+    				framesForCurrentMove = 1;
     			}
     			else {
-    				framesForCurrentMove = 1;
+    				framesForCurrentMove = framesForMove;
     			}
     			
     			Vector orientation = getOrientation().toVector();
+    			    			
     			targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
     			isMoving = true;
     			
     			moves = true;
-    			return true;
     			
-    		}
+    		
+    		
     	//}
+    	}
+    		return true;
     	}
     	
         return false;
@@ -116,11 +116,10 @@ public abstract class MovableAreaEntity extends AreaEntity {
 
     @Override
     public void update(float deltaTime) {
-        if (this.getPosition() != targetMainCellCoordinates.toVector() && isMoving) {
+        if (isMoving && !getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)) {
         	Vector distance = getOrientation().toVector();
         	distance = distance.mul(1.0f / framesForCurrentMove);
         	setCurrentPosition(getPosition().add(distance));
-        	isMoving = false;
         }
         else {
         	resetMotion();
@@ -135,5 +134,12 @@ public abstract class MovableAreaEntity extends AreaEntity {
         // the velocity must be computed as the orientation vector (getOrientation().toVector() mutiplied by 
     	// framesForCurrentMove
         return null;
+    }
+    
+    @Override
+    protected void setOrientation(Orientation orientation) {
+    	if(!isMoving) {
+    		super.setOrientation(orientation);
+    	}
     }
 }

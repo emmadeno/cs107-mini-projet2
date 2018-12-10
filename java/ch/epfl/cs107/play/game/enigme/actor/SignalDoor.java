@@ -29,15 +29,13 @@ public class SignalDoor extends Door implements Logic{
 
 	@Override
 	public boolean isOn() {
-		if(signal == Logic.TRUE) {
-			return true;
-		}
-		return false;
+
+		return signal.isOn();
 	}
 	
 	@Override
 	public void draw(Canvas canvas) {
-		if (isOn()) {
+		if (signal.isOn()) {
 			openDoor.draw(canvas);
 		}
 		else {
@@ -47,13 +45,19 @@ public class SignalDoor extends Door implements Logic{
 	
 	@Override
 	public void acceptInteraction(AreaInteractionVisitor v) {
-		if(isOn()) {
+		if(signal.isOn()) {
 		((EnigmeInteractionVisitor)v).interactWith(this);
 		}
 	}
 	
 	public void setSignal(Logic logic) {
 		signal = logic;
+	}
+	
+	@Override
+	public void update(float deltaTime) {
+		super.update(deltaTime);
+		
 	}
 
 }

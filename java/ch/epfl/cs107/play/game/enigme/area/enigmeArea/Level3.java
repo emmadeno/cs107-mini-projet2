@@ -63,7 +63,7 @@ public class Level3 extends EnigmeArea{
 	private void createActors(){
 		
 		DiscreteCoordinates signalDoor = new DiscreteCoordinates(5,9);
-		DiscreteCoordinates position = new DiscreteCoordinates(3,6);
+		DiscreteCoordinates position = new DiscreteCoordinates(3,4);
 		
 		key = new Key(this, Orientation.DOWN, new DiscreteCoordinates(1,3));
 		actors.add(key);
@@ -99,7 +99,7 @@ public class Level3 extends EnigmeArea{
 		lever3 = new Lever(this, Orientation.DOWN, new DiscreteCoordinates(8,5));
 		actors.add(lever3);
 		
-		door1 = new SignalDoor(this, Orientation.DOWN, "LevelSelector",signalDoor,position, new Circle(0.5f,signalDoor.toVector()), Logic.FALSE);
+		door1 = new SignalDoor(this, Orientation.DOWN, "LevelSelector",signalDoor,position, new Circle(0.5f,signalDoor.toVector()), key);
 		actors.add(door1);
 		
 		rock1 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(6,8), Logic.FALSE);
@@ -123,9 +123,9 @@ public class Level3 extends EnigmeArea{
 			switchesLogic.add(pswitch.getSignal());
 	}
 		
-		if(key.isOn()) {
-			door1.setSignal(Logic.TRUE);
-		}
+		//if(key.isOn()) {
+		//	door1.setSignal(Logic.TRUE);
+		//}
 		if (pressurePlate.isOn()) {
 			rock1.setSignal(Logic.TRUE);
 		}

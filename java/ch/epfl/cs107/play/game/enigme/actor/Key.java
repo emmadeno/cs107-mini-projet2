@@ -22,13 +22,12 @@ import ch.epfl.cs107.play.window.Canvas;
 public class Key extends Pickup implements Logic{
 	
 	private Sprite key = new Sprite("key.1", 1, 1.f, this);
-	private boolean isOn;  //besoin ?
 	private boolean isCollected;
+	private Logic logic;
 
 	public Key(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
 		this.setOrientation(Orientation.DOWN);
-		isOn = false;
 		isCollected = false;
 	}
 
@@ -58,10 +57,16 @@ public class Key extends Pickup implements Logic{
 		return false;
 	}
 	
+	
 	@Override
 	public void update(float f) {
 		super.update(f);
-		isOn = isOn();
+		if(isOn()) {
+			logic = Logic.TRUE;
+		}
+		else {
+			logic = Logic.FALSE;
+		}
 	}
 
 

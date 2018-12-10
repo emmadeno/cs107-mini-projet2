@@ -44,7 +44,7 @@ public abstract class AreaEntity extends Entity implements Interactable {
      * @return (DiscreteCoordinates)
      */
     protected DiscreteCoordinates getCurrentMainCellCoordinates(){
-        // TODO implements me #PROJECT #TUTO
+      
         return currentMainCellCoordinates;
     }
     
@@ -52,9 +52,7 @@ public abstract class AreaEntity extends Entity implements Interactable {
     protected void setCurrentPosition(Vector v){
         
         if (DiscreteCoordinates.isCoordinates(v)) {
-        	DiscreteCoordinates position;
         	final Vector vect = v.round();
-        	position = new DiscreteCoordinates((int)vect.getX(),(int)vect.getY());
         	currentMainCellCoordinates = new DiscreteCoordinates((int)vect.getX(),(int)vect.getY()); 
         	super.setCurrentPosition(vect);
         }

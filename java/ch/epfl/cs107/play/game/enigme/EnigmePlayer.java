@@ -30,6 +30,7 @@ import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
 import ch.epfl.cs107.play.game.enigme.actor.Switchable;
 import ch.epfl.cs107.play.game.enigme.actor.Torch;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 
@@ -171,12 +172,17 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 	
 	@Override
 	public void update(float deltatime) {
+		
 		Keyboard keyboard = this.getArea().getKeyboard();
+		Button left = keyboard.get(Keyboard.LEFT);
+		Button right = keyboard.get(Keyboard.RIGHT);
+		Button up = keyboard.get(Keyboard.UP);
+		Button down = keyboard.get(Keyboard.DOWN);
 		
 		
 		// update du champ de vision en même temps que l'orientation.
 		
-		if(keyboard.get(Keyboard.LEFT).isDown()) {
+		if(left.isDown()) {
 			
 			if(this.getOrientation()== Orientation.LEFT) {
 				
@@ -189,7 +195,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			}
 			
 		}
-		if(keyboard.get(Keyboard.RIGHT).isDown()) {
+		if(right.isDown()) {
 			
 			if(this.getOrientation()== Orientation.RIGHT) {
 				
@@ -203,7 +209,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			}
 			
 		}
-		if(keyboard.get(Keyboard.UP).isDown()) {
+		if(up.isDown()) {
 			
 			if(this.getOrientation()== Orientation.UP) {
 				
@@ -216,7 +222,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			}
 			
 		}
-		if(keyboard.get(Keyboard.DOWN).isDown()) {
+		if(down.isDown()) {
 			
 			if(this.getOrientation()== Orientation.DOWN) {
 				
