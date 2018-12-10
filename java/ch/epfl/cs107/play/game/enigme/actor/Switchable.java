@@ -16,11 +16,13 @@ import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.areagame.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.signal.logic.Logic;
+import ch.epfl.cs107.play.signal.logic.Not;
 import ch.epfl.cs107.play.window.Canvas;
 
 public abstract class Switchable extends AreaEntity implements Logic{
 	
 	protected boolean isOn;
+	protected Logic signal;
 	protected Sprite onPicture;
 	protected Sprite offPicture;
 
@@ -59,7 +61,11 @@ public abstract class Switchable extends AreaEntity implements Logic{
 	
 	public void turnOnOff() {
 		isOn = !isOn;
+		signal = new Not(signal);
 	}
-	
+
+	public Logic getSignal() {
+		return signal;
+	}
 
 }

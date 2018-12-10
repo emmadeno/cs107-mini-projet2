@@ -14,7 +14,6 @@ public class And extends LogicSignal {
 	
 	@Override
 	public boolean isOn() {
-
 		
 		if(one != null && two != null) {
 			if(one.isOn() && two.isOn()) {

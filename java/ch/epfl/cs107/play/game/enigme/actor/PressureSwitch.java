@@ -25,6 +25,7 @@ public class PressureSwitch extends Switchable implements Logic{
 	public PressureSwitch(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
 		isOn = false;
+		signal = Logic.FALSE;
 		onPicture = new Sprite("GroundLightOn", 1, 1.f, this);
 		offPicture = new Sprite("GroundLightOff", 1, 1.f, this);
 	}

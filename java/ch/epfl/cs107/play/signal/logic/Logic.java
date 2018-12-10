@@ -11,7 +11,7 @@ public interface Logic extends Signal {
 	
 Logic TRUE = new Logic() { 
 	@Override
-		public boolean isOn() { 
+		public boolean isOn() {
 			return true;
 		} 
 };

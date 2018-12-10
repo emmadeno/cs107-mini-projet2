@@ -43,7 +43,9 @@ public class MultipleAnd extends LogicSignal{
 				
 			}
 			
+			
 		}
+		
 		
 		if(nbTests == multipleAnd) {
 			return true;

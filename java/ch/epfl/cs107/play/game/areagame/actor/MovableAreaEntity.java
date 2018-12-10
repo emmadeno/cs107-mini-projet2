@@ -26,6 +26,8 @@ public abstract class MovableAreaEntity extends AreaEntity {
     
     //The target cell where the mainCell will be after the motion
     private DiscreteCoordinates targetMainCellCoordinates;
+    
+    protected boolean moves;
 
     /**
      * Default MovableAreaEntity constructor
@@ -99,6 +101,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
     			targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
     			isMoving = true;
     			
+    			moves = true;
     			return true;
     			
     		}

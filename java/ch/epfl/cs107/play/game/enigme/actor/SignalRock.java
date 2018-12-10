@@ -75,5 +75,9 @@ public class SignalRock extends AreaEntity implements Logic{
 		}
 		return false;
 	}
+	
+	public void setSignal(Logic signal) {
+		this.signal = signal;
+	}
 
 }

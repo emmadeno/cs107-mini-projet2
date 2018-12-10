@@ -46,25 +46,20 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		@Override
 		public void interactWith(Door door) {
 			
-				for(DiscreteCoordinates porte: door.getCurrentCells()) {  // on itère sur les coord de door
-					
-					if(EnigmePlayer.this.getCurrentMainCellCoordinates().equals(porte)){ // si la porte se trouve sur le fieldView de l'acteur 
+				if (moves) {
 					
 						EnigmePlayer.this.setIsPassingDoor(door);
-					}
+						moves = false;
 				}
 		}
 		
 		public void interactWith(PressurePlate pressurePlate) {
 			
-			for(DiscreteCoordinates bouton: pressurePlate.getCurrentCells()) {  // on itère sur les coord de pressureSwitch
-				
-				if(EnigmePlayer.this.getCurrentMainCellCoordinates().equals(bouton)){ // si le bouton se trouve en dessous de l'acteur 
+			if(moves) {
 					
 					pressurePlate.setCurrentTime();
-					pressurePlate.switchOnOff(true);
-					
-				}
+					pressurePlate.switchOnOff(true);		
+					moves = false;
 			}
 	}
 		
@@ -75,8 +70,8 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			
 			if(switchable.isViewInteractable()) {
 			
-			if(keyboard.get(Keyboard.L).isReleased()) { //si on presse la touche L
-				
+			if(keyboard.get(Keyboard.L).isLastPressed()) { //si on presse la touche L
+	
 				List <DiscreteCoordinates> fieldView = EnigmePlayer.this.getFieldOfViewCells();
 				for(DiscreteCoordinates cellView: fieldView) { 					//on itère sur les coordonées de fieldView
 					for(DiscreteCoordinates coord: switchable.getCurrentCells()) {  // on itère sur les coord du pickup
@@ -90,12 +85,11 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			}
 			
 			if(switchable.isCellInteractable()) {
-				for(DiscreteCoordinates bouton: switchable.getCurrentCells()) {  // on itère sur les coord de pressureSwitch
-					
-					if(EnigmePlayer.this.getCurrentMainCellCoordinates().equals(bouton)){ // si le bouton se trouve sur le fieldView de l'acteur 
-					
+					 
+					if(moves) {
 						switchable.turnOnOff();
-					}
+						moves = false;
+					
 				}
 			}
 		}

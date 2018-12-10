@@ -22,11 +22,26 @@ import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.signal.logic.Logic;
+import ch.epfl.cs107.play.signal.logic.MultipleAnd;
+import ch.epfl.cs107.play.signal.logic.Not;
 import ch.epfl.cs107.play.window.Window;
 
 public class Level3 extends EnigmeArea{
 	
 	private List<Actor> actors = new LinkedList<Actor>();
+	private Key key;
+	private Torch torch;
+	private SignalDoor door1;
+	private SignalRock rock1;
+	private SignalRock rock2;
+	private SignalRock rock3;
+	private Lever lever1;
+	private Lever lever2;
+	private Lever lever3;
+	private PressurePlate pressurePlate;
+	private List<PressureSwitch> switches  = new LinkedList<PressureSwitch>();
+	private List<Logic> switchesLogic  = new LinkedList<Logic>();
+	private MultipleAnd multipleAnd;
 	
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
@@ -50,11 +65,14 @@ public class Level3 extends EnigmeArea{
 		DiscreteCoordinates signalDoor = new DiscreteCoordinates(5,9);
 		DiscreteCoordinates position = new DiscreteCoordinates(3,6);
 		
-		actors.add(new Key(this, Orientation.DOWN, new DiscreteCoordinates(1,3)));
+		key = new Key(this, Orientation.DOWN, new DiscreteCoordinates(1,3));
+		actors.add(key);
 		
-		actors.add(new Torch(this, Orientation.DOWN, new DiscreteCoordinates(7, 5), true));
+		torch = new Torch(this, Orientation.DOWN, new DiscreteCoordinates(7, 5), true);
+		actors.add(torch);
 		
-		actors.add(new PressurePlate(this, Orientation.DOWN, new DiscreteCoordinates(9,8)));
+		pressurePlate = new PressurePlate(this, Orientation.DOWN, new DiscreteCoordinates(9,8));
+		actors.add(pressurePlate);
 		
 		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(4,4)));
 		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(5,4)));
@@ -64,20 +82,71 @@ public class Level3 extends EnigmeArea{
 		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(5,6)));
 		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(6,6)));
 		
-		actors.add(new Lever(this, Orientation.DOWN, new DiscreteCoordinates(10,5)));
-		actors.add(new Lever(this, Orientation.DOWN, new DiscreteCoordinates(9,5)));
-		actors.add(new Lever(this, Orientation.DOWN, new DiscreteCoordinates(8,5)));
 		
-		actors.add(new SignalDoor(this, Orientation.DOWN, "LevelSelector",signalDoor,position, new Circle(0.5f,signalDoor.toVector()), Logic.TRUE));
+		for(Actor actor : actors) {
+			if(actor instanceof PressureSwitch) {
+				switches.add((PressureSwitch) actor);
+			}
+		}
 		
-		actors.add(new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(6,8), Logic.FALSE));
-		actors.add(new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(5,8), Logic.FALSE));
-		actors.add(new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(4,8), Logic.FALSE));
+		
+		multipleAnd = new MultipleAnd(switchesLogic);
+		
+		lever1 = new Lever(this, Orientation.DOWN, new DiscreteCoordinates(10,5)); 
+		actors.add(lever1);
+		lever2 = new Lever(this, Orientation.DOWN, new DiscreteCoordinates(9,5));
+		actors.add(lever2);
+		lever3 = new Lever(this, Orientation.DOWN, new DiscreteCoordinates(8,5));
+		actors.add(lever3);
+		
+		door1 = new SignalDoor(this, Orientation.DOWN, "LevelSelector",signalDoor,position, new Circle(0.5f,signalDoor.toVector()), Logic.FALSE);
+		actors.add(door1);
+		
+		rock1 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(6,8), Logic.FALSE);
+		actors.add(rock1);
+		rock2 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(5,8), Logic.FALSE);
+		actors.add(rock2);
+		rock3 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(4,8), Logic.FALSE);
+		actors.add(rock3);
 	}
 	
 	@Override
 	public String getTitle() {
 		return "Level3";
+	}
+	
+	@Override
+	public void update(float dT) {
+		super.update(dT);
+		
+		for(PressureSwitch pswitch : switches) {
+			switchesLogic.add(pswitch.getSignal());
+	}
+		
+		if(key.isOn()) {
+			door1.setSignal(Logic.TRUE);
+		}
+		if (pressurePlate.isOn()) {
+			rock1.setSignal(Logic.TRUE);
+		}
+		if (!pressurePlate.isOn()) {
+			rock1.setSignal(Logic.FALSE);
+		}
+		if (multipleAnd.isOn()) {
+			rock2.setSignal(Logic.TRUE);
+		}
+		if (!multipleAnd.isOn()) {
+			rock2.setSignal(Logic.FALSE);
+		}
+		if((lever1.isOn() && lever3.isOn() && !lever2.isOn()) || torch.isOn()) {
+			rock3.setSignal(Logic.TRUE);
+		}
+		if(!((lever1.isOn() && lever3.isOn() && !lever2.isOn()) || torch.isOn())) {
+			rock3.setSignal(Logic.FALSE);
+		}
+		
+		switchesLogic.clear();
+		
 	}
 
 }

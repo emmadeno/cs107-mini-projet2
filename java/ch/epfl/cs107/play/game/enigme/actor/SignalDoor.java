@@ -51,5 +51,9 @@ public class SignalDoor extends Door implements Logic{
 		((EnigmeInteractionVisitor)v).interactWith(this);
 		}
 	}
+	
+	public void setSignal(Logic logic) {
+		signal = logic;
+	}
 
 }

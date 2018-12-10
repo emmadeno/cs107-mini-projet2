@@ -26,7 +26,7 @@ public class PressurePlate extends AreaEntity implements Logic{
 	private Sprite plateOff = new Sprite("GroundPlateOff", 1, 1.f, this);
 	private float time;
 	private float currentTime;
-	private float activationTime = 2f;
+	private final float ACTIVATION_TIME = 3f;
 
 	public PressurePlate(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
@@ -85,7 +85,7 @@ public class PressurePlate extends AreaEntity implements Logic{
 	}
 	
 	public void switchPlate(float currentTime) {
-		if(time - currentTime > activationTime) {
+		if(time - currentTime > ACTIVATION_TIME) {
 			isOn = false;
 		}
 	}
