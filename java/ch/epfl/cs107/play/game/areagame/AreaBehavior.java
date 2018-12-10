@@ -39,17 +39,23 @@ public abstract class AreaBehavior
 				interact = new HashSet<>();
 				
 			}
+			@Override
 			public List<DiscreteCoordinates> getCurrentCells(){
 		 		
 		 		List<DiscreteCoordinates> coordonees = new ArrayList<DiscreteCoordinates>();
 		 		coordonees.add(cellCoord);
 		 		return coordonees;
 		 	}
-			
+			/**
+			 * @param entity(Interactable) : ajoute entity au set d'interactables
+			 */
 			private void enter(Interactable entity) {
 				interact.add(entity);
 			}
 			
+			/**
+			 * @param entity(Interactable) : supprime entity du set d'interactables
+			 */
 			private void leave(Interactable entity) {
 				interact.remove(entity);
 			}
@@ -95,6 +101,12 @@ public abstract class AreaBehavior
     	cells = new Cell[width][height];
     }
     
+    /**
+     * 
+     * @param entity(Interactable) : l'acteur qui veut se placer sur la cellule
+     * @param coordinates(DiscreteCoordinates) : coordonnées de la cellule sur laquelle il veut se placer
+     * @return
+     */
     public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
     	int authorization = 0;
     	for(int i = 0; i < coordinates.size(); i++) {

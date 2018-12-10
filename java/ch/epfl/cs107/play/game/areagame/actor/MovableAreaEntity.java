@@ -39,18 +39,25 @@ public abstract class MovableAreaEntity extends AreaEntity {
         resetMotion();
     }
 
-    //methodes permettant de savoir quells cellules sont quittees ou atteintes par l'acteur
+    /**
+     * @return (List<DiscreteCoordinates>) : cellules que l'acteur va quitter
+     */
     protected final List<DiscreteCoordinates> getLeavingCells(){
     	
     	return getCurrentCells();
     }
     
+    /**
+     * @return (List<DiscreteCoordinates>) : cellules vers lesquelles l'acteur va se déplacer
+     */
     protected final List<DiscreteCoordinates> getEnteringCells(){
     	
     	List<DiscreteCoordinates> coordList = new ArrayList<DiscreteCoordinates>();
     
     	for (DiscreteCoordinates coordinate : getCurrentCells()) {
-    		if (coordinate.x > 0 && coordinate.y > 0 && coordinate.x <= getArea().getWidth() && coordinate.y <= getArea().getHeight()) {
+    		if (coordinate.x > 0 && coordinate.y > 0 && 
+    			coordinate.x <= getArea().getWidth() && 
+    			coordinate.y <= getArea().getHeight()) {
     		    coordList.add(coordinate.jump(this.getOrientation().toVector()));
     		}
     	}
@@ -72,18 +79,17 @@ public abstract class MovableAreaEntity extends AreaEntity {
     }
 
     /**
-     * 
+     * move method : amorce un déplacement et retourne true si l'acteur n'est pas déjà en train de bouger
      * @param frameForMove (int): number of frames used for simulating motion
      * @return (boolean): returns true if motion can occur
      */
   
     protected boolean move(int framesForMove){
-    	
-    	//if(this.getArea().enterAreaCells(this, getEnteringCells()) && this.getArea().leaveAreaCells(this, getLeavingCells())) {
-    	
-
-
-    	if (!isMoving || getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)) {
+    
+    	// si il n'est pas entrain de se déplacer ou qu'il a atteint sa cible
+    	if (!isMoving || getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)) { 
+    		
+    		// restrictions de l'aire
     		boolean canLeave = this.getArea().leaveAreaCells(this, getLeavingCells());
     		boolean canEnter = this.getArea().enterAreaCells(this, getEnteringCells());
     		if (canLeave && canEnter) {
@@ -99,9 +105,6 @@ public abstract class MovableAreaEntity extends AreaEntity {
     			    			
     			targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
     			isMoving = true;
-
-    		
-    	//}
     	}
     		return true;
     	}

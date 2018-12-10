@@ -13,8 +13,6 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
  */
 public abstract class AreaEntity extends Entity implements Interactable {
 
-    // TODO implements me #PROJECT #TUTO
-
     /**
      * Default AreaEntity constructor
      * @param area (Area): Owner area. Not null
@@ -48,11 +46,11 @@ public abstract class AreaEntity extends Entity implements Interactable {
         return currentMainCellCoordinates;
     }
     
-    // redéfinition de la methode setcurrentposition de Entity
+    @Override
     protected void setCurrentPosition(Vector v){
         
-        if (DiscreteCoordinates.isCoordinates(v)) {
-        	final Vector vect = v.round();
+        if (DiscreteCoordinates.isCoordinates(v)) { // si assez proche de coordonnées discrètes
+        	final Vector vect = v.round(); //coord arrondies
         	currentMainCellCoordinates = new DiscreteCoordinates((int)vect.getX(),(int)vect.getY()); 
         	super.setCurrentPosition(vect);
         }
@@ -62,6 +60,10 @@ public abstract class AreaEntity extends Entity implements Interactable {
         
     }
     
+    /**
+     * 
+     * @return l'aire associe a l'acteur
+     */
     protected Area getArea() {
     	return ownerArea;
     }
@@ -75,6 +77,10 @@ public abstract class AreaEntity extends Entity implements Interactable {
     	this.orientation = orientation;
     }
     
+    /**
+     * 
+     * @param area(Area) : change l'ownerArea de l'acteur lorsqu'il change d'aire
+     */
     public void setOwnerArea(Area area) {
     	ownerArea = area;
     }

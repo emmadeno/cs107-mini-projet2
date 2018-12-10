@@ -99,7 +99,10 @@ abstract public class AreaGame implements Game {
         return fileSystem;
     }
 
-    
+    /**
+     * 
+     * @return (Area) l'aire courante où l'on se trouve
+     */
     public Area getCurrentArea() {
     	return currentArea;
     }

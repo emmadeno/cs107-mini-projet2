@@ -13,16 +13,27 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 public interface Interactable {
     // TODO implements me #PROJECT #TUTO
 	
-	//occupe une liste de cellules
+	/**
+	 * 
+	 * @return (DiscreteCoordinates) une liste de coordonnées qui indique 
+	 * 								la position de l'acteur
+	 */
 	public List<DiscreteCoordinates> getCurrentCells();
 	
-	// rends la cellule non traversable si il l'occupe
+	/**
+	 * takeCellSpace method : rend la cellule non traversable si il l'occupe
+	 * @return (boolean) true si n'est pas traversable
+	 */
 	public boolean takeCellSpace();
 	
-	//indique si il accepte les interactions distantes
+	/**
+	 * isViewInteractable method: indique si l'acteur accepte les interactions à distance
+	 */
 	public boolean isViewInteractable();
 	
-	// indique si il accepte les interactions de contact
+	/**
+	 * @return(boolean) true si il accepte les interactions de contact
+	 */
 	public boolean isCellInteractable();
 	
 	void acceptInteraction(AreaInteractionVisitor v);

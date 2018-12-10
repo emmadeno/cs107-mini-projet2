@@ -241,7 +241,7 @@ public abstract class Area implements Playable {
     }
     
    /**
-    * update actor and interactable lists every time the game is updated
+    * purgeRegistration method : update actor and interactable lists every time the game is updated
     */
     
     private final void purgeRegistration() {
