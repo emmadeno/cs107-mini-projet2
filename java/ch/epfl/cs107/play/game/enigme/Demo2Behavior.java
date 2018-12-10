@@ -116,8 +116,8 @@ public class Demo2Behavior extends AreaBehavior{
 
 		@Override
 		protected boolean canLeave(Interactable entity) {
-			// TODO Auto-generated method stub
-			return false;
+
+			return true;
 		}
 		
 	}

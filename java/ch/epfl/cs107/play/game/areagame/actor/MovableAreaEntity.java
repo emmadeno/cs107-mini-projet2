@@ -85,6 +85,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
     	if (!isMoving || this.getPosition() == targetMainCellCoordinates.toVector()) {
     		boolean canLeave = this.getArea().leaveAreaCells(this, getLeavingCells());
     		boolean canEnter = this.getArea().enterAreaCells(this, getEnteringCells());
+    		System.out.println("canLeave : " + canLeave + " ; canEnter : " + canEnter);
     		
     		if (!canLeave || !canEnter) {
     			return false;

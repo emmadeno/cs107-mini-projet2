@@ -82,6 +82,7 @@ public class Demo2Player extends MovableAreaEntity{
 		Keyboard keyboard = this.getArea().getKeyboard();
 		
 		if(keyboard.get(Keyboard.LEFT).isDown()) {
+		
 			
 			if(this.getOrientation()== Orientation.LEFT) {
 				
