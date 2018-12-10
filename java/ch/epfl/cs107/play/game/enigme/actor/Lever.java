@@ -44,7 +44,7 @@ public class Lever extends Switchable implements Logic{
 	@Override
 	public boolean isCellInteractable() {
 
-		return true;
+		return false;
 	}
 
 }

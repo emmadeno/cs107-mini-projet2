@@ -92,31 +92,26 @@ public class Demo2Behavior extends AreaBehavior{
 
 		@Override
 		public boolean takeCellSpace() {
-			// TODO Auto-generated method stub
 			return false;
 		}
 
 		@Override
 		public boolean isViewInteractable() {
-			// TODO Auto-generated method stub
 			return false;
 		}
 
 		@Override
 		public boolean isCellInteractable() {
-			// TODO Auto-generated method stub
 			return true;
 		}
 
 		@Override
 		public void acceptInteraction(AreaInteractionVisitor v) {
-			// TODO Auto-generated method stub
-			
+			// interactions are not used in Demo2
 		}
 
 		@Override
 		protected boolean canLeave(Interactable entity) {
-
 			return true;
 		}
 		

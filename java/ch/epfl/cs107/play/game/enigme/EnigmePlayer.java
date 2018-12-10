@@ -70,7 +70,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			
 			if(switchable.isViewInteractable()) {
 			
-			if(keyboard.get(Keyboard.L).isLastPressed()) { //si on presse la touche L
+			if(keyboard.get(Keyboard.L).isPressed()) { //si on presse la touche L
 	
 				List <DiscreteCoordinates> fieldView = EnigmePlayer.this.getFieldOfViewCells();
 				for(DiscreteCoordinates cellView: fieldView) { 					//on itère sur les coordonées de fieldView
@@ -101,7 +101,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			
 			Keyboard keyboard = EnigmePlayer.this.getArea().getKeyboard();
 			
-			if(keyboard.get(Keyboard.L).isLastPressed()) { //si on presse la touche L
+			if(keyboard.get(Keyboard.L).isPressed()) { //si on presse la touche L
 				
 				List <DiscreteCoordinates> fieldView = EnigmePlayer.this.getFieldOfViewCells();
 				for(DiscreteCoordinates cellView: fieldView) { 					//on itère sur les coordonées de fieldView
