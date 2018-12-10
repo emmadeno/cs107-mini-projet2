@@ -20,16 +20,18 @@ public abstract class AreaBehavior
 {
 
     /// The behavior is an Image of size height x width
-    // TODO implements me #PROJECT #TUTO
 	private final Image behaviorMap; 
 	private final int width, height; 
 	/// We will convert the image into an array of cells 
 	private final Cell[][] cells;
-		
-	 public abstract class Cell implements Interactable{
+	
+	/**
+	 *Each game will have its own Cell extension
+	 */
+	public abstract class Cell implements Interactable{
 		 
 		 	protected Set<Interactable> interact;
-		 	private DiscreteCoordinates cellCoord;
+		 	private DiscreteCoordinates cellCoord; // coordonnées de la cellule sur la grille
 		 
 			public Cell(int x, int y){
 				
@@ -81,7 +83,6 @@ public abstract class AreaBehavior
      * @param fileName (String): name of the file containing the behavior image, not null
      */
     public AreaBehavior(Window window, String fileName){
-        // TODO implements me #PROJECT #TUTO
     	
     	//initialisation de behaviorMap
     	behaviorMap = window.getImage(ResourcePath.getBehaviors(fileName), null, false);
@@ -91,7 +92,7 @@ public abstract class AreaBehavior
     	height = behaviorMap.getHeight();
     	
     	//initialisation du tableau
-    	cells = new Cell[height][width];
+    	cells = new Cell[width][height];
     }
     
     public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
@@ -163,12 +164,19 @@ public abstract class AreaBehavior
     	}
     	
     }
-    
+    /**
+     * Getter for the image width
+     * @return (int) : the width in number of columns
+     */
     public final int getWidth() {
     	
     	return width;
     }
     
+    /**
+     * Getter for the image height
+     * @return (int) : the height in number of rows
+     */
     public final int getHeight() {
     	
     	return height;

@@ -28,8 +28,7 @@ public class Room1 extends Area{
 	}
 	@Override
 	public float getCameraScaleFactor() {
-		// TODO Auto-generated method stub
-		return 1;
+		return 22;
 	}
 
 }

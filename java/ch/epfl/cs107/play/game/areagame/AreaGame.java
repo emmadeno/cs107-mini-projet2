@@ -17,11 +17,28 @@ abstract public class AreaGame implements Game {
 	// Context objects
 	private Window window;
 	private FileSystem fileSystem;
-	/// A map containing all the Area of the Game 
+	/// A map containing all the Areas of the Game 
 	private Map<String, Area> areas;
 	/// The current area the game is in
 	private Area currentArea;
+
 	
+	 @Override
+	    public boolean begin(Window window, FileSystem fileSystem) {
+	    	
+	    	this.window = window;
+			this.fileSystem = fileSystem;
+	        
+	    	areas = new HashMap<>();
+	    	
+	        return true;
+	    }
+
+
+	    @Override
+	    public void update(float deltaTime) {
+	        currentArea.update(deltaTime);
+	    }
 
     /**
      * Add an Area to the AreaGame list
@@ -74,43 +91,22 @@ abstract public class AreaGame implements Game {
 
     /**@return (Window) : the Graphic and Audio context*/
     protected final Window getWindow(){
-        // TODO implements me #PROJECT #TUTO
         return window;
     }
 
     /**@return (FIleSystem): the linked file system*/
     protected final FileSystem getFileSystem(){
-        // TODO implements me #PROJECT #TUTO
         return fileSystem;
     }
 
-
-    /// AreaGame implements Playable
-
-    @Override
-    public boolean begin(Window window, FileSystem fileSystem) {
-    	
-    	this.window = window;
-		this.fileSystem = fileSystem;
-        
-    	areas = new HashMap<>();
-    	
-        return true;
-    }
-
-
-    @Override
-    public void update(float deltaTime) {
-        currentArea.update(deltaTime);
-    }
-
-    @Override
-    public void end() {
-        // TODO save the game states somewhere
-    }
     
     public Area getCurrentArea() {
     	return currentArea;
+    }
+    
+    @Override
+    public void end() {
+        // TODO save the game states somewhere
     }
 
 }

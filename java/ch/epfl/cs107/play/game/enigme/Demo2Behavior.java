@@ -24,18 +24,27 @@ public class Demo2Behavior extends AreaBehavior{
 	
 	public enum Demo2CellType {
 		NULL(0),
-		WALL(-16777216),
-		DOOR(-65536),
-		WATER(-16776961),
+		WALL(-16777216), // RGB code of black
+		DOOR(-65536),	// RGB code of red
+		WATER(-16776961),  // RGB code of blue
 		INDOOR_WALKABLE(-1), 
 		OUTDOOR_WALKABLE(-14112955);
 		
 		final int type;
 		
+		/**
+		 * @param type(int) : set type 
+		 */
 		Demo2CellType(int type) {
 			this.type = type;
 		}
 		
+		
+		/**
+		 * toType method : convertit un int en type 
+		 * @param type (int) : prend en parametre le integer representant le type de la cellule
+		 * @return : le type associe
+		 */
 		static Demo2CellType toType(int type) {
 			
 			switch(type) {

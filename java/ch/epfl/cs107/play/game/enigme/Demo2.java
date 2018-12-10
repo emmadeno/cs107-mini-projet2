@@ -27,18 +27,6 @@ public class Demo2 extends AreaGame {
 		this.Room1 = new Room1();
 		this.Room2 = new Room2();
 	}
-
-	@Override
-	public int getFrameRate() {
-		// TODO Auto-generated method stub
-		return 24;
-	}
-
-	@Override
-	public String getTitle() {
-
-		return "Demo2";
-	}
 	
 	public boolean begin(Window window, FileSystem filesystem) {
 		super.begin(window, filesystem);
@@ -82,6 +70,17 @@ public class Demo2 extends AreaGame {
 			} 
 			
 		}
+	}
+
+	@Override
+	public int getFrameRate() {
+		return 24;
+	}
+
+	@Override
+	public String getTitle() {
+
+		return "Demo2";
 	}
 
 }

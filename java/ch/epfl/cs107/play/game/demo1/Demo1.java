@@ -35,6 +35,7 @@ import ch.epfl.cs107.play.window.Window;
 	
 	public boolean begin(Window window, FileSystem fileSystem) {
 		
+		//initialisation
 		this.window = window;
 		this.fileSystem = fileSystem;
 		
@@ -44,7 +45,7 @@ import ch.epfl.cs107.play.window.Window;
 		
 		// creation des acteurs
 		
-		actor1 = new GraphicsEntity(Vector.ZERO ,
+		actor1 = new GraphicsEntity(Vector.ZERO ,				//cercle rouge
 				new ShapeGraphics(new Circle(radius), null ,
 						Color.RED , 0.005f)) ;
 		actor2 = new MovingRock(new Vector(0.3f,0.1f), "Hello, I'm a moving rock");

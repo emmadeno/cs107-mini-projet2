@@ -48,8 +48,75 @@ public abstract class Area implements Playable {
 	// The behavior Map
 	private AreaBehavior areaBehavior;
 	
+	 	@Override
+	public boolean begin(Window window, FileSystem fileSystem) {
+	    	
+	    	//initialisation des parametres
+	    	this.window = window;
+	    	this.fileSystem = fileSystem;
+	    	actors = new LinkedList<>();
+	    	registeredActors = new LinkedList<>();
+	    	unregisteredActors = new LinkedList<>();
+	    	interactablesToEnter = new HashMap<>();
+	    	interactablesToLeave = new HashMap<>();
+	    	interactors = new LinkedList<>();
+	    	viewCandidate = null;
+	    	viewCenter = Vector.ZERO;
+	    	
+	    	hasBegun = true;
+	    	
+	    	
+	        return true;
+	}
+	 
+	@Override
+	public void update(float deltaTime) {
+	        
+	    	purgeRegistration();
+	    	updateCamera();
+	    	
+	    	//update des actors
+	    	for (Actor actor : actors) {
+	    		actor.draw(window);
+	    		actor.update(deltaTime);
+	    	}
+	    	
+	    	for(Interactor interactor : interactors) {
+	    		
+	    		if(interactor.wantsCellInteraction()) {
+	    			
+	    			//System.out.println("rentre dans boucle cellinteraction");
+	    			
+	    			areaBehavior.cellInteractionOf(interactor);
+	    			
+	    		}
+	    		if (interactor.wantsViewInteraction()) {
+	    			
+	    			System.out.println("VIEW");
+	    			areaBehavior.viewInteractionOf(interactor);
+	    			
+	    		}
+	    	}
+	    }
 
-	public final void setBehavior(AreaBehavior ab) {
+	/**
+	 * updateCamera method : permet à la caméra de suivre l'acteur lorsqu'il se déplace
+	 */
+	private void updateCamera () {
+	    	
+	    	if (viewCandidate != null) {
+	    		viewCenter = viewCandidate.getPosition();
+	    	}
+	    	Transform viewTransform = Transform.I.scaled(this.getCameraScaleFactor()).translated(viewCenter); // scaled permet de changer la dimension de la fenêtre
+	    	window.setRelativeTransform(viewTransform);
+	    	
+	    }
+	
+	/**
+	 * setBehavior method : set areaBehavior
+	 * @param ab(AreaBehavior) : areabehavior associe à l'aire
+	 */
+	protected final void setBehavior(AreaBehavior ab) {
 		areaBehavior = ab; // set le areaBehavior du jeu courrant
 		
 	}
@@ -67,6 +134,7 @@ public abstract class Area implements Playable {
     	// Here decisions at the area level to decide if an actor
     	// must be added or not
     	boolean errorOccured = !actors.add(a) ;
+    	
     	if(a instanceof Interactor) {
     		errorOccured = errorOccured || !interactors.add((Interactor) a);
     	}
@@ -162,27 +230,6 @@ public abstract class Area implements Playable {
 
     /// Area implements Playable
 
-    @Override
-    public boolean begin(Window window, FileSystem fileSystem) {
-        // TODO implements me #PROJECT #TUTO
-    	
-    	//initialisation des parametres
-    	this.window = window;
-    	this.fileSystem = fileSystem;
-    	actors = new LinkedList<>();
-    	registeredActors = new LinkedList<>();
-    	unregisteredActors = new LinkedList<>();
-    	interactablesToEnter = new HashMap<>();
-    	interactablesToLeave = new HashMap<>();
-    	interactors = new LinkedList<>();
-    	viewCandidate = null;
-    	viewCenter = Vector.ZERO;
-    	
-    	hasBegun = true;
-    	
-    	
-        return true;
-    }
 
     /**
      * Resume method: Can be overridden
@@ -194,9 +241,13 @@ public abstract class Area implements Playable {
         return true;
     }
     
+   /**
+    * update actor and interactable lists every time the game is updated
+    */
+    
     private final void purgeRegistration() {
     	
-    	boolean veto = false; // ?
+    	boolean veto = false; 
     	
     	for (int i = 0; i < registeredActors.size(); i++) {
     		addActor(registeredActors.get(i), veto);
@@ -218,45 +269,6 @@ public abstract class Area implements Playable {
     	interactablesToLeave.clear();
     }
 
-    @Override
-    public void update(float deltaTime) {
-        
-    	purgeRegistration();
-    	updateCamera();
-    	for (Actor actor : actors) {
-    		actor.draw(window);
-    		actor.update(deltaTime);
-    	}
-    	
-    	for(Interactor interactor : interactors) {
-    		
-    		if(interactor.wantsCellInteraction()) {
-    			
-    			//System.out.println("rentre dans boucle cellinteraction");
-    			
-    			areaBehavior.cellInteractionOf(interactor);
-    			
-    		}
-    		if (interactor.wantsViewInteraction()) {
-    			
-    			System.out.println("VIEW");
-    			areaBehavior.viewInteractionOf(interactor);
-    			
-    		}
-    	}
-    }
-
-
-    private void updateCamera () {
-    	
-    	if (viewCandidate != null) {
-    		viewCenter = viewCandidate.getPosition();
-    	}
-    	Transform viewTransform = Transform.I.scaled(22).translated(viewCenter); // scaled permet de changer la dimension de la fenêtre
-    	window.setRelativeTransform(viewTransform);
-    	
-    }
-
     /**
      * Suspend method: Can be overridden, called before resume other
      */
@@ -265,12 +277,10 @@ public abstract class Area implements Playable {
     	purgeRegistration();
     }
 
-
-    @Override
-    public void end() {
-        // TODO save the AreaState somewhere
-    }
-    
+    /**
+     * setViewCandidate method : set viewCandidate to a
+     * @param a (Actor) : actor that is suppose to be the ViewCandidate
+     */
     public final void setViewCandidate(Actor a){ 
     	this.viewCandidate = a;
     }
@@ -303,5 +313,9 @@ public abstract class Area implements Playable {
     	return areaBehavior;
     }
     
+    @Override
+    public void end() {
+        // TODO save the AreaState somewhere
+    }
     
 }
