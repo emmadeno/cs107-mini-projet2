@@ -21,7 +21,7 @@ public class Demo2 extends AreaGame {
 	private Demo2Player player;
 	private static final int FRAMESCALE = 22;
 	
-	public Demo2(Window window, FileSystem filesystem) {
+	public Demo2() {
 		
 		//initialisation 
 		this.Room1 = new Room1();
@@ -36,7 +36,7 @@ public class Demo2 extends AreaGame {
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
+
 		return "Demo2";
 	}
 	

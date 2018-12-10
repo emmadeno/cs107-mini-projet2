@@ -32,7 +32,7 @@ public class Enigme extends AreaGame {
 	private EnigmePlayer player;
 	private static final int FRAMESCALE = 22;
 	
-	public Enigme(Window window, FileSystem filesystem) {
+	public Enigme() {
 		
 		//initialisation 
 		this.Room0 = new LevelSelector();
