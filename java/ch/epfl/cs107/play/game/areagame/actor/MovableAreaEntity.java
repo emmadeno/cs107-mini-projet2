@@ -19,7 +19,7 @@ import ch.epfl.cs107.play.math.Vector;
 public abstract class MovableAreaEntity extends AreaEntity {
 	
 	//Indicate if actor is moving
-    private boolean isMoving;
+    public boolean isMoving;
     
     //Indicates how many frames the current move is supposed to take
     private int framesForCurrentMove;
@@ -27,7 +27,6 @@ public abstract class MovableAreaEntity extends AreaEntity {
     //The target cell where the mainCell will be after the motion
     private DiscreteCoordinates targetMainCellCoordinates;
     
-    protected boolean moves;
 
     /**
      * Default MovableAreaEntity constructor
@@ -81,6 +80,8 @@ public abstract class MovableAreaEntity extends AreaEntity {
     protected boolean move(int framesForMove){
     	
     	//if(this.getArea().enterAreaCells(this, getEnteringCells()) && this.getArea().leaveAreaCells(this, getLeavingCells())) {
+    	
+
 
     	if (!isMoving || getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)) {
     		boolean canLeave = this.getArea().leaveAreaCells(this, getLeavingCells());
@@ -98,10 +99,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
     			    			
     			targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
     			isMoving = true;
-    			
-    			moves = true;
-    			
-    		
+
     		
     	//}
     	}

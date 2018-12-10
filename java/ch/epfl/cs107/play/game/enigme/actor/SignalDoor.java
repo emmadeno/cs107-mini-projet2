@@ -26,6 +26,14 @@ public class SignalDoor extends Door implements Logic{
 		super(area, orientation, destinationArea, position, initialCoord, otherCoordinates);
 		this.signal = signal;
 	}
+	
+	@Override
+	public boolean takeCellSpace() {
+		if(signal.isOn()) {
+			return false;
+		}
+		return true;
+	}
 
 	@Override
 	public boolean isOn() {

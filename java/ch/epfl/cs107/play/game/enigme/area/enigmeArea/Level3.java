@@ -25,6 +25,7 @@ import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.signal.logic.LogicNumber;
 import ch.epfl.cs107.play.signal.logic.MultipleAnd;
 import ch.epfl.cs107.play.signal.logic.Not;
+import ch.epfl.cs107.play.signal.logic.Or;
 import ch.epfl.cs107.play.window.Window;
 
 public class Level3 extends EnigmeArea{
@@ -104,6 +105,7 @@ public class Level3 extends EnigmeArea{
 			}
 		}
 		
+		
 		door1 = new SignalDoor(this, Orientation.DOWN, "LevelSelector",signalDoor,position, new Circle(0.5f,signalDoor.toVector()), key);
 		actors.add(door1);
 		
@@ -111,7 +113,7 @@ public class Level3 extends EnigmeArea{
 		actors.add(rock1);
 		rock2 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(5,8), new MultipleAnd(switches));
 		actors.add(rock2);
-		rock3 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(4,8), new LogicNumber(5, levers));
+		rock3 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(4,8), new Or(new LogicNumber(5, levers), torch));
 		actors.add(rock3);
 	}
 	
@@ -120,37 +122,5 @@ public class Level3 extends EnigmeArea{
 		return "Level3";
 	}
 	
-	@Override
-	public void update(float dT) {
-		super.update(dT);
-		
-		/*
-		//if(key.isOn()) {
-		//	door1.setSignal(Logic.TRUE);
-		//}
-		if (pressurePlate.isOn()) {
-			rock1.setSignal(Logic.TRUE);
-		}
-		if (!pressurePlate.isOn()) {
-			rock1.setSignal(Logic.FALSE);
-		}
-		
-		if (multipleAnd.isOn()) {
-			rock2.setSignal(Logic.TRUE);
-		}
-		if (!multipleAnd.isOn()) {
-			rock2.setSignal(Logic.FALSE);
-		}
-		
-		
-		if((lever1.isOn() && lever3.isOn() && !lever2.isOn()) || torch.isOn()) {
-			rock3.setSignal(Logic.TRUE);
-		}
-		if(!((lever1.isOn() && lever3.isOn() && !lever2.isOn()) || torch.isOn())) {
-			rock3.setSignal(Logic.FALSE);
-		}
-		*/
-		
-	}
 
 }

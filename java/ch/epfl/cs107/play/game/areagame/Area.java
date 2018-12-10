@@ -92,7 +92,6 @@ public abstract class Area implements Playable {
 	    		}
 	    		if (interactor.wantsViewInteraction()) {
 	    			
-	    			System.out.println("VIEW");
 	    			areaBehavior.viewInteractionOf(interactor);
 	    			
 	    		}

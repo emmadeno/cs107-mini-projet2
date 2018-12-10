@@ -71,12 +71,14 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			
 			if(switchable.isCellInteractable()) {
 					 
-					if(moves) {
-						System.out.println("should turn on");
-						switchable.turnOnOff();
-						moves = false;
+				float positionX = EnigmePlayer.this.getPosition().x;
+				float positionY = EnigmePlayer.this.getPosition().y;
+				
+					if(positionX == switchable.getPosition().x && isMoving && positionY == switchable.getPosition().y) {
+
+					   switchable.turnOnOff();
+					}
 					
-				}
 			}
 		}
 		
@@ -89,17 +91,9 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			
 			if(keyboard.get(Keyboard.L).isPressed()) { //si on presse la touche L
 				
-				List <DiscreteCoordinates> fieldView = EnigmePlayer.this.getFieldOfViewCells();
-				for(DiscreteCoordinates cellView: fieldView) { 					//on itère sur les coordonées de fieldView
-					for(DiscreteCoordinates coord: pickup.getCurrentCells()) {  // on itère sur les coord du pickup
-						
-						if(cellView.equals(coord)){ // si la pomme se trouve sur le fieldView de l'acteur 
 							pickup.disappear();
 						}
 					}
-				}
-			}
-		}
 		
 		
 	}
@@ -113,8 +107,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 	
 	public void enterArea(Area area, DiscreteCoordinates position) {
 		area.registerActor(this);
-		super.setCurrentPosition(position.toVector());
-		this.update(0.01f);
+		this.setCurrentPosition(position.toVector());
 		resetMotion();
 	}
 	

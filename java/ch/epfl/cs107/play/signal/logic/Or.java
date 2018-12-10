@@ -17,7 +17,6 @@ public class Or extends LogicSignal{
 		
 		if(one!=null && two!= null) {
 			if(one.isOn() || two.isOn()) {
-				
 				return  true;
 			}
 		}
