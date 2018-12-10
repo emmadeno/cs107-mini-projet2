@@ -22,6 +22,7 @@ import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.signal.logic.Logic;
+import ch.epfl.cs107.play.signal.logic.LogicNumber;
 import ch.epfl.cs107.play.signal.logic.MultipleAnd;
 import ch.epfl.cs107.play.signal.logic.Not;
 import ch.epfl.cs107.play.window.Window;
@@ -39,9 +40,8 @@ public class Level3 extends EnigmeArea{
 	private Lever lever2;
 	private Lever lever3;
 	private PressurePlate pressurePlate;
-	private List<PressureSwitch> switches  = new LinkedList<PressureSwitch>();
-	private List<Logic> switchesLogic  = new LinkedList<Logic>();
-	private MultipleAnd multipleAnd;
+	private List<Logic> switches  = new LinkedList<Logic>();
+	private List<Logic> levers  = new LinkedList<Logic>();
 	
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
@@ -90,7 +90,6 @@ public class Level3 extends EnigmeArea{
 		}
 		
 		
-		multipleAnd = new MultipleAnd(switchesLogic);
 		
 		lever1 = new Lever(this, Orientation.DOWN, new DiscreteCoordinates(10,5)); 
 		actors.add(lever1);
@@ -99,14 +98,20 @@ public class Level3 extends EnigmeArea{
 		lever3 = new Lever(this, Orientation.DOWN, new DiscreteCoordinates(8,5));
 		actors.add(lever3);
 		
+		for(Actor actor : actors) {
+			if(actor instanceof Lever) {
+				levers.add((Lever) actor);
+			}
+		}
+		
 		door1 = new SignalDoor(this, Orientation.DOWN, "LevelSelector",signalDoor,position, new Circle(0.5f,signalDoor.toVector()), key);
 		actors.add(door1);
 		
-		rock1 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(6,8), Logic.FALSE);
+		rock1 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(6,8), pressurePlate);
 		actors.add(rock1);
-		rock2 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(5,8), Logic.FALSE);
+		rock2 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(5,8), new MultipleAnd(switches));
 		actors.add(rock2);
-		rock3 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(4,8), Logic.FALSE);
+		rock3 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(4,8), new LogicNumber(5, levers));
 		actors.add(rock3);
 	}
 	
@@ -119,10 +124,7 @@ public class Level3 extends EnigmeArea{
 	public void update(float dT) {
 		super.update(dT);
 		
-		for(PressureSwitch pswitch : switches) {
-			switchesLogic.add(pswitch.getSignal());
-	}
-		
+		/*
 		//if(key.isOn()) {
 		//	door1.setSignal(Logic.TRUE);
 		//}
@@ -132,12 +134,15 @@ public class Level3 extends EnigmeArea{
 		if (!pressurePlate.isOn()) {
 			rock1.setSignal(Logic.FALSE);
 		}
+		
 		if (multipleAnd.isOn()) {
 			rock2.setSignal(Logic.TRUE);
 		}
 		if (!multipleAnd.isOn()) {
 			rock2.setSignal(Logic.FALSE);
 		}
+		*/
+		
 		if((lever1.isOn() && lever3.isOn() && !lever2.isOn()) || torch.isOn()) {
 			rock3.setSignal(Logic.TRUE);
 		}
@@ -145,7 +150,6 @@ public class Level3 extends EnigmeArea{
 			rock3.setSignal(Logic.FALSE);
 		}
 		
-		switchesLogic.clear();
 		
 	}
 

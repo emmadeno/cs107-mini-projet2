@@ -36,7 +36,7 @@ public class SignalRock extends AreaEntity implements Logic{
 
 	@Override
 	public boolean takeCellSpace() {
-	if(isOn()) {
+	if(signal.isOn()) {
 		return false;
 	}
 	return true;
@@ -62,7 +62,7 @@ public class SignalRock extends AreaEntity implements Logic{
 
 	@Override
 	public void draw(Canvas canvas) {
-		if(!isOn()) {
+		if(!signal.isOn()) {
 			rock.draw(canvas);
 		}
 		
