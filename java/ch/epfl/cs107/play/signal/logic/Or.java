@@ -15,8 +15,8 @@ public class Or extends LogicSignal{
 	@Override
 	public boolean isOn() {
 		
-		if(one!=null && two!= null) {
-			if(one.isOn() || two.isOn()) {
+		if(one!=null && two!= null) { // si les signaux ne sont pas nul
+			if(one.isOn() || two.isOn()) { // si l'un ou l'autre ou les deux sont On return true
 				return  true;
 			}
 		}

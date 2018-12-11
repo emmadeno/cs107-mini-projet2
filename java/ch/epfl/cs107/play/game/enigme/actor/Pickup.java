@@ -44,7 +44,7 @@ public abstract class Pickup extends AreaEntity{
 		
 		return false;
 	}
-
+	//fait en sorte que l'acteur disparaisse lorsqu'il est connecté
 	public abstract void disappear();
 	
 }

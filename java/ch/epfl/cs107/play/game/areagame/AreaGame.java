@@ -71,7 +71,7 @@ abstract public class AreaGame implements Game {
     		currentArea = areas.get(key); 
     		}
     		else {
-    			//??
+    			throw new NullPointerException();
     		}
     	}
     	

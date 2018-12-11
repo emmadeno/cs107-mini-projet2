@@ -65,6 +65,10 @@ public abstract class AreaBehavior
 			
 			protected abstract boolean canLeave(Interactable entity);
 			
+			/**
+			 * cellInteractionOf method : fait en sorte que l'interactor interagisse avec l'interactable si c'est possible
+			 * @param interactor(Interactor)
+			 */
 			private void cellInteractionOf(Interactor interactor) {
 				for(Interactable interactable : interact) {
 					if(interactable.isCellInteractable()) {
@@ -73,6 +77,10 @@ public abstract class AreaBehavior
 				}
 			}
 			
+			/**
+			 * viewInteractionOf method : fait en sorte que l'interactor interagisse avec l'interactable si c'est possible
+			 * @param interactor(Interactor)
+			 */
 			private void viewInteractionOf(Interactor interactor) {
 				for(Interactable interactable : interact) {
 					if(interactable.isViewInteractable()) {
@@ -102,30 +110,35 @@ public abstract class AreaBehavior
     }
     
     /**
-     * 
+     * canLeave methode : test si un entity peut quitter des cellules
      * @param entity(Interactable) : l'acteur qui veut se placer sur la cellule
      * @param coordinates(DiscreteCoordinates) : coordonnées de la cellule sur laquelle il veut se placer
-     * @return
+     * @return(boolean): true si l'entity peut quitter la cellule
      */
     public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
-    	int authorization = 0;
-    	for(int i = 0; i < coordinates.size(); i++) {
+    	
+    	int authorization = 0; // variable de controle
+    	for(int i = 0; i < coordinates.size(); i++) { //itere sur les cellules
     		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
     		if (currentCell.canLeave(entity)) {
-    			++authorization;
+    			++authorization; // incrémente la variable de controle si l'entity peut quitter la cell testee
     		}
     	}
     	
-    	if(authorization == coordinates.size()) {
+    	if(authorization == coordinates.size()) { // retourne true si toutes les cellules ont accepté
     		return true;
     	}
-    	else {
-    		return false;
-    	}
+    	return false;
     	
     }
     
-    public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) {
+    /**
+     * canEnter method : test si un entity peut rentrer dans des cellules
+     * @param entity(Interactable) : l'acteur qui veut se placer sur la cellule
+     * @param coordinates(DiscreteCoordinates) : coordonnées de la cellule sur laquelle il veut se placer
+     * @return(boolean): true si l'entity peut aller sur la cellule
+     */
+    public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) { //meme commentaires que canLeave
     	int authorization = 0;
     	for(int i = 0; i < coordinates.size(); i++) {
     		if(coordinates.get(i).x >= 0 && coordinates.get(i).y >= 0) {
@@ -141,11 +154,15 @@ public abstract class AreaBehavior
     	if(authorization == coordinates.size()) {
     		return true;
     	}
-    	else {
     		return false;
-    	}
     }
     
+    
+    /**
+     * leave methode : permet de supprimer entity de toutes les cells d'une liste de coordonées
+     * @param entity(Interactable) : entity à enlever
+     * @param coordinates(DiscretesCoordinates) : coordonees a quitter
+     */
     protected void leave(Interactable entity, List<DiscreteCoordinates> coordinates) {
     	for(int i = 0; i < coordinates.size(); i++) {
     		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
@@ -153,13 +170,22 @@ public abstract class AreaBehavior
     	}
     }
     
+    /**
+     * enter methode : permet d'ajouter entity de toutes les cells d'une liste de coordonées
+     * @param entity(Interactable) : entity à ajouter
+     * @param coordinates(DiscretesCoordinates) : coordonees a investir
+     */
     protected void enter(Interactable entity, List<DiscreteCoordinates> coordinates) {
     	for(int i = 0; i < coordinates.size(); i++) {
     		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
     		currentCell.enter(entity);
     	}
     }
-
+    
+    /**
+     * cellInteractionOf method : gere les interactions de contact entre interactor et les interactables de sa position
+     * @param interactor(Interactor)
+     */
     public void cellInteractionOf(Interactor interactor) {
   
     	for (DiscreteCoordinates coord : interactor.getCurrentCells()) {
@@ -168,9 +194,13 @@ public abstract class AreaBehavior
     	}
     }
     
+    /**
+     * viewInteractionOf method : gèrera les interactions à distance
+     * @param interactor(Interactor)
+     */
     public void viewInteractionOf(Interactor interactor) {
-    	interactor.getFieldOfViewCells().get(0);
-    	for (DiscreteCoordinates coord : interactor.getFieldOfViewCells()) {
+    	
+    	for (DiscreteCoordinates coord : interactor.getFieldOfViewCells()) { 
     		Cell cell = cells[coord.y][coord.x];
     		cell.viewInteractionOf(interactor);
     	}

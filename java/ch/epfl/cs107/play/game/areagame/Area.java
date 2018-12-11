@@ -81,11 +81,10 @@ public abstract class Area implements Playable {
 	    		actor.update(deltaTime);
 	    	}
 	    	
+	    	// gestion des interactions
 	    	for(Interactor interactor : interactors) {
 	    		
 	    		if(interactor.wantsCellInteraction()) {
-	    			
-	    			//System.out.println("rentre dans boucle cellinteraction");
 	    			
 	    			areaBehavior.cellInteractionOf(interactor);
 	    			
@@ -134,10 +133,12 @@ public abstract class Area implements Playable {
     	// must be added or not
     	boolean errorOccured = !actors.add(a) ;
     	
+    	//test si l'acteur est un Interactor
     	if(a instanceof Interactor) {
     		errorOccured = errorOccured || !interactors.add((Interactor) a);
     	}
     	
+    	//test si l'acteur est un interactable
     	if(a instanceof Interactable) {
     		errorOccured = errorOccured || !enterAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
     	}
@@ -160,10 +161,12 @@ public abstract class Area implements Playable {
   
     	boolean errorOccured = !actors.remove(a) ;
     	
+    	// si l'acteur est un interactor
     	if(a instanceof Interactor) {
     		errorOccured = errorOccured || !interactors.remove((Interactor) a);
     	}
     	
+    	//test si l'acteur est un interactable
     	if(a instanceof Interactable) {
     		errorOccured = errorOccured || !leaveAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
     	}
@@ -248,16 +251,21 @@ public abstract class Area implements Playable {
     	
     	boolean veto = false; 
     	
+    	// ajoute dans l'aire les registeredActors
     	for (int i = 0; i < registeredActors.size(); i++) {
     		addActor(registeredActors.get(i), veto);
     	}
+    	
+    	// enleve de l'aire les unregisteredActors
     	for (int i = 0; i < unregisteredActors.size(); i++) {
     		removeActor(unregisteredActors.get(i), veto);
     	}
     	
+    	//mets tout les interactablesToEnter dans l'aire
     	for (Interactable key : interactablesToEnter.keySet()) {
     		areaBehavior.enter(key, interactablesToEnter.get(key));
     	}
+    	// enleve tout les interactablesToLeave de l'aire
     	for (Interactable key : interactablesToLeave.keySet()) {
     		areaBehavior.leave(key, interactablesToLeave.get(key));
     	}
@@ -288,6 +296,12 @@ public abstract class Area implements Playable {
     	return hasBegun;
     }
     
+    /**
+     * leaveAreaCells method : enregistre une entity dans interactablesToLeave + test si entity peut quitter des cellules
+     * @param entity(Interactable) 
+     * @param coordinates(DiscreteCoordinates)
+     * @return(boolean) : true si l'aire permet à entity de quitter les cellules
+     */
     public final boolean leaveAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
     	if (areaBehavior.canLeave(entity, coordinates)) { // teste si la grille associée à l'aire permet de quitter les cell de coordinates
     		interactablesToLeave.put(entity, coordinates);
@@ -298,6 +312,13 @@ public abstract class Area implements Playable {
     	}
     }
     
+    
+    /**
+     * enterAreaCells method : enregistre une entity dans interactablesToEnter + test si entity peut investir des cellules
+     * @param entity(Interactable) 
+     * @param coordinates(DiscreteCoordinates)
+     * @return(boolean) : true si l'aire permet à entity d'investir les cellules
+     */
     public final boolean enterAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
     	if (areaBehavior.canEnter(entity, coordinates)) { // si entité peut inverstir les cellules
     		interactablesToEnter.put(entity, coordinates);

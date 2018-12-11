@@ -19,16 +19,21 @@ public class LogicNumber extends LogicSignal{
 	@Override
 	public boolean isOn() {
 		
-		if(e.size()>11 || nb<0 || nb> Math.pow(2, e.size())) {
-			
-		}
+		if(e.size()>12 || nb<0 || nb> Math.pow(2, e.size())) {
 		
-		if(signalNumber() == nb) {
-			return true;
+			return false;
 		}
-		else { return false;}
+			if(signalNumber() == nb) {
+				return true;
+			}
+		return false;
 	}
 	
+	/**
+	 * signalNumber method : calcule le nombre binaire associé à la combinaison de signaux
+	 * 						et le transforme en float
+	 * @return(float) : nombre calculé par la combinaison de signaux
+	 */
 	private float signalNumber() {
 		
 		int[] valeur = new int [e.size()];

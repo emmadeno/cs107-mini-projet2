@@ -40,20 +40,16 @@ public class LevelSelector extends EnigmeArea{
 		portesLS.add(new SignalDoor(this, Orientation.DOWN, "Level2",door2,position1, new Circle(0.5f,door2.toVector()), Logic.TRUE));
 		portesLS.add(new SignalDoor(this, Orientation.DOWN, "Level3",door3,position1, new Circle(0.5f,door3.toVector()), Logic.TRUE));
 		
-		
-		Torch torch = new Torch(this, Orientation.DOWN, new DiscreteCoordinates(1, 3), true);
-		SignalRock rock = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(3, 3), Logic.TRUE);
-		
+		//création des portes fermées
 		for(int i = 4; i <= 8; ++i ) {
 			
 			portesLS.add(new SignalDoor(this, Orientation.DOWN, "",new DiscreteCoordinates(i,7),new DiscreteCoordinates(i,7), new Circle(0.5f,new DiscreteCoordinates(i,7).toVector()), Logic.FALSE));
 		}
 		
+		//register les portes
 		for(int i = 0; i < portesLS.size(); ++i) {
 		 super.registerActor(portesLS.get(i));
 		}
-		super.registerActor(torch);
-		super.registerActor(rock);
 		
 		return true;
 	}

@@ -59,6 +59,7 @@ public abstract class Switchable extends AreaEntity implements Logic{
 		return isOn;
 	}
 	
+	//change l'état du signal
 	public void turnOnOff() {
 		isOn = !isOn;
 		signal = new Not(signal);

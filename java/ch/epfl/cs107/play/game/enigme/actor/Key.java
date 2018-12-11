@@ -43,6 +43,7 @@ public class Key extends Pickup implements Logic{
 		
 	}
 	
+	@Override
 	public void disappear() {
 		this.getArea().unregisterActor(this);
 		isCollected = true;
@@ -62,10 +63,10 @@ public class Key extends Pickup implements Logic{
 	public void update(float f) {
 		super.update(f);
 		if(isOn()) {
-			logic = Logic.TRUE;
+			logic = Logic.TRUE;  //met le signal logique à true si isOn()
 		}
 		else {
-			logic = Logic.FALSE;
+			logic = Logic.FALSE; // sinon met le signal logique à false
 		}
 	}
 

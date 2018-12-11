@@ -84,17 +84,22 @@ public class PressurePlate extends AreaEntity implements Logic{
 
 	}
 	
+	/**
+	 * switchPlate method : éteind la plate quand son temps d'activation est écoulé
+	 * @param currentTime : le temps quand le joueur va sur la plaque
+	 */
 	public void switchPlate(float currentTime) {
 		if(time - currentTime > ACTIVATION_TIME) {
-			isOn = false;
+			isOn = false;  //tourne isOn à false si ACTIVATION_TIME est écoulé
 		}
 	}
 	
+	@Override
     public void update(float deltaTime) {
     	super.update(deltaTime);
     	time += deltaTime;
     	if(isOn) {
-    	   switchPlate(currentTime);
+    	   switchPlate(currentTime); //update switchPlate
     	}
     }
     

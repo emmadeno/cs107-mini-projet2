@@ -32,13 +32,9 @@ public class Level1 extends EnigmeArea{
 		DiscreteCoordinates door1 = new DiscreteCoordinates(5,0);
 		DiscreteCoordinates position1 = new DiscreteCoordinates(1,6);
 		
-		Key key = new Key(this, Orientation.DOWN,  new DiscreteCoordinates(6,5));
-		PressurePlate pressurePlate = new PressurePlate(this, Orientation.DOWN, new DiscreteCoordinates(3,5));
 		
 		portesL1.add(new Door(this, Orientation.DOWN, "LevelSelector",door1,position1, new Circle(0.5f,door1.toVector())));
 		super.registerActor(portesL1.get(0));
-		super.registerActor(key);
-		super.registerActor(pressurePlate);
 		
 		return true;
 	}

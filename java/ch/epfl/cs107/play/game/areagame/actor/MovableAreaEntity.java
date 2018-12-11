@@ -19,7 +19,7 @@ import ch.epfl.cs107.play.math.Vector;
 public abstract class MovableAreaEntity extends AreaEntity {
 	
 	//Indicate if actor is moving
-    public boolean isMoving;
+    private boolean isMoving;
     
     //Indicates how many frames the current move is supposed to take
     private int framesForCurrentMove;
@@ -142,5 +142,9 @@ public abstract class MovableAreaEntity extends AreaEntity {
     	if(!isMoving) {
     		super.setOrientation(orientation);
     	}
+    }
+    
+    protected boolean getIsMoving() {
+    	return isMoving;
     }
 }

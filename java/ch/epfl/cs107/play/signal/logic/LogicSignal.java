@@ -7,6 +7,7 @@ package ch.epfl.cs107.play.signal.logic;
 
 public abstract class LogicSignal implements Logic {
 	
+	@Override
 	public final float getIntensity() {
 		if (this.isOn()) {
 			return 1.0f;

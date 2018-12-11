@@ -68,11 +68,7 @@ public class Enigme extends AreaGame {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        
-        // appeler le interactwith du player
-  
-        
-        
+ 
         if (player.getTravPorte()) {
         	
         	Door passedDoor = player.passedDoor();

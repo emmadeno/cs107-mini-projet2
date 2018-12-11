@@ -22,7 +22,17 @@ public class Door extends AreaEntity{
 	private String destinationArea;
 	private DiscreteCoordinates initialCoord;
 	private Circle otherCoordinates;
-
+	
+	
+	/**
+	 * 
+	 * @param area(Area) : l'aire à laquelle appartient la porte
+	 * @param orientation(Orientation): orientation
+	 * @param destinationArea(String): nom de l'aire de destination
+	 * @param position(DiscreteCoordinates): position de la porte dans l'aire
+	 * @param initialCoord(DiscreteCoordinates): position de départ dans la nouvelle aire
+	 * @param otherCoordinates(Circle): autre Coordonées
+	 */
 	public Door(Area area, Orientation orientation, String destinationArea, DiscreteCoordinates position, DiscreteCoordinates initialCoord, Circle otherCoordinates) {
 		super(area, orientation, position);
 		this.destinationArea = destinationArea;
@@ -54,12 +64,6 @@ public class Door extends AreaEntity{
 		return true;
 	}
 
-	@Override
-	public void draw(Canvas canvas) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public String getDestination() {
 		return destinationArea;
 	}
@@ -71,6 +75,12 @@ public class Door extends AreaEntity{
 	@Override
 	public void acceptInteraction(AreaInteractionVisitor v) {
 		((EnigmeInteractionVisitor)v).interactWith(this);
+		
+	}
+
+	@Override
+	public void draw(Canvas canvas) {
+		// TODO Auto-generated method stub
 		
 	}
 

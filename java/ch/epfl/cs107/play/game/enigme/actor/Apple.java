@@ -38,7 +38,7 @@ public class Apple extends Pickup{
 		((EnigmeInteractionVisitor)v).interactWith(this);
 		
 	}
-	
+	@Override
 	public void disappear() {
 		this.getArea().unregisterActor(this);
 	}

@@ -47,14 +47,14 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		@Override
 		public void interactWith(Door door) {
 					
-	     	EnigmePlayer.this.setIsPassingDoor(door);
+	     	EnigmePlayer.this.setIsPassingDoor(door); // le player passe une porte
 
 		}
 		@Override
 		public void interactWith(PressurePlate pressurePlate) {
 
-			pressurePlate.setCurrentTime();
-			pressurePlate.switchOnOff(true);		
+			pressurePlate.setCurrentTime(); // enregistre le temps auquel l'acteur interagit
+			pressurePlate.switchOnOff(true); // active la pressure plate		
 	}
 		
 		@Override
@@ -65,7 +65,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			if(switchable.isViewInteractable()) {
 			
 			if(keyboard.get(Keyboard.L).isPressed()) { //si on presse la touche L
-							switchable.turnOnOff();
+							switchable.turnOnOff();// change l'état
 						}
 					}
 			
@@ -74,8 +74,9 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 				float positionX = EnigmePlayer.this.getPosition().x;
 				float positionY = EnigmePlayer.this.getPosition().y;
 				
-					if(positionX == switchable.getPosition().x && isMoving && positionY == switchable.getPosition().y) {
-
+					if(positionX == switchable.getPosition().x && EnigmePlayer.this.getIsMoving() && positionY == switchable.getPosition().y) {
+						
+						//active l'interactable si le player est exactement sur la cellule et est en train de bouger
 					   switchable.turnOnOff();
 					}
 					
@@ -91,12 +92,13 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			
 			if(keyboard.get(Keyboard.L).isPressed()) { //si on presse la touche L
 				
-							pickup.disappear();
+							pickup.disappear();  //fait disparaitre le pickup
 						}
 					}
 		
 		
 	}
+	
 	
 	public EnigmePlayer(Area area, Orientation orientation, DiscreteCoordinates coordinates) {
 		super(area, orientation, coordinates);
@@ -105,12 +107,21 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		handler = new EnigmePlayerHandler();
 	}
 	
+	/**
+	 * enterArea method : permet au player d'entrer dans une aire à une position donnee 
+	 * @param area(Area) : l'aire dans laquelle le player veut rentrer
+	 * @param position(DiscreteCoordinates) : les positions de départ de l'aire
+	 */
 	public void enterArea(Area area, DiscreteCoordinates position) {
 		area.registerActor(this);
 		this.setCurrentPosition(position.toVector());
 		resetMotion();
 	}
 	
+	/**
+	 * leaveArea method : l'acteur se desenregistre de l'area
+	 * @param area(Area) : area où se trouve l'acteur et qu'il veut quitter
+	 */
 	public void leaveArea(Area area) {
 		area.unregisterActor(this);
 	}
@@ -128,7 +139,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 	@Override
 	public boolean takeCellSpace() {
 
-		return false;
+		return true;
 	}
 
 	@Override
@@ -218,21 +229,28 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		
 	}
 	
+	/***
+	 * setIsPassingDoor method : met travPorte à true et update l'attribut lastPassedDoor
+	 * @param door(Door):porte que l'acteur est en train de traverser
+	 */
 	public void setIsPassingDoor(Door door) {
 		travPorte(true);
 		lastPassedDoor = door;
 	}
 	
-	public Door passedDoor() {
+	//getter de lastPassedDoor
+	protected Door passedDoor() {
 		return lastPassedDoor;
 	}
 	
-	public boolean getTravPorte() {
+	// getter de travporte
+	protected boolean getTravPorte() {
 		
 		return travPorte;
 	}
 	
-	public void resetTravPorte() {
+	// reset travporte
+	protected void resetTravPorte() {
 		travPorte = false;
 	}
 
@@ -253,7 +271,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 	public boolean wantsViewInteraction() {
 		
 		Keyboard keyboard = this.getArea().getKeyboard();
-		if(keyboard.get(Keyboard.L).isPressed()) {
+		if(keyboard.get(Keyboard.L).isPressed()) { // indique que l'acteur veut une interaction à distanceh
 			return true;
 		}
 

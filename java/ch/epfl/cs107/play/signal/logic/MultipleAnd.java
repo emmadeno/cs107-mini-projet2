@@ -24,33 +24,18 @@ public class MultipleAnd extends LogicSignal{
 		return false;
 	}
 	
+	/**
+	 * testAnd method : itère sur la liste de signaux 
+	 * @return(boolean) : return false si un des signaux n'est pas activé
+	 */
 	private boolean testAnd() {
 		
-		int nbTests = 0;
-		int multipleAnd = 0;
 		for(int i = 0; i<signaux.size(); ++i) {
-			
-			nbTests+=i;
-		}
-		
-		for(int k = 0; k<signaux.size()-1; ++k) {
-			for(int j = k+1; j<signaux.size(); ++j) {
-				
-				if(new And(signaux.get(k),signaux.get(j)).isOn()) {
-					
-					++multipleAnd;
-				}
-				
+			if(!signaux.get(i).isOn()) {
+				return false;
 			}
-			
-			
 		}
-		
-		
-		if(nbTests == multipleAnd) {
-			return true;
-		}
-		else {return false;}
+		return true;
 	}
 	
 	

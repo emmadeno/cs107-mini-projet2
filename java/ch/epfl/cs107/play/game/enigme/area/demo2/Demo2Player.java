@@ -23,7 +23,7 @@ import ch.epfl.cs107.play.window.Keyboard;
 
 public class Demo2Player extends MovableAreaEntity{
 
-	private boolean travPorte;
+	private boolean travPorte; //indique si l'acteur passe une porte
 	private Sprite personnage;
 	private final static int ANIMATION_DURATION = 8;
 	
@@ -33,17 +33,29 @@ public class Demo2Player extends MovableAreaEntity{
 		this.setOrientation(Orientation.DOWN);
 	}
 	
+	/**
+	 * enterArea method : permet au player d'entrer dans une aire à une position donnee 
+	 * @param area(Area) : l'aire dans laquelle le player veut rentrer
+	 * @param position(DiscreteCoordinates) : les positions de départ de l'aire
+	 */
 	public void enterArea(Area area, DiscreteCoordinates position) {
 		area.registerActor(this);
 		super.setCurrentPosition(position.toVector());
-		this.update(0.01f);
 		resetMotion();
 	}
 	
+	/**
+	 * leaveArea method : l'acteur se desenregistre de l'area
+	 * @param area(Area) : area où se trouve l'acteur et qu'il veut quitter
+	 */
 	public void leaveArea(Area area) {
 		area.unregisterActor(this);
 	}
 	
+	/**
+	 * travPorte metohd : mettre travporte à true ou false
+	 * @param isTravPorte(boolean)
+	 */
 	public void travPorte(boolean isTravPorte) {
 		travPorte = isTravPorte;
 	}
@@ -57,7 +69,7 @@ public class Demo2Player extends MovableAreaEntity{
 	@Override
 	public boolean takeCellSpace() {
 
-		return false;
+		return true;
 	}
 
 	@Override
@@ -79,9 +91,14 @@ public class Demo2Player extends MovableAreaEntity{
 	
 	@Override
 	public void update(float deltatime) {
-		Keyboard keyboard = this.getArea().getKeyboard();
 		
-		if(keyboard.get(Keyboard.LEFT).isDown()) {
+		Keyboard keyboard = this.getArea().getKeyboard();
+		Button left = keyboard.get(Keyboard.LEFT);
+		Button right = keyboard.get(Keyboard.RIGHT);
+		Button up = keyboard.get(Keyboard.UP);
+		Button down = keyboard.get(Keyboard.DOWN);
+		
+		if(left.isDown()) {
 		
 			
 			if(this.getOrientation()== Orientation.LEFT) {
@@ -93,7 +110,7 @@ public class Demo2Player extends MovableAreaEntity{
 			}
 			
 		}
-		if(keyboard.get(Keyboard.RIGHT).isDown()) {
+		if(right.isDown()) {
 			
 			if(this.getOrientation()== Orientation.RIGHT) {
 				
@@ -104,7 +121,7 @@ public class Demo2Player extends MovableAreaEntity{
 			}
 			
 		}
-		if(keyboard.get(Keyboard.UP).isDown()) {
+		if(up.isDown()) {
 			
 			if(this.getOrientation()== Orientation.UP) {
 				
@@ -115,7 +132,7 @@ public class Demo2Player extends MovableAreaEntity{
 			}
 			
 		}
-		if(keyboard.get(Keyboard.DOWN).isDown()) {
+		if(down.isDown()) {
 			
 			if(this.getOrientation()== Orientation.DOWN) {
 				
@@ -146,6 +163,8 @@ public class Demo2Player extends MovableAreaEntity{
 			Demo2Cell currentCell = (Demo2Cell) this.getArea().getAreaBehavior().getCell()[y][x];
 			
 			System.out.println(currentCell.getType());
+			
+			// si la cellule entrante est une porte
 			if(currentCell.getType() == Demo2CellType.DOOR) {
 				travPorte(true);
 			}

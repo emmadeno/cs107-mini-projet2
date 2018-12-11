@@ -64,7 +64,7 @@ public class Level3 extends EnigmeArea{
 	private void createActors(){
 		
 		DiscreteCoordinates signalDoor = new DiscreteCoordinates(5,9);
-		DiscreteCoordinates position = new DiscreteCoordinates(3,4);
+		DiscreteCoordinates position = new DiscreteCoordinates(3,6);
 		
 		key = new Key(this, Orientation.DOWN, new DiscreteCoordinates(1,3));
 		actors.add(key);

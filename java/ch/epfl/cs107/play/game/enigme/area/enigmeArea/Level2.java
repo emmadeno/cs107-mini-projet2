@@ -38,13 +38,9 @@ public class Level2 extends EnigmeArea{
 		// creation pomme
 		
 		Apple pomme = new Apple(this, Orientation.DOWN, new DiscreteCoordinates(5,6));
-		PressureSwitch bouton = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(2,5));
-		Lever lever = new Lever(this, Orientation.DOWN, new DiscreteCoordinates(4,4));
 		
-		super.registerActor(pomme);
-		super.registerActor(bouton);
-		super.registerActor(lever);
-		
+		// register les acteurs
+		super.registerActor(pomme);	
 		super.registerActor(portesL2.get(0));
 		
 		

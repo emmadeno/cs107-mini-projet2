@@ -26,6 +26,9 @@ Logic FALSE = new Logic() {
 	
 	boolean isOn();
 	
+	/**
+	 * @return (float) l'intensité
+	 */
 	default float getIntensity() {
 		if (this.isOn()) {
 			return 1.0f;
