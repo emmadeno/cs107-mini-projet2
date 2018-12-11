@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.actor.AnimationSprite;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
@@ -31,17 +32,24 @@ import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
 import ch.epfl.cs107.play.game.enigme.actor.Switchable;
 import ch.epfl.cs107.play.game.enigme.actor.Torch;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 
-public class EnigmePlayer extends MovableAreaEntity implements Interactor{
+public class EnigmePlayer extends MovableAreaEntity implements Interactor, AnimationSprite{
 	
 	private boolean travPorte;
-	private Sprite personnage;
+	//private Sprite personnage;
 	private final static int ANIMATION_DURATION = 8;
 	private Door lastPassedDoor;
 	private final EnigmePlayerHandler handler;
+	
+	private Sprite[] spritesDOWN;
+	private Sprite[] spritesUP;
+	private Sprite[] spritesLEFT;
+	private Sprite[] spritesRIGHT;
+	
 	
 	private class EnigmePlayerHandler implements EnigmeInteractionVisitor {
 		
@@ -79,12 +87,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 						
 						//active l'interactable si le player est exactement sur la cellule et est en train de bouger
 					   switchable.turnOnOff();
-					   
-					   if(EnigmePlayer.this instanceof PlayerLife) {
-							
-							PlayerLife player = (PlayerLife) EnigmePlayer.this;
-							player.resetLife();
-						}
 					   
 					}
 					
@@ -125,9 +127,14 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 	
 	public EnigmePlayer(Area area, Orientation orientation, DiscreteCoordinates coordinates) {
 		super(area, orientation, coordinates);
-		personnage = new Sprite("ghost.1", 1, 1.f, this);
+		//personnage = new Sprite("ghost.1", 1, 1.f, this);
 		this.setOrientation(Orientation.DOWN);
 		handler = new EnigmePlayerHandler();
+		
+		spritesDOWN = separateSprite("girl.5", 4, 0.5f, 0.65635f, this, 0, new Vector(0.25f,0.32f));
+		spritesLEFT = separateSprite("girl.5", 4, 0.5f, 0.65635f, this, 16, new Vector(0.25f,0.32f));
+		spritesUP = separateSprite("girl.5", 4, 0.5f, 0.65635f, this, 32, new Vector(0.25f,0.32f));
+		spritesRIGHT = separateSprite("girl.5", 4, 0.5f, 0.65635f, this, 48, new Vector(0.25f,0.32f));
 	}
 	
 	/**
@@ -179,7 +186,19 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 
 	@Override
 	public void draw(Canvas canvas) {
-		personnage.draw(canvas);
+		
+		if(this.getOrientation().equals(Orientation.DOWN)) {
+			draw(canvas,spritesDOWN);
+		}
+		if(this.getOrientation().equals(Orientation.LEFT)) {
+			draw(canvas,spritesLEFT);
+		}
+		if(this.getOrientation().equals(Orientation.RIGHT)) {
+			draw(canvas,spritesRIGHT);
+		}
+		if(this.getOrientation().equals(Orientation.UP)) {
+			draw(canvas, spritesUP);
+		}
 	}
 	
 	@Override
