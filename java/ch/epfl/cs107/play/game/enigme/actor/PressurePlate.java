@@ -28,6 +28,12 @@ public class PressurePlate extends AreaEntity implements Logic{
 	private float currentTime;
 	private final float ACTIVATION_TIME = 3f;
 
+	/**
+	 * 
+	 * @param area(Area): aire associée à la pressure plate
+	 * @param orientation(Orientation): orientation de la pressureplate
+	 * @param position(DiscreteCoordinates): position de la pressure plate sur l'aire
+	 */
 	public PressurePlate(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
 		isOn = false;

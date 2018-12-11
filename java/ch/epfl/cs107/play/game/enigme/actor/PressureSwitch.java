@@ -21,7 +21,12 @@ import ch.epfl.cs107.play.window.Canvas;
 public class PressureSwitch extends Switchable implements Logic{
 	
 	
-
+	/**
+	 * 
+	 * @param area(Area): aire associée au pressureSwitch
+	 * @param orientation(Orientation): orientation du pressureSwitch
+	 * @param position(DiscreteCoordinates): position du pressureSwitch sur l'aire
+	 */
 	public PressureSwitch(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
 		isOn = false;

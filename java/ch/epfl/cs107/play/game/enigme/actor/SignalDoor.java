@@ -21,6 +21,16 @@ public class SignalDoor extends Door implements Logic{
 	private Sprite openDoor = new Sprite("door.open.1", 1, 1.f, this);
 	private Sprite closedDoor = new Sprite("door.close.1", 1, 1.f, this);
 
+	/**
+	 * 
+	 * @param area(Area): aire associée à la porte
+	 * @param orientation(Orientation): orientation de la porte
+	 * @param destinationArea(Area): aire vers laquelle dirige la porte
+	 * @param position(DiscreteCoordinates) : position de la porte dans l'aire de départ
+	 * @param initialCoord(DiscreteCoordinates) position de l'acteur sur l'aire d'arrivée
+	 * @param otherCoordinates(Circle)
+	 * @param signal(Logic): signal associé à la porte pour savoir si elle est ouverte ou fermée
+	 */
 	public SignalDoor(Area area, Orientation orientation, String destinationArea, DiscreteCoordinates position,
 			DiscreteCoordinates initialCoord, Circle otherCoordinates, Logic signal) {
 		super(area, orientation, destinationArea, position, initialCoord, otherCoordinates);

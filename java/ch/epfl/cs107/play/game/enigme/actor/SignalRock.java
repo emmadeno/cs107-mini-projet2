@@ -23,6 +23,13 @@ public class SignalRock extends AreaEntity implements Logic{
 	private Logic signal;
 	private Sprite rock = new Sprite("rock.3", 1, 1.f, this);
 
+	/**
+	 * 
+	 * @param area(Area): aire où se trouve la pierre
+	 * @param orientation(Orientation): orientation de la pierre
+	 * @param position(DiscreteCoordinates): position de la pierre
+	 * @param signal(Logic): signal logique associé à la pierre
+	 */
 	public SignalRock(Area area, Orientation orientation, DiscreteCoordinates position, Logic signal) {
 		super(area, orientation, position);
 		this.signal = signal;

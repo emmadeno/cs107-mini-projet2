@@ -20,7 +20,12 @@ import ch.epfl.cs107.play.window.Canvas;
 
 public class Lever extends Switchable implements Logic{
 	
-
+	/**
+	 * 
+	 * @param area(Area): aire associée au levier
+	 * @param orientation(Orientation): orientation du levier
+	 * @param position(DiscreteCoordinates): position du levier
+	 */
 	public Lever(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
 		isOn = false;

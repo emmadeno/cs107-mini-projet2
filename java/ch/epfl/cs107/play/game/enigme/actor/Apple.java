@@ -21,6 +21,12 @@ public class Apple extends Pickup{
 	
 	private Sprite apple;
 
+	/**
+	 * 
+	 * @param area(Area): aire associée à la pomme
+	 * @param orientation(Orientation): orientation de la pomme
+	 * @param position(DiscreteCoordinates): position de la pomme sur l'aire
+	 */
 	public Apple(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
 		apple = new Sprite("apple.1", 1, 1.f, this);

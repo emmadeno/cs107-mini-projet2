@@ -20,7 +20,13 @@ import ch.epfl.cs107.play.window.Canvas;
 
 public class Torch extends Switchable implements Logic{
 	
-
+	/**
+	 * 
+	 * @param area(Area): aire associée à la torche
+	 * @param orientation(Orientation): orientation de la torche
+	 * @param position(DiscreteCoordinates): position de la torche sur l'aire
+	 * @param allumee(boolean): état initial de la torche(allumée ou éteinte)
+	 */
 	public Torch(Area area, Orientation orientation, DiscreteCoordinates position, boolean allumee) {
 		super(area, orientation, position);
 		//this.setOrientation(Orientation.DOWN);

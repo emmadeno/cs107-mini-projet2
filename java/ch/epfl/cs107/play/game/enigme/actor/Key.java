@@ -25,6 +25,12 @@ public class Key extends Pickup implements Logic{
 	private boolean isCollected;
 	private Logic logic;
 
+	/**
+	 * 
+	 * @param area(Area): aire associée à la clé
+	 * @param orientation(Orientation): orientation de la clé
+	 * @param position(DiscreteCoordinates): position de la clé sur l'aire
+	 */
 	public Key(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
 		this.setOrientation(Orientation.DOWN);

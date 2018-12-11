@@ -50,6 +50,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 	private Sprite[] spritesLEFT;
 	private Sprite[] spritesRIGHT;
 	
+	private int moves = 0;
 	
 	private class EnigmePlayerHandler implements EnigmeInteractionVisitor {
 		
@@ -131,10 +132,10 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 		this.setOrientation(Orientation.DOWN);
 		handler = new EnigmePlayerHandler();
 		
-		spritesDOWN = separateSprite("girl.5", 4, 0.5f, 0.65635f, this, 0, new Vector(0.25f,0.32f));
-		spritesLEFT = separateSprite("girl.5", 4, 0.5f, 0.65635f, this, 16, new Vector(0.25f,0.32f));
-		spritesUP = separateSprite("girl.5", 4, 0.5f, 0.65635f, this, 32, new Vector(0.25f,0.32f));
-		spritesRIGHT = separateSprite("girl.5", 4, 0.5f, 0.65635f, this, 48, new Vector(0.25f,0.32f));
+		spritesDOWN = separateSprite("girl.5", 4, 1f, 1.3125f, this, 0);
+		spritesLEFT = separateSprite("girl.5", 4, 1f, 1.3125f, this, 16);
+		spritesUP = separateSprite("girl.5", 4, 1f, 1.3125f, this, 32);
+		spritesRIGHT = separateSprite("girl.5", 4, 1f, 1.3125f, this, 48);
 	}
 	
 	/**
@@ -188,16 +189,21 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 	public void draw(Canvas canvas) {
 		
 		if(this.getOrientation().equals(Orientation.DOWN)) {
-			draw(canvas,spritesDOWN);
+			draw(canvas,spritesDOWN,moves);
 		}
 		if(this.getOrientation().equals(Orientation.LEFT)) {
-			draw(canvas,spritesLEFT);
+			draw(canvas,spritesLEFT,moves);
 		}
 		if(this.getOrientation().equals(Orientation.RIGHT)) {
-			draw(canvas,spritesRIGHT);
+			draw(canvas,spritesRIGHT,moves);
 		}
 		if(this.getOrientation().equals(Orientation.UP)) {
-			draw(canvas, spritesUP);
+			draw(canvas, spritesUP,moves);
+		}
+		++moves;
+		
+		if(moves>=4) {
+			moves=0;
 		}
 	}
 	

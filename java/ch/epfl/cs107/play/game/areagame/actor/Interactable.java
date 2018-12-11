@@ -11,7 +11,6 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
  * This interface makes sense only in the "AreaGame" context with Actor contained into Area Cell
  */
 public interface Interactable {
-    // TODO implements me #PROJECT #TUTO
 	
 	/**
 	 * 
