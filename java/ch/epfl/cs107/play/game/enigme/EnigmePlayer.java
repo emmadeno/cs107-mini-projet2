@@ -50,7 +50,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 	     	EnigmePlayer.this.setIsPassingDoor(door);
 
 		}
-		
+		@Override
 		public void interactWith(PressurePlate pressurePlate) {
 
 			pressurePlate.setCurrentTime();
@@ -238,6 +238,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 
 	@Override
 	public List<DiscreteCoordinates> getFieldOfViewCells() {
+		
 		List<DiscreteCoordinates> fieldOfView = new LinkedList<DiscreteCoordinates>();
 		fieldOfView.add(this.getCurrentMainCellCoordinates().jump(this.getOrientation().toVector()));
 		return fieldOfView;
@@ -252,7 +253,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 	public boolean wantsViewInteraction() {
 		
 		Keyboard keyboard = this.getArea().getKeyboard();
-		if(keyboard.get(Keyboard.L).isLastPressed()) {
+		if(keyboard.get(Keyboard.L).isPressed()) {
 			return true;
 		}
 
