@@ -53,7 +53,7 @@ public class Enigme extends AreaGame {
     public boolean begin(Window window, FileSystem filesystem) {
 		super.begin(window, filesystem);
 		DiscreteCoordinates initialCoord = new DiscreteCoordinates(5,5);
-		this.player = new EnigmePlayer(Room0, Orientation.DOWN, initialCoord);
+		this.player = new PlayerLife(Room0, Orientation.DOWN, initialCoord);
 		addArea(Room0);
 		addArea(Room1);
 		addArea(Room2);
@@ -79,6 +79,19 @@ public class Enigme extends AreaGame {
 			currentArea.setViewCandidate(player);
 			player.resetTravPorte();
         }
+        
+        if(player instanceof PlayerLife) {
+        	PlayerLife playerl = (PlayerLife) player;
+        	if(!playerl.isOn()) {
+        		player.leaveArea(getCurrentArea());
+        		Area currentArea = super.setCurrentArea("LevelSelector", false);
+        		player.enterArea(currentArea, new DiscreteCoordinates(5,5));
+            	player.setOwnerArea(currentArea);
+    			currentArea.setViewCandidate(player);
+    			((PlayerLife) player).addLife();
+        	}
+        }
+        
     }
 
 

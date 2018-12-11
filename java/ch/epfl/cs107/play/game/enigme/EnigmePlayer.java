@@ -25,6 +25,7 @@ import ch.epfl.cs107.play.game.enigme.actor.Door;
 import ch.epfl.cs107.play.game.enigme.actor.Key;
 import ch.epfl.cs107.play.game.enigme.actor.Lever;
 import ch.epfl.cs107.play.game.enigme.actor.Pickup;
+import ch.epfl.cs107.play.game.enigme.actor.Potion;
 import ch.epfl.cs107.play.game.enigme.actor.PressurePlate;
 import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
 import ch.epfl.cs107.play.game.enigme.actor.Switchable;
@@ -54,7 +55,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 		public void interactWith(PressurePlate pressurePlate) {
 
 			pressurePlate.setCurrentTime(); // enregistre le temps auquel l'acteur interagit
-			pressurePlate.switchOnOff(true); // active la pressure plate		
+			pressurePlate.switchOnOff(true); // active la pressure plate	
 	}
 		
 		@Override
@@ -78,6 +79,13 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 						
 						//active l'interactable si le player est exactement sur la cellule et est en train de bouger
 					   switchable.turnOnOff();
+					   
+					   if(EnigmePlayer.this instanceof PlayerLife) {
+							
+							PlayerLife player = (PlayerLife) EnigmePlayer.this;
+							player.resetLife();
+						}
+					   
 					}
 					
 			}
@@ -93,8 +101,23 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor{
 			if(keyboard.get(Keyboard.L).isPressed()) { //si on presse la touche L
 				
 							pickup.disappear();  //fait disparaitre le pickup
+							
+							if(EnigmePlayer.this instanceof PlayerLife) {
+								
+								PlayerLife player = (PlayerLife) EnigmePlayer.this;
+								
+								if(pickup instanceof Potion) {
+									player.addLife();
+								}
+								
+								if(pickup instanceof Apple) {
+									player.removeLife();
+								}
+							}
+							
 						}
-					}
+
+			}
 		
 		
 	}

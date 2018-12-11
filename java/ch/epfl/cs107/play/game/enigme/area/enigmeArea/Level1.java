@@ -10,8 +10,10 @@ import java.util.List;
 
 import ch.epfl.cs107.play.game.areagame.actor.Background;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
+import ch.epfl.cs107.play.game.enigme.actor.Apple;
 import ch.epfl.cs107.play.game.enigme.actor.Door;
 import ch.epfl.cs107.play.game.enigme.actor.Key;
+import ch.epfl.cs107.play.game.enigme.actor.Potion;
 import ch.epfl.cs107.play.game.enigme.actor.PressurePlate;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
@@ -36,7 +38,19 @@ public class Level1 extends EnigmeArea{
 		portesL1.add(new Door(this, Orientation.DOWN, "LevelSelector",door1,position1, new Circle(0.5f,door1.toVector())));
 		super.registerActor(portesL1.get(0));
 		
+		//creation pomme
+		
+		Apple apple = new Apple(this, Orientation.DOWN, new DiscreteCoordinates(6,4));
+		super.registerActor(apple);
+		
+		//creation potion
+		
+		Potion potion = new Potion(this, Orientation.DOWN, new DiscreteCoordinates(4,6));
+		super.registerActor(potion);
+		
+		
 		return true;
+		
 	}
 	
 	@Override
