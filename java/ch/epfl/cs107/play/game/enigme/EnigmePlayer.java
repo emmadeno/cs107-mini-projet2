@@ -189,12 +189,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 	@Override
 	public void draw(Canvas canvas) {
 		
-		if(moves>=4) {
-			moves=0;
-		}
-		
-		// on appelle la methode draw qui se trouve dans l'interface AnimationSprite
-		// on test l'orientation du personnage afin de savoir quel tableau de sprites utiliser
 		
 		if(this.getOrientation().equals(Orientation.DOWN)) {
 			draw(canvas,spritesDOWN,moves);
