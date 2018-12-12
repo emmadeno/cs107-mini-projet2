@@ -32,9 +32,12 @@ import ch.epfl.cs107.play.game.enigme.actor.Torch;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.signal.logic.And;
 import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.signal.logic.LogicNumber;
 import ch.epfl.cs107.play.signal.logic.MultipleAnd;
+import ch.epfl.cs107.play.signal.logic.MultipleOr;
+import ch.epfl.cs107.play.signal.logic.Not;
 import ch.epfl.cs107.play.signal.logic.Or;
 import ch.epfl.cs107.play.window.Window;
 
@@ -61,6 +64,10 @@ public class Enigme1 extends EnigmeArea{
 	private PressureSwitch switch3;
 	private PressureSwitch switch4;
 	private PressureSwitch switch5;
+	private PressureSwitch switch6;
+	private PressureSwitch switch7;
+	private PressureSwitch switch8;
+	private PressureSwitch switch9;
 	
 	private SignalRock rock1;
 	private SignalRock rock2;
@@ -147,11 +154,12 @@ public class Enigme1 extends EnigmeArea{
 		actors.add(switch3 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(6, 4)));
 		actors.add(switch4 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(5, 5)));
 		actors.add(switch5 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(7, 5)));
-		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(5, 4)));
-		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(7, 4)));
-		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(5, 6)));
-		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(7, 6)));
+		actors.add(switch6 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(5, 4)));
+		actors.add(switch7 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(7, 4)));
+		actors.add(switch8 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(5, 6)));
+		actors.add(switch9 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(7, 6)));
 		List<Logic> switches = Arrays.asList(switch1, switch2, switch3, switch4, switch5);
+		List<Logic> notSwitches = Arrays.asList(switch6, switch7, switch8, switch9);
 		
 		//creation cups
 		
@@ -167,8 +175,8 @@ public class Enigme1 extends EnigmeArea{
 		
 		actors.add(rock1 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(21, 6), new Or(pressurePlate, new LogicNumber(6, levers))));
 		actors.add(rock2 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(13, 5), key));
-		actors.add(rock3 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(6, 9), new MultipleAnd(switches)));
-		actors.add(rock4 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(7, 9), new MultipleAnd(switches)));
+		actors.add(rock3 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(6, 9), new And(new MultipleAnd(switches), new Not(new MultipleOr(notSwitches)))));
+		actors.add(rock4 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(7, 9), new And(new MultipleAnd(switches), new Not(new MultipleOr(notSwitches)))));
 		actors.add(rock5 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(6, 17), cup2)); 
 		actors.add(rock6 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(7, 17), cup2));
 		actors.add(rock7 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(6, 18), new MultipleAnd(torches)));
