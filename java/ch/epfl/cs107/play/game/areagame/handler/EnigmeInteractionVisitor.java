@@ -15,6 +15,7 @@ import ch.epfl.cs107.play.game.enigme.actor.PressurePlate;
 import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
 import ch.epfl.cs107.play.game.enigme.actor.Ressources;
 import ch.epfl.cs107.play.game.enigme.actor.SignalRock;
+import ch.epfl.cs107.play.game.enigme.actor.SpeakingPerson;
 import ch.epfl.cs107.play.game.enigme.actor.Switchable;
 import ch.epfl.cs107.play.game.enigme.actor.Torch;
 
@@ -81,6 +82,14 @@ public interface EnigmeInteractionVisitor extends AreaInteractionVisitor {
 	 * @param ressource(Ressources)
 	 */
 	default void interactWith(Ressources ressource) {
+		//by default this interaction is empty
+	}
+	
+	/**
+	 * Simulates an interaction beteween Interactors and SpeakingPerson in enigme
+	 * @param person(SpeakingPerson)
+	 */
+	default void interactWith(SpeakingPerson person) {
 		//by default this interaction is empty
 	}
 

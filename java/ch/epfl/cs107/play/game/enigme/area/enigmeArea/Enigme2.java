@@ -112,8 +112,8 @@ public class Enigme2 extends EnigmeArea{
 		actors.add(lever3);
 		
 		switches = Arrays.asList(switch1,switch2,switch3,switch4,switch5,switch6,switch7,switch8,switch9,
-				switch10,switch11,lever1,lever2,torch);
-		notSwitches = Arrays.asList(switch12, switch13, switch14, switch15, switch16, switch17, switch18);
+				switch10,switch11,lever1,lever3,torch);
+		notSwitches = Arrays.asList(switch12, switch13, switch14, switch15, switch16, switch17, switch18, lever2);
 		
 		//door finale
 		

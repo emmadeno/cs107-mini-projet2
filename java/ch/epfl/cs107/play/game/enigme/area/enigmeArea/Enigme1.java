@@ -28,6 +28,7 @@ import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
 import ch.epfl.cs107.play.game.enigme.actor.RedApple;
 import ch.epfl.cs107.play.game.enigme.actor.SignalDoor;
 import ch.epfl.cs107.play.game.enigme.actor.SignalRock;
+import ch.epfl.cs107.play.game.enigme.actor.SpeakingPerson;
 import ch.epfl.cs107.play.game.enigme.actor.Torch;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
@@ -181,6 +182,11 @@ public class Enigme1 extends EnigmeArea{
 		actors.add(rock6 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(7, 17), cup2));
 		actors.add(rock7 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(6, 18), new MultipleAnd(torches)));
 		actors.add(rock8 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(7, 18), new MultipleAnd(torches)));
+		
+		//creation personnes
+		
+		actors.add(new SpeakingPerson(this, Orientation.DOWN, new DiscreteCoordinates(12,8), "girl.1"));
+		actors.add(new SpeakingPerson(this, Orientation.DOWN, new DiscreteCoordinates(8,31), "old.man.1"));
 		
 		//creation portes
 		

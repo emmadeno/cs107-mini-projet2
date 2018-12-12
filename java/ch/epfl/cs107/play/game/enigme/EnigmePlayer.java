@@ -32,6 +32,7 @@ import ch.epfl.cs107.play.game.enigme.actor.Potion;
 import ch.epfl.cs107.play.game.enigme.actor.PressurePlate;
 import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
 import ch.epfl.cs107.play.game.enigme.actor.Ressources;
+import ch.epfl.cs107.play.game.enigme.actor.SpeakingPerson;
 import ch.epfl.cs107.play.game.enigme.actor.Switchable;
 import ch.epfl.cs107.play.game.enigme.actor.Torch;
 import ch.epfl.cs107.play.game.enigme.area.enigmeArea.EnigmeArea;
@@ -76,6 +77,18 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 			}
 			pressurePlate.switchOnOff(true); // active la pressure plate	
 	}
+		@Override
+		public void interactWith(SpeakingPerson person) {
+			
+			Keyboard keyboard = EnigmePlayer.this.getArea().getKeyboard();
+			
+			if(keyboard.get(Keyboard.L).isPressed()) { //si on presse la touche L
+				
+				time = gameTime;
+				dialogs.clear();
+				dialogs.add(new Dialog(person.getText(), "dialog.1", EnigmePlayer.this.getArea()));	
+			}
+	}
 		
 		@Override
 		public void interactWith(Switchable switchable) {
@@ -114,9 +127,10 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 			if(keyboard.get(Keyboard.L).isPressed()) { //si on presse la touche L
 				
 							pickup.disappear();  //fait disparaitre le pickup
-							time = gameTime;
-							dialogs.clear();
-							dialogs.add(new Dialog(pickup.getText(), "dialog.1", EnigmePlayer.this.getArea()));
+							
+							time = gameTime;    //le temps actuel est mémorisé
+							dialogs.clear();    //les dialogues actuels sont enlevés
+							dialogs.add(new Dialog(pickup.getText(), "dialog.1", EnigmePlayer.this.getArea())); //le dialogue actuel est ajouté
 				}
 							
 			}
@@ -231,7 +245,7 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 		}
 		
 		for(int i = 0; i < dialogs.size(); ++i) {
-			dialogs.get(i).draw(canvas);
+			dialogs.get(i).draw(canvas);   //les dialogues actuels sont dessinés
 		}
 		
 		
@@ -240,7 +254,7 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 	@Override
 	public void update(float deltatime) {
 		
-		gameTime += deltatime;
+		gameTime += deltatime; //le temps de jeu est enregistré
 		
 		Keyboard keyboard = this.getArea().getKeyboard();
 		Button left = keyboard.get(Keyboard.LEFT);
@@ -309,7 +323,7 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 		if(dialogs.size() > 0) {
 	
 			if(gameTime - time > 5) {
-				dialogs.clear();
+				dialogs.clear();    //les dialogues actuels sont enlevés après 5 secondes
 			}
 			
 		}
