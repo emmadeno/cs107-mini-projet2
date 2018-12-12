@@ -6,36 +6,107 @@
 package ch.epfl.cs107.play.game.enigme.area.enigmeArea;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.actor.Background;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.enigme.actor.Door;
+import ch.epfl.cs107.play.game.enigme.actor.Lever;
+import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
+import ch.epfl.cs107.play.game.enigme.actor.SignalDoor;
+import ch.epfl.cs107.play.game.enigme.actor.Torch;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.signal.logic.Logic;
+import ch.epfl.cs107.play.signal.logic.MultipleAnd;
 import ch.epfl.cs107.play.window.Window;
 
 public class Enigme2 extends EnigmeArea{
-		
+	
+	private List<Actor> actors = new LinkedList<Actor>();
+	private List<Logic> switches;
+	private SignalDoor door1;
+	private Torch torch;
+	private Lever lever1;
+	private Lever lever2;
+	private Lever lever3;
+	private PressureSwitch switch1;
+	private PressureSwitch switch2;
+	private PressureSwitch switch3;
+	private PressureSwitch switch4;
+	private PressureSwitch switch5;
+	private PressureSwitch switch6;
+	private PressureSwitch switch7;
+	private PressureSwitch switch8;
+	private PressureSwitch switch9;
+	private PressureSwitch switch10;
+	private PressureSwitch switch11;
+	
 	public boolean begin(Window window, FileSystem fileSystem) {
 		super.begin(window, fileSystem);
 		super.registerActor(new Background(this));
 		
-		//creation portes
+		initiateActors();
 		
-				DiscreteCoordinates door1MainCell = new DiscreteCoordinates(7,0);
-				List<DiscreteCoordinates> door1 = new ArrayList<DiscreteCoordinates>();
-				
-				DiscreteCoordinates position1 = new DiscreteCoordinates(6,31);
-				
-				Door door = new Door(this, Orientation.DOWN, "Enigme1",door1MainCell,position1, door1);
-				this.registerActor(door);
+		for(int i = 0; i < actors.size(); ++i) {
+			 super.registerActor(actors.get(i));
+			}
 
 				
-				return true;
+		return true;
 		
+		
+	}
+	
+	private void initiateActors() {
+		
+		DiscreteCoordinates signalDoor = new DiscreteCoordinates(0,7);
+		DiscreteCoordinates position = new DiscreteCoordinates(8,6);
+		
+		// pressure switchs
+		actors.add(switch1 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(11,6)));
+		actors.add(switch2 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(11,7)));
+		actors.add(switch3 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(11,8)));
+		actors.add(switch4 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(12,6)));
+		actors.add(switch5 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(12,7)));
+		actors.add(switch6 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(12,8)));
+		actors.add(switch7 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(13,6)));
+		actors.add(switch8 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(13,7)));
+		actors.add(switch9 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(1,8)));
+		actors.add(switch10 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(2,8)));
+		actors.add(switch11 = new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(3,8)));
+		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(13,8)));
+		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(1,6)));
+		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(1,7)));
+		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(2,6)));
+		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(2,7)));
+		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(3,6)));
+		actors.add(new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(3,7)));
+		
+		
+		//torche
+		torch = new Torch(this, Orientation.DOWN, new DiscreteCoordinates(7, 9), false);
+		actors.add(torch);
+		
+		//leviers
+		lever1 = new Lever(this, Orientation.DOWN, new DiscreteCoordinates(6,5)); 
+		actors.add(lever1);
+		lever2 = new Lever(this, Orientation.DOWN, new DiscreteCoordinates(7,5));
+		actors.add(lever2);
+		lever3 = new Lever(this, Orientation.DOWN, new DiscreteCoordinates(8,5));
+		actors.add(lever3);
+		
+		switches = Arrays.asList(switch1,switch2,switch3,switch4,switch5,switch6,switch7,switch8,switch9,
+				switch10,switch11,lever1,lever2,torch);
+		
+		//door finale
+		
+		door1 = new SignalDoor(this, Orientation.DOWN, "LevelSelector",signalDoor,position, new ArrayList<DiscreteCoordinates>(), new MultipleAnd(switches));
+		actors.add(door1);
 		
 	}
 	
