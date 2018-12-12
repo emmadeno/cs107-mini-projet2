@@ -34,14 +34,16 @@ public class LevelSelector extends EnigmeArea{
 		DiscreteCoordinates position1 = new DiscreteCoordinates(5,1);
 		DiscreteCoordinates door2 = new DiscreteCoordinates(2,7);
 		DiscreteCoordinates door3 = new DiscreteCoordinates(3,7);
+		DiscreteCoordinates door8 = new DiscreteCoordinates(8,7);
 		
 		// création des portes
-		portesLS.add(new Door(this, Orientation.DOWN, "Level1",door1,position1, new Circle(0.5f,door1.toVector())));
-		portesLS.add(new SignalDoor(this, Orientation.DOWN, "Level2",door2,position1, new Circle(0.5f,door2.toVector()), Logic.TRUE));
+		portesLS.add(new Door(this, Orientation.UP, "Level1",door1,position1, new Circle(0.5f,door1.toVector())));
+		portesLS.add(new SignalDoor(this, Orientation.UP, "Level2",door2,position1, new Circle(0.5f,door2.toVector()), Logic.TRUE));
 		portesLS.add(new SignalDoor(this, Orientation.DOWN, "Level3",door3,position1, new Circle(0.5f,door3.toVector()), Logic.TRUE));
+		portesLS.add(new SignalDoor(this, Orientation.DOWN, "Enigme0", door8, new DiscreteCoordinates(23,18), new Circle(0.5f, door8.toVector()), Logic.TRUE));
 		
 		//création des portes fermées
-		for(int i = 4; i <= 8; ++i ) {
+		for(int i = 4; i <= 7; ++i ) {
 			
 			portesLS.add(new SignalDoor(this, Orientation.DOWN, "",new DiscreteCoordinates(i,7),new DiscreteCoordinates(i,7), new Circle(0.5f,new DiscreteCoordinates(i,7).toVector()), Logic.FALSE));
 		}

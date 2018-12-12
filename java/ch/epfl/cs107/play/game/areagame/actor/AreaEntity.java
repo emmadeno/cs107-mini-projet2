@@ -68,7 +68,7 @@ public abstract class AreaEntity extends Entity implements Interactable {
     }
     
     // getter setter pour l'orientation
-    protected Orientation getOrientation() {
+    public Orientation getOrientation() {
     	return orientation;
     }
     

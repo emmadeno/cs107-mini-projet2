@@ -119,9 +119,12 @@ public abstract class AreaBehavior
     	
     	int authorization = 0; // variable de controle
     	for(int i = 0; i < coordinates.size(); i++) { //itere sur les cellules
-    		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
-    		if (currentCell.canLeave(entity)) {
-    			++authorization; // incrémente la variable de controle si l'entity peut quitter la cell testee
+    		if(coordinates.get(i).y >= 0 && coordinates.get(i).x >= 0) {
+   
+    			Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
+    			if (currentCell.canLeave(entity)) {
+    				++authorization; // incrémente la variable de controle si l'entity peut quitter la cell testee
+    			}
     		}
     	}
     	
@@ -141,12 +144,12 @@ public abstract class AreaBehavior
     public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) { //meme commentaires que canLeave
     	int authorization = 0;
     	for(int i = 0; i < coordinates.size(); i++) {
-    		if(coordinates.get(i).x >= 0 && coordinates.get(i).y >= 0) {
+    		//if(coordinates.get(i).x > 0 && coordinates.get(i).y > 0) {
     		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
 
     		if (currentCell.canEnter(entity)) {
     			++authorization;
-    		}
+    		//}
     		}
     		
     	}
@@ -189,8 +192,10 @@ public abstract class AreaBehavior
     public void cellInteractionOf(Interactor interactor) {
   
     	for (DiscreteCoordinates coord : interactor.getCurrentCells()) {
-    		Cell cell = cells[coord.y][coord.x];
-    		cell.cellInteractionOf(interactor);
+    		//if(coord.x >= 0 && coord.y >= 0) {
+    			Cell cell = cells[coord.y][coord.x];
+    			cell.cellInteractionOf(interactor);
+    		//}
     	}
     }
     

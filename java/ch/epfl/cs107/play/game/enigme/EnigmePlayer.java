@@ -304,6 +304,7 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 	// reset travporte
 	protected void resetTravPorte() {
 		travPorte = false;
+		this.setOrientation(lastPassedDoor.getOrientation());
 	}
 
 	@Override

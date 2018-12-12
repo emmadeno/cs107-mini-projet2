@@ -79,7 +79,7 @@ public class EnigmeBehavior extends AreaBehavior{
 			
 			@Override
 			protected boolean canEnter(Interactable entity) {
-				if (this.getType() == EnigmeCellType.WALL || this.getType() == EnigmeCellType.NULL) {
+				if (this.getType() == EnigmeCellType.WALL || this.getType() == EnigmeCellType.NULL || this.getType() == EnigmeCellType.WATER) {
 					return false;
 				}
 				for (Interactable i : interact) {

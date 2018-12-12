@@ -10,6 +10,7 @@ import ch.epfl.cs107.play.game.enigme.actor.Door;
 import ch.epfl.cs107.play.game.enigme.area.demo2.Demo2Player;
 import ch.epfl.cs107.play.game.enigme.area.demo2.Room1;
 import ch.epfl.cs107.play.game.enigme.area.demo2.Room2;
+import ch.epfl.cs107.play.game.enigme.area.enigmeArea.Enigme0;
 import ch.epfl.cs107.play.game.enigme.area.enigmeArea.Level1;
 import ch.epfl.cs107.play.game.enigme.area.enigmeArea.Level2;
 import ch.epfl.cs107.play.game.enigme.area.enigmeArea.Level3;
@@ -28,7 +29,7 @@ import ch.epfl.cs107.play.window.Window;
  */
 public class Enigme extends AreaGame {
 
-	private Area Room0, Room1, Room2, Room3;
+	private Area Room0, Room1, Room2, Room3, Room4;
 	private EnigmePlayer player;
 	private static final int FRAMESCALE = 22;
 	
@@ -39,6 +40,7 @@ public class Enigme extends AreaGame {
 		this.Room1 = new Level1();
 		this.Room2 = new Level2();
 		this.Room3 = new Level3();
+		this.Room4 = new Enigme0();
 	}
 
 
@@ -58,6 +60,7 @@ public class Enigme extends AreaGame {
 		addArea(Room1);
 		addArea(Room2);
 		addArea(Room3);
+		addArea(Room4);
 		Area currentArea = super.setCurrentArea(Room0.getTitle(), true);
 		currentArea.registerActor(player);
 		currentArea.setViewCandidate(player);
@@ -72,27 +75,41 @@ public class Enigme extends AreaGame {
         if (player.getTravPorte()) {
         	
         	Door passedDoor = player.passedDoor();
-        	player.leaveArea(getCurrentArea());
-        	Area currentArea = super.setCurrentArea(passedDoor.getDestination(), false);
-        	player.enterArea(currentArea, passedDoor.getInitialCoord());
-        	player.setOwnerArea(currentArea);
-			currentArea.setViewCandidate(player);
+        	changeArea(passedDoor.getDestination(), passedDoor.getInitialCoord());
 			player.resetTravPorte();
         }
         
-     
+     //si le joueur n'a plus de vies, le jeu est reset
         if(!player.isOn()) {
-        	player.leaveArea(getCurrentArea());
-        	Area currentArea = super.setCurrentArea("LevelSelector", false);
-        	player.enterArea(currentArea, new DiscreteCoordinates(5,5));
-            player.setOwnerArea(currentArea);
-    		currentArea.setViewCandidate(player);
-    		player.resetLives();
+        	
+    		resetGame();
     		
         	}
   }
-        
+    
+   /**
+    * resetGame method : recommence le jeu    
+    */
+   private void resetGame() {
+	   Room0.begin(getWindow(), getFileSystem());
+	   Room1.begin(getWindow(), getFileSystem());
+	   Room2.begin(getWindow(), getFileSystem());
+	   Room3.begin(getWindow(), getFileSystem());
+	   this.begin(getWindow(), getFileSystem());
+   }
    
+   /**
+    * changeArea method : permet de changer d'aire
+    * @param destination (String) : nom de l'aire de destination
+    * @param coord (DiscreteCoordinates): coordonnées d'arivée dans l'aire de destination
+    */
+   private void changeArea(String destination, DiscreteCoordinates coord) {
+	   player.leaveArea(getCurrentArea());
+	   Area currentArea = super.setCurrentArea(destination, false);
+   	   player.enterArea(currentArea, coord);
+       player.setOwnerArea(currentArea);
+	   currentArea.setViewCandidate(player);
+   }
 
 
     @Override
