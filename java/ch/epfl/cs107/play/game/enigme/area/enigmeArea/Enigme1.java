@@ -215,7 +215,7 @@ public class Enigme1 extends EnigmeArea{
 	
 	@Override
 	public float getCameraScaleFactor() {
-		return 15;
+		return 18;
 	}
 
 }
