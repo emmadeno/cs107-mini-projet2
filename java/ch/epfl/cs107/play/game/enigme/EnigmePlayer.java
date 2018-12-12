@@ -42,6 +42,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 	private boolean travPorte;
 	//private Sprite personnage;
 	private final static int ANIMATION_DURATION = 8;
+	private final static int ANIMATION_DURATION_RUN = 3;
 	private Door lastPassedDoor;
 	private final EnigmePlayerHandler handler;
 	
@@ -188,6 +189,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 	@Override
 	public void draw(Canvas canvas) {
 		
+		
 		if(this.getOrientation().equals(Orientation.DOWN)) {
 			draw(canvas,spritesDOWN,moves);
 		}
@@ -200,11 +202,16 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 		if(this.getOrientation().equals(Orientation.UP)) {
 			draw(canvas, spritesUP,moves);
 		}
+		
+		if(this.getIsMoving()) {
 		++moves;
+		}
 		
 		if(moves>=4) {
 			moves=0;
 		}
+		
+		
 	}
 	
 	@Override
@@ -215,6 +222,16 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 		Button right = keyboard.get(Keyboard.RIGHT);
 		Button up = keyboard.get(Keyboard.UP);
 		Button down = keyboard.get(Keyboard.DOWN);
+		Button space = keyboard.get(Keyboard.SPACE);
+		
+		int animationDuration;  // durée de l'animation
+		
+		if(space.isDown()) {
+			animationDuration = ANIMATION_DURATION_RUN;  //accélère le personnage si la touche espace est pressée
+		}
+		else {
+			animationDuration = ANIMATION_DURATION;
+		}
 		
 		
 		// update du champ de vision en même temps que l'orientation.
@@ -223,7 +240,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 			
 			if(this.getOrientation()== Orientation.LEFT) {
 				
-				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
+				move(animationDuration); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
 				
 			}
 			else {
@@ -236,7 +253,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 			
 			if(this.getOrientation()== Orientation.RIGHT) {
 				
-				move(ANIMATION_DURATION); 
+				move(animationDuration); 
 				
 				
 			}
@@ -250,7 +267,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 			
 			if(this.getOrientation()== Orientation.UP) {
 				
-				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
+				move(animationDuration); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
 				
 			}
 			else {
@@ -263,7 +280,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 			
 			if(this.getOrientation()== Orientation.DOWN) {
 				
-				move(ANIMATION_DURATION); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
+				move(animationDuration); // Prends en parametre la vitesse à laquelle on veut deplacer l'acteur
 				
 			}
 			else {
@@ -300,6 +317,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 	// reset travporte
 	protected void resetTravPorte() {
 		travPorte = false;
+		this.setOrientation(lastPassedDoor.getOrientation());
 	}
 
 	@Override
