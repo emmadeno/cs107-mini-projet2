@@ -17,6 +17,7 @@ import ch.epfl.cs107.play.game.enigme.actor.Door;
 import ch.epfl.cs107.play.game.enigme.actor.Lever;
 import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
 import ch.epfl.cs107.play.game.enigme.actor.SignalDoor;
+import ch.epfl.cs107.play.game.enigme.actor.SpeakingPerson;
 import ch.epfl.cs107.play.game.enigme.actor.Torch;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
@@ -97,6 +98,9 @@ public class Enigme2 extends EnigmeArea{
 		actors.add(switch16 =new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(2,7)));
 		actors.add(switch17 =new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(3,6)));
 		actors.add(switch18 =new PressureSwitch(this, Orientation.DOWN, new DiscreteCoordinates(3,7)));
+		
+		//personnage
+		actors.add(new SpeakingPerson(this, Orientation.DOWN, new DiscreteCoordinates(13,3), "max.ghost"));
 		
 		
 		//torche

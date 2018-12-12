@@ -75,6 +75,9 @@ public class SpeakingPerson extends AreaEntity{
 		if(personName.equals("old.man.1")) {
 			return "Je ne peux que te montrer la porte, c'est à toi qu'il appartient de la franchir.";
 		}
+		else if(personName.equals("max.ghost")) {
+			return "Regardez le motif d'emplacement des objets dans cette salle !";
+		}
 		else {
 			return "Les coins sont les faiblesses";
 		}
