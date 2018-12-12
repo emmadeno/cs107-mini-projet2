@@ -74,10 +74,5 @@ public class SignalDoor extends Door implements Logic{
 		signal = logic;
 	}
 	
-	@Override
-	public void update(float deltaTime) {
-		super.update(deltaTime);
-		
-	}
 
 }

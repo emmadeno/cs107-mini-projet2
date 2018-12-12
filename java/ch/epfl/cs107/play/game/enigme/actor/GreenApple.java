@@ -34,5 +34,7 @@ public class GreenApple extends Apple {
 	public String getText() {
 		return "Une vie de plus ! ";
 	}
+	
+	
 
 }

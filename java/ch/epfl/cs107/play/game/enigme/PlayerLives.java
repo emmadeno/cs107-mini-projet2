@@ -90,5 +90,11 @@ public abstract class PlayerLives extends MovableAreaEntity implements Logic{
 		}
 	}
 	
+	public void kill() {
+		while(lives.size() > 0) {
+			lives.remove(lives.size() - 1);
+		}
+	}
+	
 
 }

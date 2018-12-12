@@ -125,5 +125,7 @@ public class Enigme extends AreaGame {
     public int getFrameRate() {
         return 24;
     }
+    
+
 }
 
