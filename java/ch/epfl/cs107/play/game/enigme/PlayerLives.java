@@ -1,6 +1,6 @@
 /*
  *	Author:      Emmanuelle Denove
- *	Date:        11 Dec 2018
+ *	Date:        12 Dec 2018
  */
 
 package ch.epfl.cs107.play.game.enigme;
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -18,13 +19,13 @@ import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
 
-public class PlayerLife extends EnigmePlayer implements Logic{
+public abstract class PlayerLives extends MovableAreaEntity implements Logic{
 	
 	private List<Logic> lives;
 	private Map <Integer, Sprite> lifeImages;
 	private Sprite life1Image, life2Image, life3Image;
 
-	public PlayerLife(Area area, Orientation orientation, DiscreteCoordinates coordinates) {
+	public PlayerLives(Area area, Orientation orientation, DiscreteCoordinates coordinates) {
 		super(area, orientation, coordinates);
 		
 		lifeImages = new HashMap<Integer, Sprite>();
@@ -33,9 +34,9 @@ public class PlayerLife extends EnigmePlayer implements Logic{
 		life2Image = new Sprite("heart1", 0.5f, 0.5f, this);
 		life3Image = new Sprite("heart1", 0.5f, 0.5f, this);
 		
-		life1Image.setAnchor(new Vector(-0.3f, 1f));
-		life2Image.setAnchor(new Vector(0.25f, 1f));
-		life3Image.setAnchor(new Vector(0.8f, 1f));
+		life1Image.setAnchor(new Vector(-0.3f, 1.25f));
+		life2Image.setAnchor(new Vector(0.25f, 1.25f));
+		life3Image.setAnchor(new Vector(0.8f, 1.25f));
 		
 		lifeImages.put(1, life1Image);
 		lifeImages.put(2, life2Image);
@@ -77,13 +78,16 @@ public class PlayerLife extends EnigmePlayer implements Logic{
 	
 	@Override
 	public void draw(Canvas canvas) {
-		super.draw(canvas);
 		for(int i = 1; i <= lives.size(); ++i) {
 			lifeImages.get(i).draw(canvas);
 		}
 	}
 	
-	
+	public void resetLives() {
+		for(int i = 1; i <= 3; i++) {
+			lives.add(TRUE);
+		}
+	}
 	
 
 }

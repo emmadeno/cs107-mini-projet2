@@ -61,14 +61,14 @@ public abstract class AreaEntity extends Entity implements Interactable {
     
     /**
      * 
-     * @return l'aire associe a l'acteur
+     * @return l'aire associée a l'acteur
      */
     protected Area getArea() {
     	return ownerArea;
     }
     
     // getter setter pour l'orientation
-    public Orientation getOrientation() {
+    protected Orientation getOrientation() {
     	return orientation;
     }
     

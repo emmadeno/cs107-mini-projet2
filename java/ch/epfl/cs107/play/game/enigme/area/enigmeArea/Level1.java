@@ -43,6 +43,9 @@ public class Level1 extends EnigmeArea{
 		Apple apple = new Apple(this, Orientation.DOWN, new DiscreteCoordinates(6,4));
 		super.registerActor(apple);
 		
+		Apple apple2 = new Apple(this, Orientation.DOWN, new DiscreteCoordinates(7,7));
+		super.registerActor(apple2);
+		
 		//creation potion
 		
 		Potion potion = new Potion(this, Orientation.DOWN, new DiscreteCoordinates(4,6));

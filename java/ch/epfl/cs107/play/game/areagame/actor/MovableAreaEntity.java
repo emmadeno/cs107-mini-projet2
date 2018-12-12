@@ -8,6 +8,8 @@ import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior.Cell;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
+import ch.epfl.cs107.play.window.Button;
+import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
@@ -85,6 +87,9 @@ public abstract class MovableAreaEntity extends AreaEntity {
      */
   
     protected boolean move(int framesForMove){
+    	
+    	Keyboard keyboard = this.getArea().getKeyboard();
+    	Button space = keyboard.get(Keyboard.SPACE);
     
     	// si il n'est pas entrain de se déplacer ou qu'il a atteint sa cible
     	if (!isMoving || getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)) { 
@@ -98,8 +103,14 @@ public abstract class MovableAreaEntity extends AreaEntity {
     				framesForCurrentMove = 1;
     			}
     			else {
-    				framesForCurrentMove = framesForMove;
+    				if(space.isDown() && framesForMove >= 2) {
+    					framesForCurrentMove = framesForMove/2;
+    				}
+    				else {
+    					framesForCurrentMove = framesForMove;
+    				}
     			}
+    			
     			
     			Vector orientation = getOrientation().toVector();
     			    			
