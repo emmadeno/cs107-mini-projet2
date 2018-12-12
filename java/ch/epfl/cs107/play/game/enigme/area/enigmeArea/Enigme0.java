@@ -5,12 +5,14 @@
 
 package ch.epfl.cs107.play.game.enigme.area.enigmeArea;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import ch.epfl.cs107.play.game.areagame.actor.Background;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.enigme.actor.Door;
+import ch.epfl.cs107.play.game.enigme.actor.GreenApple;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -28,24 +30,30 @@ public class Enigme0 extends EnigmeArea{
 		
 		//creation portes
 		
-		DiscreteCoordinates door1 = new DiscreteCoordinates(0,11);
-		DiscreteCoordinates door2 = new DiscreteCoordinates(0,12);
-		DiscreteCoordinates door3 = new DiscreteCoordinates(9,29);
-		DiscreteCoordinates door4 = new DiscreteCoordinates(10,29);
-		DiscreteCoordinates door5 = new DiscreteCoordinates(11,29);
+		DiscreteCoordinates door1MainCell = new DiscreteCoordinates(0,11);
+		List<DiscreteCoordinates> door1 = new ArrayList<DiscreteCoordinates>();
+		door1.add(new DiscreteCoordinates(0,12));
+		
+		
+		DiscreteCoordinates door2MainCell = new DiscreteCoordinates(9,29);
+		List<DiscreteCoordinates> door2 = new ArrayList<DiscreteCoordinates>();
+		door2.add(new DiscreteCoordinates(10,29));
+		door2.add(new DiscreteCoordinates(11,29));
 		
 		DiscreteCoordinates position1 = new DiscreteCoordinates(8,6);
 		DiscreteCoordinates position2 = new DiscreteCoordinates(16,1);
 		
-		portesL1.add(new Door(this, Orientation.UP, "Enigme1",door1,position2, new Circle(0.5f,door1.toVector())));
-		portesL1.add(new Door(this, Orientation.UP, "Enigme1",door2,position2, new Circle(0.5f,door2.toVector())));
-		portesL1.add(new Door(this, Orientation.DOWN, "LevelSelector",door3,position1, new Circle(0.5f,door3.toVector())));
-		portesL1.add(new Door(this, Orientation.DOWN, "LevelSelector",door4,position1, new Circle(0.5f,door4.toVector())));
-		portesL1.add(new Door(this, Orientation.DOWN, "LevelSelector",door5,position1, new Circle(0.5f,door5.toVector())));
+		portesL1.add(new Door(this, Orientation.UP, "Enigme1",door1MainCell,position2, door1));	
+		portesL1.add(new Door(this, Orientation.DOWN, "LevelSelector",door2MainCell,position1, door2));
 		
 		for(int i = 0; i < portesL1.size(); ++i) {
 			super.registerActor(portesL1.get(i));
 		}
+		
+		//creation pomme
+		
+		GreenApple apple = new GreenApple(this, Orientation.DOWN, new DiscreteCoordinates(20, 15));
+		super.registerActor(apple);
 		
 		return true;
 	}

@@ -5,6 +5,8 @@
 
 package ch.epfl.cs107.play.game.enigme.actor;
 
+import java.util.List;
+
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
@@ -32,7 +34,7 @@ public class SignalDoor extends Door implements Logic{
 	 * @param signal(Logic): signal associé à la porte pour savoir si elle est ouverte ou fermée
 	 */
 	public SignalDoor(Area area, Orientation orientation, String destinationArea, DiscreteCoordinates position,
-			DiscreteCoordinates initialCoord, Circle otherCoordinates, Logic signal) {
+			DiscreteCoordinates initialCoord, List<DiscreteCoordinates> otherCoordinates, Logic signal) {
 		super(area, orientation, destinationArea, position, initialCoord, otherCoordinates);
 		this.signal = signal;
 	}

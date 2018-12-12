@@ -5,6 +5,7 @@
 
 package ch.epfl.cs107.play.game.enigme.area.enigmeArea;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,11 +25,12 @@ public class Enigme2 extends EnigmeArea{
 		
 		//creation portes
 		
-				DiscreteCoordinates door1 = new DiscreteCoordinates(7,0);
+				DiscreteCoordinates door1MainCell = new DiscreteCoordinates(7,0);
+				List<DiscreteCoordinates> door1 = new ArrayList<DiscreteCoordinates>();
 				
 				DiscreteCoordinates position1 = new DiscreteCoordinates(6,31);
 				
-				Door door = new Door(this, Orientation.DOWN, "Enigme1",door1,position1, new Circle(0.5f,door1.toVector()));
+				Door door = new Door(this, Orientation.DOWN, "Enigme1",door1MainCell,position1, door1);
 				this.registerActor(door);
 
 				

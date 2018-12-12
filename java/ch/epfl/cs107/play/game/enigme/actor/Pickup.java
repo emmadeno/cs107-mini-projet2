@@ -21,6 +21,12 @@ public abstract class Pickup extends AreaEntity{
 		super(area, orientation, position);
 	}
 	
+	/**
+	 * getText method : retourne le texte qui doit s'afficher quand le Pickup est collecté
+	 * @return String : texte à afficher
+	 */
+	public abstract String getText();
+	
 	@Override
 	public List<DiscreteCoordinates> getCurrentCells() {
 		
@@ -45,6 +51,8 @@ public abstract class Pickup extends AreaEntity{
 		return false;
 	}
 	//fait en sorte que l'acteur disparaisse lorsqu'il est connecté
-	public abstract void disappear();
+	public void disappear() {
+		this.getArea().unregisterActor(this);
+	}
 	
 }

@@ -51,7 +51,7 @@ public class Key extends Pickup implements Logic{
 	
 	@Override
 	public void disappear() {
-		this.getArea().unregisterActor(this);
+		super.disappear();
 		isCollected = true;
 	}
 
@@ -74,6 +74,11 @@ public class Key extends Pickup implements Logic{
 		else {
 			logic = Logic.FALSE; // sinon met le signal logique à false
 		}
+	}
+	
+	@Override
+	public String getText() {
+		return "Quelle porte cette clé semble-t-elle ouvrir ? ";
 	}
 
 

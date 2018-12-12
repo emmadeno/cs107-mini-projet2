@@ -14,6 +14,7 @@ import ch.epfl.cs107.play.window.Window;
 
 public class EnigmeArea extends Area{
 	
+	
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
 		EnigmeBehavior behavior = new EnigmeBehavior(window, getTitle());
@@ -32,5 +33,6 @@ public class EnigmeArea extends Area{
 	public float getCameraScaleFactor() {
 		return 22;
 	}
+	
 
 }

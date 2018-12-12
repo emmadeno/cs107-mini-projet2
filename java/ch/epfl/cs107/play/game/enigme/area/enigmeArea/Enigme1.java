@@ -5,6 +5,7 @@
 
 package ch.epfl.cs107.play.game.enigme.area.enigmeArea;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,19 +30,20 @@ public class Enigme1 extends EnigmeArea{
 		super.registerActor(new Background(this));
 		
 		//creation portes
-		
-				DiscreteCoordinates door1 = new DiscreteCoordinates(15,0);
-				DiscreteCoordinates door2 = new DiscreteCoordinates(16,0);
-				DiscreteCoordinates door3 = new DiscreteCoordinates(17,0);
-				DiscreteCoordinates door4 = new DiscreteCoordinates(6,32);
+						
+				DiscreteCoordinates door1MainCell = new DiscreteCoordinates(16,0);
+				List<DiscreteCoordinates> door1 = new ArrayList<DiscreteCoordinates>();
+				door1.add(new DiscreteCoordinates(15,0));
+				door1.add(new DiscreteCoordinates(17,0));
+				
+				DiscreteCoordinates door2MainCell = new DiscreteCoordinates(6,32);
+				List<DiscreteCoordinates> door2 = new ArrayList<DiscreteCoordinates>();
 				
 				DiscreteCoordinates position1 = new DiscreteCoordinates(1,12);
 				DiscreteCoordinates position2 = new DiscreteCoordinates(7,1);
 				
-				portesL1.add(new Door(this, Orientation.RIGHT, "Enigme0",door1,position1, new Circle(0.5f,door1.toVector())));
-				portesL1.add(new Door(this, Orientation.RIGHT, "Enigme0",door2,position1, new Circle(0.5f,door2.toVector())));
-				portesL1.add(new Door(this, Orientation.RIGHT, "Enigme0",door3,position1, new Circle(0.5f,door3.toVector())));
-				portesL1.add(new SignalDoor(this, Orientation.UP, "Enigme2",door4,position2, new Circle(0.5f,door4.toVector()), Logic.FALSE));
+				portesL1.add(new Door(this, Orientation.RIGHT, "Enigme0",door1MainCell,position1, door1));
+				portesL1.add(new SignalDoor(this, Orientation.UP, "Enigme2",door2MainCell,position2, door2, Logic.FALSE));
 				
 				for(int i = 0; i < portesL1.size(); ++i) {
 					super.registerActor(portesL1.get(i));

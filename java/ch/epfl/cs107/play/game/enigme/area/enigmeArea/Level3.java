@@ -5,6 +5,7 @@
 
 package ch.epfl.cs107.play.game.enigme.area.enigmeArea;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -106,7 +107,7 @@ public class Level3 extends EnigmeArea{
 		}
 		
 		
-		door1 = new SignalDoor(this, Orientation.DOWN, "LevelSelector",signalDoor,position, new Circle(0.5f,signalDoor.toVector()), key);
+		door1 = new SignalDoor(this, Orientation.DOWN, "LevelSelector",signalDoor,position, new ArrayList<DiscreteCoordinates>(), key);
 		actors.add(door1);
 		
 		rock1 = new SignalRock(this, Orientation.DOWN, new DiscreteCoordinates(6,8), pressurePlate);

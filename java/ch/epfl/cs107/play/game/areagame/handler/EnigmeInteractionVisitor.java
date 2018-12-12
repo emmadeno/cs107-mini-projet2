@@ -13,6 +13,7 @@ import ch.epfl.cs107.play.game.enigme.actor.Lever;
 import ch.epfl.cs107.play.game.enigme.actor.Pickup;
 import ch.epfl.cs107.play.game.enigme.actor.PressurePlate;
 import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
+import ch.epfl.cs107.play.game.enigme.actor.Ressources;
 import ch.epfl.cs107.play.game.enigme.actor.SignalRock;
 import ch.epfl.cs107.play.game.enigme.actor.Switchable;
 import ch.epfl.cs107.play.game.enigme.actor.Torch;
@@ -69,9 +70,17 @@ public interface EnigmeInteractionVisitor extends AreaInteractionVisitor {
 	
 	/**
 	 * Simulates an interaction beteween Interactors and signalRock in enigme
-	 * @param signalRock(SignalROck)
+	 * @param signalRock(SignalRock)
 	 */
 	default void interactWith(SignalRock signalRock) {
+		//by default this interaction is empty
+	}
+	
+	/**
+	 * Simulates an interaction beteween Interactors and Ressources in enigme
+	 * @param ressource(Ressources)
+	 */
+	default void interactWith(Ressources ressource) {
 		//by default this interaction is empty
 	}
 

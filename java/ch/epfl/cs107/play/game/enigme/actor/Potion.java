@@ -10,10 +10,11 @@ import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.areagame.handler.EnigmeInteractionVisitor;
+import ch.epfl.cs107.play.game.enigme.PlayerLives;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Canvas;
 
-public class Potion extends Pickup {
+public class Potion extends Pickup implements Ressources {
 	
 	private Sprite potion;
 	
@@ -31,8 +32,8 @@ public class Potion extends Pickup {
 
 	@Override
 	public void acceptInteraction(AreaInteractionVisitor v) {
-		((EnigmeInteractionVisitor)v).interactWith(this);
-		
+		((EnigmeInteractionVisitor)v).interactWith((Pickup) this);
+		((EnigmeInteractionVisitor)v).interactWith((Ressources) this);
 	}
 
 	@Override
@@ -44,6 +45,16 @@ public class Potion extends Pickup {
 	@Override
 	public void disappear() {
 		this.getArea().unregisterActor(this);	
+	}
+
+	@Override
+	public void actOnLives(PlayerLives i) {
+		i.resetLives();
+	}
+	
+	@Override
+	public String getText() {
+		return "Les vies ont été rétablies ! ";
 	}
 
 }

@@ -10,16 +10,17 @@ import java.util.List;
 
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.AreaEntity;
+import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.areagame.handler.EnigmeInteractionVisitor;
+import ch.epfl.cs107.play.game.enigme.PlayerLives;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Canvas;
 
-public class Apple extends Pickup{
+public abstract class Apple extends Pickup implements Ressources {
 	
-	private Sprite apple;
 
 	/**
 	 * 
@@ -29,24 +30,14 @@ public class Apple extends Pickup{
 	 */
 	public Apple(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
-		apple = new Sprite("apple.1", 1, 1.f, this);
 		this.setOrientation(Orientation.DOWN);
 	}
-
-
-	@Override
-	public void draw(Canvas canvas) {
-		apple.draw(canvas);
-	}
-
+	
 	@Override
 	public void acceptInteraction(AreaInteractionVisitor v) {
-		((EnigmeInteractionVisitor)v).interactWith(this);
-		
+		((EnigmeInteractionVisitor)v).interactWith((Pickup)this);
+		((EnigmeInteractionVisitor)v).interactWith((Ressources)this);	
 	}
-	@Override
-	public void disappear() {
-		this.getArea().unregisterActor(this);
-	}
+	
 
 }

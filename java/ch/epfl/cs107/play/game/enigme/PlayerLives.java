@@ -84,7 +84,8 @@ public abstract class PlayerLives extends MovableAreaEntity implements Logic{
 	}
 	
 	public void resetLives() {
-		for(int i = 1; i <= 3; i++) {
+		int size = lives.size();
+		for(int i = size; i < 3; i++) {
 			lives.add(TRUE);
 		}
 	}

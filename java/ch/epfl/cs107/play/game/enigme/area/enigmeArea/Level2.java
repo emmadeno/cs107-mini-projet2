@@ -5,6 +5,7 @@
 
 package ch.epfl.cs107.play.game.enigme.area.enigmeArea;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import ch.epfl.cs107.play.game.enigme.actor.Apple;
 import ch.epfl.cs107.play.game.enigme.actor.Door;
 import ch.epfl.cs107.play.game.enigme.actor.Lever;
 import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
+import ch.epfl.cs107.play.game.enigme.actor.RedApple;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -33,11 +35,11 @@ public class Level2 extends EnigmeArea{
 		DiscreteCoordinates door1 = new DiscreteCoordinates(5,0);
 		DiscreteCoordinates position1 = new DiscreteCoordinates(2,6);
 				
-		portesL2.add(new Door(this, Orientation.DOWN, "LevelSelector",door1,position1, new Circle(0.5f,door1.toVector())));
+		portesL2.add(new Door(this, Orientation.DOWN, "LevelSelector",door1,position1, new ArrayList<DiscreteCoordinates>()));
 		
 		// creation pomme
 		
-		Apple pomme = new Apple(this, Orientation.DOWN, new DiscreteCoordinates(5,6));
+		Apple pomme = new RedApple(this, Orientation.DOWN, new DiscreteCoordinates(5,6));
 		
 		// register les acteurs
 		super.registerActor(pomme);	
@@ -51,4 +53,6 @@ public class Level2 extends EnigmeArea{
 	public String getTitle() {
 		return "Level2";
 	}
+	
+	
 }

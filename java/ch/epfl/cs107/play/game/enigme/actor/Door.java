@@ -5,6 +5,7 @@
 
 package ch.epfl.cs107.play.game.enigme.actor;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Door extends AreaEntity{
 	
 	private String destinationArea;
 	private DiscreteCoordinates initialCoord;
-	private Circle otherCoordinates;
+	private List<DiscreteCoordinates> otherCoordinates;
 	
 	
 	/**
@@ -33,7 +34,7 @@ public class Door extends AreaEntity{
 	 * @param initialCoord(DiscreteCoordinates): position de départ dans la nouvelle aire
 	 * @param otherCoordinates(Circle): autre Coordonées
 	 */
-	public Door(Area area, Orientation orientation, String destinationArea, DiscreteCoordinates position, DiscreteCoordinates initialCoord, Circle otherCoordinates) {
+	public Door(Area area, Orientation orientation, String destinationArea, DiscreteCoordinates position, DiscreteCoordinates initialCoord, List<DiscreteCoordinates> otherCoordinates) {
 		super(area, orientation, position);
 		this.destinationArea = destinationArea;
 		this.initialCoord = initialCoord;
@@ -43,7 +44,12 @@ public class Door extends AreaEntity{
 	@Override
 	public List<DiscreteCoordinates> getCurrentCells() {
 		
-		return Collections.singletonList(getCurrentMainCellCoordinates());
+		List<DiscreteCoordinates> allCells = new ArrayList<DiscreteCoordinates>();
+		allCells.add(super.getCurrentMainCellCoordinates());
+		for(int i = 0; i < otherCoordinates.size(); i++) {
+			allCells.add(otherCoordinates.get(i));
+		}
+		return allCells;
 	}
 
 	@Override

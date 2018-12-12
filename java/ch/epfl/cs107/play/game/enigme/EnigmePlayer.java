@@ -5,6 +5,7 @@
 
 package ch.epfl.cs107.play.game.enigme;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
@@ -22,6 +23,7 @@ import ch.epfl.cs107.play.game.areagame.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2Cell;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2CellType;
 import ch.epfl.cs107.play.game.enigme.actor.Apple;
+import ch.epfl.cs107.play.game.enigme.actor.Dialog;
 import ch.epfl.cs107.play.game.enigme.actor.Door;
 import ch.epfl.cs107.play.game.enigme.actor.Key;
 import ch.epfl.cs107.play.game.enigme.actor.Lever;
@@ -29,8 +31,10 @@ import ch.epfl.cs107.play.game.enigme.actor.Pickup;
 import ch.epfl.cs107.play.game.enigme.actor.Potion;
 import ch.epfl.cs107.play.game.enigme.actor.PressurePlate;
 import ch.epfl.cs107.play.game.enigme.actor.PressureSwitch;
+import ch.epfl.cs107.play.game.enigme.actor.Ressources;
 import ch.epfl.cs107.play.game.enigme.actor.Switchable;
 import ch.epfl.cs107.play.game.enigme.actor.Torch;
+import ch.epfl.cs107.play.game.enigme.area.enigmeArea.EnigmeArea;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Button;
@@ -50,6 +54,10 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 	private Sprite[] spritesLEFT;
 	private Sprite[] spritesRIGHT;
 	
+	private float gameTime;
+	private List<Dialog> dialogs;
+	private float time;
+	
 	private int moves = 0;
 	
 	private class EnigmePlayerHandler implements EnigmeInteractionVisitor {
@@ -63,7 +71,9 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 		@Override
 		public void interactWith(PressurePlate pressurePlate) {
 
-			pressurePlate.setCurrentTime(); // enregistre le temps auquel l'acteur interagit
+			if(!pressurePlate.isOn()) {  //si la pressurePlate n'est pas déjà allumée
+				pressurePlate.setCurrentTime();  // enregistre le temps auquel l'acteur interagit
+			}
 			pressurePlate.switchOnOff(true); // active la pressure plate	
 	}
 		
@@ -104,19 +114,29 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 			if(keyboard.get(Keyboard.L).isPressed()) { //si on presse la touche L
 				
 							pickup.disappear();  //fait disparaitre le pickup
+							time = gameTime;
+							dialogs.clear();
+							dialogs.add(new Dialog(pickup.getText(), "dialog.1", EnigmePlayer.this.getArea()));
+				}
 							
-								if(pickup instanceof Potion) {
-									EnigmePlayer.this.addLife();
-								}
-								
-								if(pickup instanceof Apple) {
-									EnigmePlayer.this.removeLife();
-								}
-							}
-							
-						}
-
 			}
+		
+		@Override
+		public void interactWith(Ressources ressource) {
+			
+			Keyboard keyboard = EnigmePlayer.this.getArea().getKeyboard();
+			
+			if(keyboard.get(Keyboard.L).isPressed()) {
+			
+				ressource.actOnLives(EnigmePlayer.this);
+			
+			}
+			
+		}
+			
+			
+
+}
 		
 		
 	
@@ -127,6 +147,9 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 		//personnage = new Sprite("ghost.1", 1, 1.f, this);
 		this.setOrientation(Orientation.DOWN);
 		handler = new EnigmePlayerHandler();
+		
+		gameTime = 0;
+		dialogs = new ArrayList<Dialog>();
 		
 		spritesDOWN = separateSprite("girl.5", 4, 1f, 1.3125f, this, 0);
 		spritesLEFT = separateSprite("girl.5", 4, 1f, 1.3125f, this, 16);
@@ -207,11 +230,17 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 			moves=0;
 		}
 		
+		for(int i = 0; i < dialogs.size(); ++i) {
+			dialogs.get(i).draw(canvas);
+		}
+		
 		
 	}
 	
 	@Override
 	public void update(float deltatime) {
+		
+		gameTime += deltatime;
 		
 		Keyboard keyboard = this.getArea().getKeyboard();
 		Button left = keyboard.get(Keyboard.LEFT);
@@ -276,6 +305,15 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 			}
 			
 		}
+		
+		if(dialogs.size() > 0) {
+	
+			if(gameTime - time > 5) {
+				dialogs.clear();
+			}
+			
+		}
+		
 		
 		super.update(deltatime);
 		
