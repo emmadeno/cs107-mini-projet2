@@ -43,8 +43,8 @@ public class Enigme0 extends EnigmeArea{
 		DiscreteCoordinates position1 = new DiscreteCoordinates(8,6);
 		DiscreteCoordinates position2 = new DiscreteCoordinates(16,1);
 		
-		portesL1.add(new Door(this, Orientation.UP, "LevelSelector",door1MainCell,position1, door1));	
-		portesL1.add(new Door(this, Orientation.DOWN, "Enigme1",door2MainCell,position2, door2));
+		portesL1.add(new Door(this, Orientation.DOWN, "LevelSelector",door1MainCell,position1, door1));	
+		portesL1.add(new Door(this, Orientation.UP, "Enigme1",door2MainCell,position2, door2));
 		
 		for(int i = 0; i < portesL1.size(); ++i) {
 			super.registerActor(portesL1.get(i));
