@@ -111,5 +111,12 @@ abstract public class AreaGame implements Game {
     public void end() {
         // TODO save the game states somewhere
     }
+    
+    /**
+     * resetGame method : enlève toutes les areas pour resetter le jeu
+     */
+    protected void resetGame() {
+    	areas.clear();
+    }
 
 }

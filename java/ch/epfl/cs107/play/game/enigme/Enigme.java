@@ -38,13 +38,13 @@ public class Enigme extends AreaGame {
 	public Enigme() {
 		
 		//initialisation 
-		this.Room0 = new LevelSelector();
-		this.Room1 = new Level1();
-		this.Room2 = new Level2();
-		this.Room3 = new Level3();
-		this.Room4 = new Enigme0();
-		this.Room5 = new Enigme1();
-		this.Room6 = new Enigme2();
+		   Room0 = new LevelSelector();
+		   Room1 = new Level1();
+		   Room2 = new Level2();
+		   Room3 = new Level3();
+		   Room4 = new Enigme0();
+		   Room5 = new Enigme1();
+		   Room6 = new Enigme2();
 	}
 
 
@@ -93,17 +93,16 @@ public class Enigme extends AreaGame {
         	}
   }
     
-   /**
-    * resetGame method : recommence le jeu    
-    */
-   private void resetGame() {
-	   Room0.begin(getWindow(), getFileSystem());
-	   Room1.begin(getWindow(), getFileSystem());
-	   Room2.begin(getWindow(), getFileSystem());
-	   Room3.begin(getWindow(), getFileSystem());
-	   Room4.begin(getWindow(), getFileSystem());
-	   Room5.begin(getWindow(), getFileSystem());
-	   Room6.begin(getWindow(), getFileSystem());
+   @Override
+   protected void resetGame() {
+	   super.resetGame();
+	   Room0 = new LevelSelector();
+	   Room1 = new Level1();
+	   Room2 = new Level2();
+	   Room3 = new Level3();
+	   Room4 = new Enigme0();
+	   Room5 = new Enigme1();
+	   Room6 = new Enigme2();
 	   this.begin(getWindow(), getFileSystem());
    }
    
