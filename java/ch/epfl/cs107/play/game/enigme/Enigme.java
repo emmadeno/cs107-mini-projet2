@@ -11,6 +11,8 @@ import ch.epfl.cs107.play.game.enigme.area.demo2.Demo2Player;
 import ch.epfl.cs107.play.game.enigme.area.demo2.Room1;
 import ch.epfl.cs107.play.game.enigme.area.demo2.Room2;
 import ch.epfl.cs107.play.game.enigme.area.enigmeArea.Enigme0;
+import ch.epfl.cs107.play.game.enigme.area.enigmeArea.Enigme1;
+import ch.epfl.cs107.play.game.enigme.area.enigmeArea.Enigme2;
 import ch.epfl.cs107.play.game.enigme.area.enigmeArea.Level1;
 import ch.epfl.cs107.play.game.enigme.area.enigmeArea.Level2;
 import ch.epfl.cs107.play.game.enigme.area.enigmeArea.Level3;
@@ -29,7 +31,7 @@ import ch.epfl.cs107.play.window.Window;
  */
 public class Enigme extends AreaGame {
 
-	private Area Room0, Room1, Room2, Room3, Room4;
+	private Area Room0, Room1, Room2, Room3, Room4, Room5, Room6;
 	private EnigmePlayer player;
 	private static final int FRAMESCALE = 22;
 	
@@ -41,6 +43,8 @@ public class Enigme extends AreaGame {
 		this.Room2 = new Level2();
 		this.Room3 = new Level3();
 		this.Room4 = new Enigme0();
+		this.Room5 = new Enigme1();
+		this.Room6 = new Enigme2();
 	}
 
 
@@ -61,6 +65,8 @@ public class Enigme extends AreaGame {
 		addArea(Room2);
 		addArea(Room3);
 		addArea(Room4);
+		addArea(Room5);
+		addArea(Room6);
 		Area currentArea = super.setCurrentArea(Room0.getTitle(), true);
 		currentArea.registerActor(player);
 		currentArea.setViewCandidate(player);
@@ -95,6 +101,9 @@ public class Enigme extends AreaGame {
 	   Room1.begin(getWindow(), getFileSystem());
 	   Room2.begin(getWindow(), getFileSystem());
 	   Room3.begin(getWindow(), getFileSystem());
+	   Room4.begin(getWindow(), getFileSystem());
+	   Room5.begin(getWindow(), getFileSystem());
+	   Room6.begin(getWindow(), getFileSystem());
 	   this.begin(getWindow(), getFileSystem());
    }
    

@@ -11,6 +11,7 @@ import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2Cell;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2CellType;
+import ch.epfl.cs107.play.game.enigme.area.enigmeArea.Enigme1;
 import ch.epfl.cs107.play.window.Window;
 
 public class EnigmeBehavior extends AreaBehavior{
@@ -32,7 +33,8 @@ public class EnigmeBehavior extends AreaBehavior{
 			DOOR(-65536),
 			WATER(-16776961),
 			INDOOR_WALKABLE(-1), 
-			OUTDOOR_WALKABLE(-14112955);
+			OUTDOOR_WALKABLE(-14112955),
+			YELLOW(-256);
 			
 			final int type;
 			
@@ -53,6 +55,8 @@ public class EnigmeBehavior extends AreaBehavior{
 					return INDOOR_WALKABLE;
 				case -14112955 :
 					return OUTDOOR_WALKABLE;
+				case -256 :
+					return YELLOW;
 				default :
 					return NULL;
 				

@@ -106,7 +106,7 @@ public abstract class AreaBehavior
     	height = behaviorMap.getHeight();
     	
     	//initialisation du tableau
-    	cells = new Cell[width][height];
+    	cells = new Cell[height][width];
     }
     
     /**
@@ -119,7 +119,7 @@ public abstract class AreaBehavior
     	
     	int authorization = 0; // variable de controle
     	for(int i = 0; i < coordinates.size(); i++) { //itere sur les cellules
-    		if(coordinates.get(i).y >= 0 && coordinates.get(i).x >= 0) {
+    		if(coordinates.get(i).y >= 0 && coordinates.get(i).x >= 0 && coordinates.get(i).y < height && coordinates.get(i).x < width) { //teste si les coordonnees sont dans la grille
    
     			Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
     			if (currentCell.canLeave(entity)) {
@@ -144,12 +144,12 @@ public abstract class AreaBehavior
     public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) { //meme commentaires que canLeave
     	int authorization = 0;
     	for(int i = 0; i < coordinates.size(); i++) {
-    		//if(coordinates.get(i).x > 0 && coordinates.get(i).y > 0) {
+    		if(coordinates.get(i).y >= 0 && coordinates.get(i).x >= 0 && coordinates.get(i).y < height && coordinates.get(i).x < width) {  //teste si les coordonnees sont dans la grille
     		Cell currentCell = cells[coordinates.get(i).y][coordinates.get(i).x];
 
     		if (currentCell.canEnter(entity)) {
     			++authorization;
-    		//}
+    		}
     		}
     		
     	}
@@ -192,10 +192,8 @@ public abstract class AreaBehavior
     public void cellInteractionOf(Interactor interactor) {
   
     	for (DiscreteCoordinates coord : interactor.getCurrentCells()) {
-    		//if(coord.x >= 0 && coord.y >= 0) {
     			Cell cell = cells[coord.y][coord.x];
     			cell.cellInteractionOf(interactor);
-    		//}
     	}
     }
     
