@@ -1,1 +1,46 @@
-______________ CONCEPTION ______________
+______________* CONCEPTION *______________
+
+____* Methodes: canEnter & canLeave *_____
+
+__________* Boolean: hasBegun *___________
+
+__________* Boolean: travPorte *__________
+
+______* Interface: AnimationSprite *______
+
+____* Classes: Pickup & Switchable *______
+
+________* Classe: SpeakingPerson *________
+
+__________* Classe: PlayerLives *_________
+
+___________* Classe: LifeLogic *__________
+
+__________* Constructeur: Door *__________
+
+________* Interface: Ressources *_________
+
+_____________* Classe: Pill *_____________
+
+* Classes: GreenApple, RedApple & Potion *
+
+_____________* Classe: Cup *______________
+
+__* Classes: MultipleAnd & MultipleOr *___
+
+__________* Methode: resetGame() *________
+
+_* Methode: initiateActors(Enigme1 & 2) *_
+
+
+
+
+
+
+
+
+
+
+
+
+
