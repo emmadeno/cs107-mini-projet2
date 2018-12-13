@@ -37,6 +37,8 @@ ses vies respectivement.
 
 La méthode isOn() héritée de Logic défini le joueur comme étant "on" s'il possède au moins une vie.
 
+Sous-classe : EnigmePlayer
+
 __________* Boolean: travPorte *__________
 
 package : play.game.enigme
@@ -46,6 +48,21 @@ Cet attribut devient true si le joueur est en train de passer une porte et
 vaut false sinon.
 
 ______* Interface: AnimationSprite *______
+
+package : play.game.areagame.actor
+
+Cette interface va permettre aux acteurs qui l'extende de pouvoir s'animer
+elle dispose de deux méthodes définis par défaut
+
+- une methode separateSprite qui ba séparer une colonne donnée de sprite(gauche, droite, haut, bas)
+	puis de mettre dans un tableau les 4 différentes images qui sont associées au déplacement
+	cela va permettre au personnage de pouvoir changer de sprite en alternant ceux disponibles
+	lorsqu'il se déplace
+- une redéfinition de la methode draw qui remplace la methode draw basique du personnage
+	et qui prends en parametre le bon tableau de sprite correspondant à l'orientation du personnage
+	ainsi que une variable moves qui permet de choisir quelle image parmi les 4 choisir
+
+Implémentations de l'interface : EnigmePlayer	
 
 ____* Classe: Pickup *______
 
@@ -63,6 +80,8 @@ disappear() qui est appelée quand l'objet est ramassé.
 Les classes filles de Pickup qui implémentent Logic possèdent un attribut boolean isCollected
 qui devient true quand le joueur ramasse l'objet.
 
+Sous-classes : Apple (et ses propres sous-classes), Cup, Key, Pill, Potion  
+
 ____* Classe: Switchable *______
 
 package : play.game.enigme.actor
@@ -76,6 +95,8 @@ Cette classe a en attribut deux Sprites définis spécifiquement dans les sous-c
 et dessine un des deux par rapport à l'état (on ou off) de l'objet. ELle possède une 
 méthode turnOnOff() qui change l'état d'un signal Logic qu'elle a en attribut et du
 boolean isOn.
+
+Sous-classes : PressureSwitch, Torch, Lever
 
 ________* Classe: SpeakingPerson *________
 
@@ -107,6 +128,8 @@ Interface modélisant des ressources, c'est-à-dire des objets qui agissent sur 
 vie du joueur. Elle contient une méthode actOnLives(PlayerLives i) qui sera redéfinie dans les
 sous-classes par rapport à comment les objets agissent sur le joueur i.
 
+Implémentations de l'interface : Apple (et ses sous-classes), Cup, Pill, Potion
+
 _____________* Classes: Pill & Cup *_____________
 
 package : play.game.enigme.actor
@@ -120,7 +143,7 @@ pill, coupe non décorée pour Cup) lui permet de passer une porte / un SignalRo
 Dans la class Pill, puisque le joueur est tué et le jeu recommence s'il mange la pilule bleue, seule la pilule
 rouge possède un texte associé.
 
-* Classes: GreenApple, RedApple & Potion *
+__* Classes: GreenApple, RedApple & Potion *___
 
 package : play.game.enigme.actor
 extends : Pickup (et Apple dans le cas de GreenApple et RedApple)
@@ -133,7 +156,13 @@ __* Classes: MultipleAnd & MultipleOr *___
 package : play.signal.logic
 extends : LogicSignal
 
+On a choisi pour les classes MultipleAnd et MultipleOr de prendre comme variable
+un tableau de Logics, ce qui permet de n'avoir qu'un seul constructeur dans les classes,
+quelque soit le nombre de signaux voulus pour tester les possibilités.
 La classe MultipleOr retourne false dès qu'un des signaux est allumé.
+La classe MultipleOr est la négation de la classe MultipleAnd, 
+On a créé cette classe pour pouvoir dessiner un dessin particulier ou alumer des signaux particuliers
+qui ne retourneront isOn= true seulement si les signaux dans le MultipleOr ne sont PAS allumés
 
 __________* Methode: resetGame() *________
 
@@ -152,7 +181,13 @@ Méthodes auxiliaires initiant tous les acteurs de ces aires.
 
 __________* Ressources supplémentaires *_________
 
-
+Pour pouvoir faire nos énigmes, nous avons créé nous même de nouvelles ressources png
+à l'aide d'un logiciel de dessin:
+-cup2.png
+-cup3.png
+-bluepill.png
+-redpill.png
+-heart.png
 
 
 
