@@ -223,8 +223,10 @@ public class EnigmePlayer extends PlayerLives implements Interactor, AnimationSp
 		
 		super.draw(canvas);
 		
+		// on test l'orientation du personnage afin de savoir quel tableau de sprites utiliser
+		
 		if(this.getOrientation().equals(Orientation.DOWN)) {
-			draw(canvas,spritesDOWN,moves);
+			draw(canvas,spritesDOWN,moves); // on appelle la methode draw qui se trouve dans l'interface AnimationSprite
 		}
 		if(this.getOrientation().equals(Orientation.LEFT)) {
 			draw(canvas,spritesLEFT,moves);
