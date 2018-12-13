@@ -17,7 +17,7 @@ import ch.epfl.cs107.play.window.Canvas;
 
 public class Pill extends Pickup implements Logic, Ressources {
 	
-	private Sprite cup;
+	private Sprite pill;
 	private int pillNum;
 	private boolean isCollected;
 	private Logic logic;
@@ -26,10 +26,10 @@ public class Pill extends Pickup implements Logic, Ressources {
 		super(area, orientation, position);
 		this.pillNum = pillNum;
 		if(pillNum == 1) {
-			cup = new Sprite("redpill", 1, 1.f, this);   //associe le sprite approprié à la pillule
+			pill = new Sprite("redpill", 1, 1.f, this);   //associe le sprite approprié à la pillule
 		}
 		else {
-			cup = new Sprite("bluepill", 1, 1.f, this);
+			pill = new Sprite("bluepill", 1, 1.f, this);
 		}
 		
 		isCollected = false;
@@ -44,7 +44,7 @@ public class Pill extends Pickup implements Logic, Ressources {
 	
 	@Override
 	public void draw(Canvas canvas) {
-		cup.draw(canvas);
+		pill.draw(canvas);
 	}
 	
 	@Override

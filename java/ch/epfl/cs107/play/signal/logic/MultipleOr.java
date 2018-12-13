@@ -21,7 +21,7 @@ public class MultipleOr extends LogicSignal{
 	@Override
 	public boolean isOn() {
 		
-		if(testAnd()) {
+		if(testOr()) {
 			
 			return true;
 		}
@@ -33,7 +33,7 @@ public class MultipleOr extends LogicSignal{
 	 * testAnd method : itère sur la liste de signaux 
 	 * @return(boolean) : return false si un des signaux n'est pas activé
 	 */
-	private boolean testAnd() {
+	private boolean testOr() {
 		
 		for(int i = 0; i<signaux.size(); ++i) {
 			if(signaux.get(i).isOn()) {
