@@ -65,8 +65,5 @@ public abstract class Switchable extends AreaEntity implements Logic{
 		signal = new Not(signal);
 	}
 
-	public Logic getSignal() {
-		return signal;
-	}
 
 }

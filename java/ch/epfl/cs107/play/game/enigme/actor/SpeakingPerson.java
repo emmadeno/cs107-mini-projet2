@@ -78,8 +78,11 @@ public class SpeakingPerson extends AreaEntity{
 		else if(personName.equals("max.ghost")) {
 			return "Regardez le motif d'emplacement des objets dans cette salle !";
 		}
+		else if(personName.equals("girl.1")){
+			return "Les coins sont les faiblesses.";
+		}
 		else {
-			return "Les coins sont les faiblesses";
+			return "Je n'ai rien à te dire.";
 		}
 	}
 

@@ -2,38 +2,155 @@ ______________* CONCEPTION *______________
 
 ____* Methodes: canEnter & canLeave *_____
 
+package : play.game.areagame
+class : AreaBehavior
+
+Ces méthodes utilisent une variable de contrôle (autorization)
+qui incrémente chaque fois qu'une cellule a donné son autorisation
+à l'Interactable de la quitter/l'investir. La méthode retourne donc
+true si la valeur de la variable de contrôle correspond au nombre de 
+cellules sur lesquelles ont été fait les tests.
+
 __________* Boolean: hasBegun *___________
 
-__________* Boolean: travPorte *__________
+package : play.game.areagame
+class : Area
 
-______* Interface: AnimationSprite *______
-
-____* Classes: Pickup & Switchable *______
-
-________* Classe: SpeakingPerson *________
+Cet attribut devient true dès qu'on appelle la méthode begin() de l'area.
+Il enregistre le fait que le niveau a été commencé.
 
 __________* Classe: PlayerLives *_________
 
-___________* Classe: LifeLogic *__________
+package : play.game.enigme
+extends : MovableAreaEntity
+implements : Logic
+
+Classe abstraite modélisant un MovableAreaEntity possédant des points de vie.
+
+Cette classe possède en attribut une liste de Logic et un map de Sprites. La liste de Logic
+se vide et se remplit au fur et à mesure que le joueur perd (removeLife()) ou gagne (addLife())
+des vies. La map associe un int à trois sprites attachés au joueur ayant un emplacement différent.
+
+La méthode draw dessine les sprites par rapport à la taille de la liste de Logic.
+Les méthodes resetLives() et kill() redonne au joueur ses trois vies et lui enlève toutes 
+ses vies respectivement.
+
+La méthode isOn() héritée de Logic défini le joueur comme étant "on" s'il possède au moins une vie.
+
+__________* Boolean: travPorte *__________
+
+package : play.game.enigme
+class : Enigme Player
+
+Cet attribut devient true si le joueur est en train de passer une porte et
+vaut false sinon.
+
+______* Interface: AnimationSprite *______
+
+____* Classe: Pickup *______
+
+package : play.game.enigme.actor
+extends : AreaEntity
+
+Classe abstraite modélisant des objets associés à une aire (AreaEntity) qui peuvent
+être ramassés. Ce sont des objets non traversables acceptant seulement les interactions
+à distance.
+
+En plus des méthodes héritées, Pickup contient la méthode abstraite getText() qui retourne
+le texte qui s'affiche quand le joueur ramasse l'objet en question, ainsi qu'une méthode
+disappear() qui est appelée quand l'objet est ramassé.
+
+Les classes filles de Pickup qui implémentent Logic possèdent un attribut boolean isCollected
+qui devient true quand le joueur ramasse l'objet.
+
+____* Classe: Switchable *______
+
+package : play.game.enigme.actor
+extends : AreaEntity
+implements : Logic
+
+Classe abstraite modélisant des objets associés à une aire (AreaEntity) dont l'état
+peut changer.
+
+Cette classe a en attribut deux Sprites définis spécifiquement dans les sous-classes
+et dessine un des deux par rapport à l'état (on ou off) de l'objet. ELle possède une 
+méthode turnOnOff() qui change l'état d'un signal Logic qu'elle a en attribut et du
+boolean isOn.
+
+________* Classe: SpeakingPerson *________
+
+package : play.game.enigme.actor
+extends : AreaEntity
+
+Classe modélisant un personnage non mobile qui peut parler. Il n'accepte que des
+interactions à distance et est non traversable.
+
+La classe a en attribut un Sprite qui va être déssiné ainsi qu'un String représentant
+le nom du personnage qui va permettre à la méthode getText() de lui associer le bon
+texte à dire.
 
 __________* Constructeur: Door *__________
 
+package : play.game.enigme.actor
+class : Door
+
+Nous avons décidé de modéliser les cellules autres que la cellule principale (un des arguments du 
+constructeur) par une liste de DiscreteCoordinates au lieu d'une ellipse comme proposé. Ainsi, 
+la méthode getCurrentCells de Door retourne une liste de coordonnées contenant la cellule principale
+et les cellules dans cette autre liste.
+
 ________* Interface: Ressources *_________
 
-_____________* Classe: Pill *_____________
+package : play.game.enigme.actor
+
+Interface modélisant des ressources, c'est-à-dire des objets qui agissent sur les points de
+vie du joueur. Elle contient une méthode actOnLives(PlayerLives i) qui sera redéfinie dans les
+sous-classes par rapport à comment les objets agissent sur le joueur i.
+
+_____________* Classes: Pill & Cup *_____________
+
+package : play.game.enigme.actor
+extends : Pickup
+implements : Logic, Ressources
+
+Objets ramassables (Pickup) dont il existe plusieurs variantes dont une  ou plusieurs (pilule bleue pour pill,
+coupes décorées pour Cup) agissent sur la vie du joueur (Ressources, méthode actOnLives()) et une (pilule rouge pour
+pill, coupe non décorée pour Cup) lui permet de passer une porte / un SignalRock (Logic, boolean isCollected et méthode isOn()).
+
+Dans la class Pill, puisque le joueur est tué et le jeu recommence s'il mange la pilule bleue, seule la pilule
+rouge possède un texte associé.
 
 * Classes: GreenApple, RedApple & Potion *
 
-_____________* Classe: Cup *______________
+package : play.game.enigme.actor
+extends : Pickup (et Apple dans le cas de GreenApple et RedApple)
+implements : Ressources
+
+Objets ramassables agissant sur les points de vie du joueur.
 
 __* Classes: MultipleAnd & MultipleOr *___
 
+package : play.signal.logic
+extends : LogicSignal
+
+La classe MultipleOr retourne false dès qu'un des signaux est allumé.
+
 __________* Methode: resetGame() *________
+
+package : play.game.areagame
+class : AreaGame
+
+Méthode enlevant toutes les areas de la liste d'areas du jeu. Elle est redéfinie dans
+Enigme pour re-créer toutes les aires et recommencer le jeu.
 
 _* Methode: initiateActors(Enigme1 & 2) *_
 
+package : play.game.enigme.area.enigmeArea 
+
+Méthodes auxiliaires initiant tous les acteurs de ces aires.
 
 
+__________* Ressources supplémentaires *_________
 
 
 
